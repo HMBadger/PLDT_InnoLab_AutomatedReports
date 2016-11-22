@@ -134,9 +134,9 @@
                   ?>
                   <tr>
                     <td><a href="update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
-                      <a onclick="return confirm('Delete Data?')" href="vgroup.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" id="btnDelete" name="btnDelete" type="submit">Delete</a>
+                      <a name="btnDelete" onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" >Delete</a>
                     </td>
-                    <td id="tdGrpID" name="tdGrpID"><?php echo $row['Group_ID']?></td>
+                    <td><?php echo $row['Group_ID']?></td>
                     <td><?php echo $row['Group_Vis']?></td>
                   </tr>
                   <?php
