@@ -35,7 +35,7 @@
 </head>
 
 <body>
-<form method="post">
+<form method="post" id="form1">
   <div id="wrapper">
 
     <!-- Navigation -->
@@ -149,8 +149,10 @@
 
             if(isset($_POST['btnSubmit']))
             {
+			
 			  $locID = $_POST['txtIdLoc'];
               $locName = $_POST['txtNameLoc'];
+			
 			  
 			  $sql = "select Location_ID from db_innolab.tbllocation where Location_ID= '$locID'";
 			  $query = mysqli_query($conn, $sql);
@@ -164,7 +166,6 @@
 										
 
 							$query = mysqli_query($conn, $sql);
-							
 									if($query)
 									{
 										$strMessage = "Location Successfully Edited: $locName";
@@ -179,7 +180,7 @@
 						}
 						
             }
-
+				
             ?>
 
           
@@ -221,6 +222,7 @@
 
                 <?php
               }
+			  
               ?>
 
 
