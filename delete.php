@@ -1,15 +1,11 @@
 <?php
 require 'dbConnection.php';
-include 'location.php';
+include 'vgroup.php';
 
-$id = $_GET['id'];
+$id = $_GET['Group_ID'];
 if (isset($id)){
-	$sql = "delete * from db_innolab.tbllocation where Location_ID='$id'";
+	$sql = "delete * from db_innolab.tblgroup where Group_ID='$id'";
 	$query = mysqli_query($conn,$sql);
-	if ($sql){
-		echo "<script>alert('Delete Data?');location.href='location.php';</script>";
-	}	else{
-		header(' location: location.php');
-	}
+		header(' location: vgroup.php');
 }
 ?>
