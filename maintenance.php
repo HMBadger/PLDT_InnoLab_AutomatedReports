@@ -26,12 +26,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
-	<style>
-	body{
-		overflow:hidden;
-	}
-	</style>
+
 </head>
 
 <body>
@@ -72,10 +67,10 @@
                         <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="main" class="collapse">
                             <li>
-                                <a href="maintenance.php"> Add Information</a>
+                                <a href="maintenance.html"> Add Information</a>
                             </li>
                             <li>
-                                <a href="view.php">View Information </a>
+                                <a href="view.html">View Information </a>
                             </li>
                         </ul>
                     </li>
@@ -100,83 +95,94 @@
                         <ol class="breadcrumb">
                             
                             <li class="active">
-                                <a href="maintenance.php"> Back to Maintenance </a> 
+                                <i class="fa fa-file"></i> Please fill out the form
                             </li>
-							
                         </ol>
                     </div>
                 </div>
                 <!-- /.row -->
-				
-			<form method="post">
-				<div class="container form-group" >
-					<div class="row">
-						<div class="col-xs-1">
-							<label>ID: &nbsp;</label>
-						</div>
-						<div class="col-xs-11">
-							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%" disabled>
-						</div>
-						<br><br>
-						<div class="col-xs-1">
-							<label>Location: &nbsp;</label>
-						</div>
-						<div class="col-xs-11">
-							<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%">
-						</div><br><br>
-						<div class="col-xs-11 offset col-xs-.5">
-							<input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
-						</div>
+
+                 <form role="form">
+
+                            <div class="form-group">
+                                <label>Date</label>
+                                <input class="form-control" type="date">
+                            </div>
+
+							<label>Location</label>
+                            <div class="form-group" style="display:flex">
+                                <select name="cmbLocation" class="form-control" style="width:80%!important;">
+								
+                                    <?php 
+										require 'dbConnection.php';
+										
+										$sql = "Select * from db_innolab.tbllocation";
+										$query = mysqli_query($conn,$sql);
+										
+										while($row=mysqli_fetch_array($query))
+										{
+											$loc_id = $row['Location_ID'];
+											$loc_name = $row['Location_Name'];
+											
+											echo "<option value=\"$loc_id\">$loc_name</option>";
+										}
+										
+									?>
+                                </select>&nbsp; &nbsp;
+								<a href="location.php" class="btn btn-primary" style="width:18%!important;">ADD</a>
+                            </div>
 						
-					</div>
-				</div>
-				
-				<?php
-					require 'dbConnection.php';
-					
-					if(isset($_POST['btnSubmit']))
-					{
-						$locName = $_POST['txtNameLoc'];
-						$insert = "INSERT INTO db_innolab.tbllocation(Location_Name) values ('$locName');";
-						$exec = mysqli_query($conn, $insert);
-						if($exec)
-						{
-							
-							echo "<br>Location: ".$locName." has been added!";
-						}
-					}
+							 <label>Visitor Group</label>
+                             <div class="form-group" style="display:flex">
+                                <select class="form-control" style="width:80%!important;">
+                                    <option>Alpha</option>
+                                    <option>SME</option>
+                                    <option>PGC</option>
+                                    <option>Home</option>
+                                    <option>PLDT</option>
+                                </select>&nbsp; &nbsp;
+								<a href="vgroup.php" class="btn btn-primary" style="width:18%!important;">ADD</a>
+                            </div>
 
-				?>
+                            <label>Visitor Category</label>
+							<div class="form-group" >
+                                <select class="form-control">
+                                    <option>Revenue</option>
+                                    <option>Non-Revenue</option>
+                                </select>
+                            </div>
 
-				</form>
-			
+                            <div class="form-group">
+                                <label>Client Name or Event</label>
+                                <input class="form-control" type="text">
+                            </div>
 
-                 <div class="table-responsive">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-										<th>Actions</th>
-                                        <th>ID</th>
-                                        <th>Location</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                                        <td>001</td>
-                                        <td>Manila City</td>
-                                    </tr>
+                             <div class="form-group">
+                                <label>Person In Charge</label>
+                                <input class="form-control" type="text">
+                            </div>
 
-                                    <tr>
-                                        <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                                        <td>002</td>
-                                        <td>Makati City</td>
-                                    </tr>
+                            <label>Activity</label>
+							<div class="form-group" style="display:flex">   
+                                <select class="form-control" style="width:80%!important;">
+                                    <option>Techno Update</option>
+                                    <option>Tour</option>
+                                    <option>Meeting</option>
+                                    <option>Training</option>
+                                    <option>Testing</option>
+                                </select>&nbsp; &nbsp;
+								<a href="activity.php" class="btn btn-primary" style="width:18%!important;">ADD</a>
+                            </div>
 
-                              
-                                </tbody>
-                            </table>
-                </div>
+
+                       <br>
+                       <center>
+                           <button class="btn btn-lg btn-primary">ADD INFORMATION</button>
+                       </center>    
+                       </br>
+
+                </form>
+
 
             </div>
             <!-- /.container-fluid -->
