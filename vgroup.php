@@ -30,7 +30,7 @@
 </head>
 
   <body>
-
+    <form method="post">
       <div id="wrapper">
 
           <!-- Navigation -->
@@ -102,71 +102,62 @@
                       </div>
                   </div>
                   <!-- /.row -->
-<form method="post">
-  				<div class="container form-group" >
-  					<div class="row">
-  						<div class="col-xs-1">
-  							<label>ID: &nbsp;</label>
-  						</div>
-  						<div class="col-xs-11">
-  							<input name ="txtGrpID" class="form-control disabled" type="text" style="width:20%" disabled>
-  						</div>
-  						<br><br>
-  						<div class="col-xs-1">
-  							<label>Visitor Group: &nbsp;</label>
-  						</div>
-  						<div class="col-xs-11">
-  							<input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%">
-  						</div><br><br>
-  						<div class="col-xs-11 offset col-xs-.5">
-  							<input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="ADD" type="submit">
-  						</div>
+          <div class="container form-group" >
+            <div class="row">
+              <div class="col-xs-1">
+                <label>ID: &nbsp;</label>
+              </div>
+              <div class="col-xs-11">
+                <input name ="txtGrpID" class="form-control disabled" type="text" style="width:20%" disabled>
+              </div>
+              <br><br>
+              <div class="col-xs-1">
+                <label>Visitor Group: &nbsp;</label>
+              </div>
+              <div class="col-xs-11">
+                <input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%">
+              </div><br><br>
+              <div class="col-xs-11 offset col-xs-.5">
+                <input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="ADD" type="submit">
+              </div>
 
-  					</div>
-  				</div>
+            </div>
+          </div>
 
-          <?php
-          require 'dbConnection.php';
-          if(isset($_POST['btnSubmit']))
-          {
-            $grpName = $_POST['txtNameGrp'];
-            $insert = "INSERT INTO db_innolab.tblgroup(Group_Vis) values ('$grpName');";
-            $exec = mysqli_query($conn, $insert);
-            if($exec)
-            {
-
-              echo "<br>Group: ".$grpName." has been added!";
-            }
-          }
-          ?>
-</form>
                     <div class="table-responsive">
                               <table class="table table-bordered table-hover">
                                   <thead>
                                       <tr>
-  										<th>Actions</th>
+                      <th>Actions</th>
                                           <th>ID</th>
                                           <th>Location</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                      <tr>
-                                          <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                                          <td>001</td>
-                                          <td>Alpha</td>
-                                      </tr>
+                                    <?php
+                                    require 'dbConnection.php';
 
-                                      <tr>
-                                          <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                                          <td>002</td>
-                                          <td>SME</td>
-                                      </tr>
+                                                  $sql = "Select * from db_innolab.tblgroup";
+                                                  $query = mysqli_query($conn,$sql);
+                                    while($row=mysqli_fetch_array($query)){
+                                    ?>
 
+                                                                  <tr>
+                                                                      <td><a href="update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
+                                                    <a onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger">Delete</a>
+                                                  </td>
+                                                                      <td><?php echo $row['Group_ID']?></td>
+                                                  <td><?php echo $row['Group_Vis']?></td>
+                                                                  </tr>
+
+
+                                    <?php
+                                    }
+                                    ?>
 
                                   </tbody>
                               </table>
-  					</div>
-
+            </div>
               </div>
               <!-- /.container-fluid -->
 
@@ -176,12 +167,32 @@
       </div>
       <!-- /#wrapper -->
 
+      <?php
+      require 'dbConnection.php';
+
+      /**ADD DATA**/
+      if(isset($_POST['btnSubmit']))
+      {
+        $grpName = $_POST['txtNameGrp'];
+        $insert = "INSERT INTO db_innolab.tblgroup(Group_Vis) values ('$grpName');";
+        $exec = mysqli_query($conn, $insert);
+        if($exec)
+        {
+
+          echo "<br>Group: ".$grpName." has been added!";
+        }
+      }
+      ?>
+
+
+
+
       <!-- jQuery -->
       <script src="js/jquery.js"></script>
 
       <!-- Bootstrap Core JavaScript -->
       <script src="js/bootstrap.min.js"></script>
 
+    </form>
   </body>
-
 </html>
