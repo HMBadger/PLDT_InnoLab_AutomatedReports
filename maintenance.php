@@ -134,21 +134,44 @@
 						
 							 <label>Visitor Group</label>
                              <div class="form-group" style="display:flex">
-                                <select class="form-control" style="width:80%!important;">
-                                    <option>Alpha</option>
-                                    <option>SME</option>
-                                    <option>PGC</option>
-                                    <option>Home</option>
-                                    <option>PLDT</option>
+                                <select name="cmbGroup" class="form-control" style="width:80%!important;">
+                                   <?php 
+										require 'dbConnection.php';
+										
+										$sql = "Select * from db_innolab.tblgroup";
+										$query = mysqli_query($conn,$sql);
+										
+										while($row=mysqli_fetch_array($query))
+										{
+											$grp_id = $row['Group_ID'];
+											$grp_name = $row['Group_Vis'];
+											
+											echo "<option value=\"$grp_id\">$grp_name</option>";
+										}
+										
+									?>
                                 </select>&nbsp; &nbsp;
 								<a href="vgroup.php" class="btn btn-primary" style="width:18%!important;">ADD</a>
                             </div>
 
                             <label>Visitor Category</label>
 							<div class="form-group" >
-                                <select class="form-control">
-                                    <option>Revenue</option>
-                                    <option>Non-Revenue</option>
+                                <select name="cmbCategory" class="form-control">
+                                    <?php 
+										require 'dbConnection.php';
+										
+										$sql = "Select * from db_innolab.tblcategory";
+										$query = mysqli_query($conn,$sql);
+										
+										while($row=mysqli_fetch_array($query))
+										{
+											$cat_id = $row['Categ_ID'];
+											$cat_name = $row['Categ_Name'];
+											
+											echo "<option value=\"$cat_id\">$cat_name</option>";
+										}
+										
+									?>
                                 </select>
                             </div>
 
@@ -164,12 +187,22 @@
 
                             <label>Activity</label>
 							<div class="form-group" style="display:flex">   
-                                <select class="form-control" style="width:80%!important;">
-                                    <option>Techno Update</option>
-                                    <option>Tour</option>
-                                    <option>Meeting</option>
-                                    <option>Training</option>
-                                    <option>Testing</option>
+                                <select name="cmbActivity" class="form-control" style="width:80%!important;">
+                                   <?php 
+										require 'dbConnection.php';
+										
+										$sql = "Select * from db_innolab.tblactivity";
+										$query = mysqli_query($conn,$sql);
+										
+										while($row=mysqli_fetch_array($query))
+										{
+											$act_id = $row['Activity_ID'];
+											$act_name = $row['Activity_Name'];
+											
+											echo "<option value=\"$act_id\">$act_name</option>";
+										}
+										
+									?>
                                 </select>&nbsp; &nbsp;
 								<a href="activity.php" class="btn btn-primary" style="width:18%!important;">ADD</a>
                             </div>

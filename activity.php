@@ -26,12 +26,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-	
-	<style>
-	body{
-		overflow-x:hidden;
-	}
-	</style>
+
 </head>
 
 <body>
@@ -108,24 +103,25 @@
                 </div>
                 <!-- /.row -->
 				
-			<form method="post">
+			<form method="post">	
 				<div class="container form-group" >
 					<div class="row">
 						<div class="col-xs-1">
 							<label>ID: &nbsp;</label>
 						</div>
 						<div class="col-xs-11">
-							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%" disabled>
+							<input class="form-control disabled" type="text" style="width:20%" disabled>
 						</div>
 						<br><br>
 						<div class="col-xs-1">
-							<label>Location: &nbsp;</label>
+							<label>Activity: &nbsp;</label>
 						</div>
 						<div class="col-xs-11">
-							<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%">
+							<input name="txtNameAct" class="form-control disabled" type="text" style="width:20%">
 						</div><br><br>
-						<div class="col-xs-11 offset col-xs-.5">
-							<input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
+						<div class="col-xs-1"></div>
+						<div class="col-xs-11">
+							<input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnIDSubmit" value="ADD">
 						</div>
 						
 					</div>
@@ -136,23 +132,22 @@
 					
 					if(isset($_POST['btnSubmit']))
 					{
-						$locName = $_POST['txtNameLoc'];
-						$insert = "INSERT INTO db_innolab.tbllocation(Location_Name) values ('$locName');";
+						$actName = $_POST['txtNameAct'];
+						$insert = "INSERT INTO db_innolab.tblactivity(Activity_Name) values ('$actName');";
 						$exec = mysqli_query($conn, $insert);
 						if($exec)
 						{
 							
-							echo "<br>Location: ".$locName." has been added!";
+							echo "<br>Activity: ".$actName." has been added!";
 						}
 					}
 
 				?>
-
-				</form>
+ 
+			</form>
 			
 
-			
-                 <div class="table-responsive">
+                  <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
@@ -162,34 +157,22 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-								
-			<?php
-			require 'dbConnection.php';
-										
-										$sql = "Select * from db_innolab.tbllocation";
-										$query = mysqli_query($conn,$sql);
-			while($row=mysqli_fetch_array($query)){
-			?>
-			
                                     <tr>
-                                        <td><a href="update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a> 
-											<a onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger">Delete</a>
-										</td>
-                                        <td><?php echo $row['Location_ID']?></td>
-										<td><?php echo $row['Location_Name']?></td>
+                                        <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                        <td>001</td>
+                                        <td>Techno Update</td>
                                     </tr>
 
-                                   
-			<?php
-			}
-			?>
-            
-			
+                                    <tr>
+                                        <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
+                                        <td>002</td>
+                                        <td>Tour</td>
+                                    </tr>
+
+                              
                                 </tbody>
                             </table>
-                </div>
-				
-			
+					</div>
 
             </div>
             <!-- /.container-fluid -->

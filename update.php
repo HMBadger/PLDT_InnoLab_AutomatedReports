@@ -85,6 +85,12 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
+		
+		
+		<?php
+		$id = $_GET['Location_ID'];
+		if(isset($id)){
+		?>
 
         <div id="page-wrapper">
 
