@@ -43,7 +43,7 @@
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                   </button>
-                  <a class="navbar-brand" href="index.html">Reports</a>
+                  <a class="navbar-brand" href="maintenance.php">Reports</a>
               </div>
               <!-- Top Menu Items -->
 
@@ -67,10 +67,10 @@
                           <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
                           <ul id="main" class="collapse">
                               <li>
-                                  <a href="maintenance.html"> Add Information</a>
+                                  <a href="maintenance.php"> Add Information</a>
                               </li>
                               <li>
-                                  <a href="view.html">View Information </a>
+                                  <a href="view.php">View Information </a>
                               </li>
                           </ul>
                       </li>
@@ -124,6 +124,23 @@
             </div>
           </div>
 
+          <?php
+          require 'dbConnection.php';
+
+          /**ADD DATA**/
+          if(isset($_POST['btnSubmit']))
+          {
+            $grpName = $_POST['txtNameGrp'];
+            $insert = "INSERT INTO db_innolab.tblgroup(Group_Vis) values ('$grpName');";
+            $exec = mysqli_query($conn, $insert);
+            if($exec)
+            {
+
+              echo "<br>Group: ".$grpName." has been added!";
+            }
+          }
+          ?>
+
                     <div class="table-responsive">
                               <table class="table table-bordered table-hover">
                                   <thead>
@@ -166,27 +183,6 @@
 
       </div>
       <!-- /#wrapper -->
-
-      <?php
-      require 'dbConnection.php';
-
-      /**ADD DATA**/
-      if(isset($_POST['btnSubmit']))
-      {
-        $grpName = $_POST['txtNameGrp'];
-        $insert = "INSERT INTO db_innolab.tblgroup(Group_Vis) values ('$grpName');";
-        $exec = mysqli_query($conn, $insert);
-        if($exec)
-        {
-
-          echo "<br>Group: ".$grpName." has been added!";
-        }
-      }
-      ?>
-
-
-
-
       <!-- jQuery -->
       <script src="js/jquery.js"></script>
 
