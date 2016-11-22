@@ -7,10 +7,8 @@ if (isset($id)){
 	$query = "delete * from db_innolab.tbllocation where Location_ID='$id'";
 	if ($query){
 		echo "<script>alert('Delete Data?');location.href='location.php';</script>";
-}	else{
+	}	else{
 		header(' location: location.php');
+	}
 }
-
-}
-
 ?>
