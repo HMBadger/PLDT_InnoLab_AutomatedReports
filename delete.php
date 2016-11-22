@@ -2,10 +2,11 @@
 require 'dbConnection.php';
 include 'location.php';
 
-$id = $_GET['btnDelete'];
+$id = $_GET['id'];
 if (isset($id)){
-	$query = "delete * from db_innolab.tbllocation where Location_ID='$id'";
-	if ($query){
+	$sql = "delete * from db_innolab.tbllocation where Location_ID='$id'";
+	$query = mysqli_query($conn,$sql);
+	if ($sql){
 		echo "<script>alert('Delete Data?');location.href='location.php';</script>";
 	}	else{
 		header(' location: location.php');

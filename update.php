@@ -35,7 +35,7 @@
 </head>
 
 <body>
-
+<form method="post">
   <div id="wrapper">
 
     <!-- Navigation -->
@@ -121,14 +121,14 @@
           $data=mysqli_fetch_array($query);
           ?>
 
-          <form method="post">
+          
             <div class="container form-group" >
               <div class="row">
                 <div class="col-xs-1">
                   <label>ID: &nbsp;</label>
                 </div>
                 <div class="col-xs-11">
-                  <input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%"  value="<?php echo $data['Location_ID']?>"  disabled>
+                  <input name="txtIdLoc" class="form-control" type="text" style="width:20%"  value="<?php echo $data['Location_ID']?>"  readonly>
                 </div>
                 <br><br>
                 <div class="col-xs-1">
@@ -138,7 +138,7 @@
                   <input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%"  value="<?php echo $data['Location_Name']?>" >
                 </div><br><br>
                 <div class="col-xs-11 offset col-xs-.5">
-                  <input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
+                  <input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnSubmit" value="SAVE	">
                 </div>
 
               </div>
@@ -149,19 +149,40 @@
 
             if(isset($_POST['btnSubmit']))
             {
+			  $locID = $_POST['txtIdLoc'];
               $locName = $_POST['txtNameLoc'];
-              $insert = "INSERT INTO db_innolab.tbllocation(Location_Name) values ('$locName');";
-              $exec = mysqli_query($conn, $insert);
-              if($exec)
-              {
+			  
+			  $sql = "select Location_ID from db_innolab.tbllocation where Location_ID= '$locID'";
+			  $query = mysqli_query($conn, $sql);
+              if(mysqli_num_rows($query) > 0)
+						{
+							$sql = "update db_innolab.tbllocation
+									 set  Location_Name = '$locName'
+										  where Location_ID = '$locID';
+										";
+										
+										
 
-                echo "<br>Location: ".$locName." has been added!";
-              }
+							$query = mysqli_query($conn, $sql);
+							
+									if($query)
+									{
+										$strMessage = "Location Successfully Edited: $locName";
+										
+									}
+									else
+									{
+										$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
+									}
+									
+									
+						}
+						
             }
 
             ?>
 
-          </form>
+          
 
           <?php
         }
@@ -223,7 +244,7 @@
 
   <!-- Bootstrap Core JavaScript -->
   <script src="js/bootstrap.min.js"></script>
-
+</form>
 </body>
 
 </html>
