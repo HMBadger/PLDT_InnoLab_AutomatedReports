@@ -87,10 +87,7 @@
         </nav>
 		
 		
-		<?php
-		$id = $_GET['Location_ID'];
-		if(isset($id)){
-		?>
+
 
         <div id="page-wrapper">
 
@@ -113,6 +110,16 @@
                     </div>
                 </div>
                 <!-- /.row -->
+
+<?php
+require 'dbConnection.php';
+
+$id = $_GET['id'];
+if(isset($id)){
+	$sql = "Select * from db_innolab.tbllocation where Location_ID='$id'";
+	$query = mysqli_query($conn,$sql);
+	$data=mysqli_fetch_array($query);
+?>
 				
 			<form method="post">
 				<div class="container form-group" >
@@ -121,14 +128,14 @@
 							<label>ID: &nbsp;</label>
 						</div>
 						<div class="col-xs-11">
-							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%" disabled>
+							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%"  value="<?php echo $data['Location_ID']?>"  disabled>
 						</div>
 						<br><br>
 						<div class="col-xs-1">
 							<label>Location: &nbsp;</label>
 						</div>
 						<div class="col-xs-11">
-							<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%">
+							<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%"  value="<?php echo $data['Location_Name']?>" >
 						</div><br><br>
 						<div class="col-xs-11 offset col-xs-.5">
 							<input class="btn btn-primary" style="width:15%!important;" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
@@ -156,7 +163,12 @@
 
 				</form>
 			
-
+<?php
+} 
+	else{
+		echo "<script>location.href='location.php'</script>";
+}			
+?>
 			
                  <div class="table-responsive">
                             <table class="table table-bordered table-hover">

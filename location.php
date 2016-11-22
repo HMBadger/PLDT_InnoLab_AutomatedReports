@@ -1,3 +1,7 @@
+<?php
+include "dbConnection.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -115,7 +119,7 @@
 							<label>ID: &nbsp;</label>
 						</div>
 						<div class="col-xs-11">
-							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%" disabled>
+							<input name="txtIdLoc" class="form-control disabled" type="text" style="width:20%"disabled>
 						</div>
 						<br><br>
 						<div class="col-xs-1">
@@ -150,7 +154,7 @@
 
 				</form>
 			
-
+				
 			
                  <div class="table-responsive">
                             <table class="table table-bordered table-hover">
@@ -173,13 +177,13 @@
 			
                                     <tr>
                                         <td><a href="update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a> 
-											<a onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger">Delete</a>
+											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
 										</td>
                                         <td><?php echo $row['Location_ID']?></td>
 										<td><?php echo $row['Location_Name']?></td>
                                     </tr>
 
-                                   
+                    
 			<?php
 			}
 			?>
@@ -189,6 +193,8 @@
                             </table>
                 </div>
 				
+				
+
 			
 
             </div>
