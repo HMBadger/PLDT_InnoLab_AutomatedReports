@@ -155,7 +155,7 @@ require "../../database/config.php";
                   <td><?php echo $row['Location_Name']?></td>
                 </tr>
 				
-                <?php
+                <?php 
               } if(isset($_GET['delete'])){
 				  $delete_id = $_GET['delete'];
 				  //header('Location: location.php');
