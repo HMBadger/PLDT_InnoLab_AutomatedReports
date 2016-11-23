@@ -140,20 +140,28 @@ require "../../database/config.php";
               $sql = "Select * from db_innolab.tbllocation";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
+				  
+				$id = $row['Location_ID'];
+				  
                 ?>
 				
-				<?php require "location_delete.php";
-				?>
+				
 				
                 <tr>
                   <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-                    <a name="btnDelete" onclick="return confirm('Delete Data?')" href="location_delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
+                    <a  href="location.php?delete= <?php echo $id;?>" onclick="return confirm('Delete Data?')" class="btn btn-danger" >Delete</a>
                   </td>
                   <td><?php echo $row['Location_ID']?></td>
                   <td><?php echo $row['Location_Name']?></td>
                 </tr>
+				
                 <?php
-              }
+              } if(isset($_GET['delete'])){
+				  $delete_id = $_GET['delete'];
+				  //header('Location: location.php');
+				  mysqli_query($conn, "DELETE from db_innolab.tbllocation WHERE Location_ID = '$delete_id'");
+			  }
+			  
               ?>
             </tbody>
           </table>

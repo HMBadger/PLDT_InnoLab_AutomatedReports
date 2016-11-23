@@ -174,7 +174,7 @@ require_once('../../database/config.php');
 									?>
 									<tr>
 										<td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="location_delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
+											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="location.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
 										</td>
 										<td><?php echo $row['Location_ID']?></td>
 										<td><?php echo $row['Location_Name']?></td>
