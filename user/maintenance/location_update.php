@@ -1,3 +1,6 @@
+<?php
+require_once('../../database/config.php');
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,13 +15,13 @@
   <title>Reports</title>
 
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
 
   <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -48,7 +51,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Reports</a>
+        <a class="navbar-brand" href="../index.php">Reports</a>
       </div>
       <!-- Top Menu Items -->
 
@@ -72,10 +75,10 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="main" class="collapse">
               <li>
-                <a href="maintenance.php"> Add Information</a>
+                <a href="../index.php"> Add Information</a>
               </li>
               <li>
-                <a href="view.php">View Information </a>
+                <a href="#">View Information </a>
               </li>
             </ul>
           </li>
@@ -103,7 +106,7 @@
             <ol class="breadcrumb">
 
               <li class="active">
-                <a href="maintenance.php"> Back to Maintenance </a>
+                <a href="../index.php"> Back to Maintenance </a>
               </li>
 
             </ol>
@@ -112,8 +115,6 @@
         <!-- /.row -->
 
         <?php
-        require 'dbConnection.php';
-
         $id = $_GET['id'];
         if(isset($id)){
           $sql = "Select * from db_innolab.tbllocation where Location_ID='$id'";
@@ -121,7 +122,7 @@
           $data=mysqli_fetch_array($query);
           ?>
 
-          
+
             <div class="container form-group" >
               <div class="row">
                 <div class="col-xs-1">
@@ -145,15 +146,13 @@
             </div>
 
             <?php
-            require 'dbConnection.php';
-
             if(isset($_POST['btnSubmit']))
             {
-			
+
 			  $locID = $_POST['txtIdLoc'];
               $locName = $_POST['txtNameLoc'];
-			
-			  
+
+
 			  $sql = "select Location_ID from db_innolab.tbllocation where Location_ID= '$locID'";
 			  $query = mysqli_query($conn, $sql);
               if(mysqli_num_rows($query) > 0)
@@ -162,28 +161,25 @@
 									 set  Location_Name = '$locName'
 										  where Location_ID = '$locID';
 										";
-										
-										
-
 							$query = mysqli_query($conn, $sql);
 									if($query)
 									{
 										$strMessage = "Location Successfully Edited: $locName";
-										
+
 									}
 									else
 									{
 										$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
 									}
-									
-									
+
+
 						}
-						
+
             }
-				
+
             ?>
 
-          
+
 
           <?php
         }
@@ -204,8 +200,6 @@
             <tbody>
 
               <?php
-              require 'dbConnection.php';
-
               $sql = "Select * from db_innolab.tbllocation";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
@@ -222,7 +216,7 @@
 
                 <?php
               }
-			  
+
               ?>
 
 
@@ -242,10 +236,10 @@
   <!-- /#wrapper -->
 
   <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+  <script src="../../js/jquery.js"></script>
 
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
 </form>
 </body>
 

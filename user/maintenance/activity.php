@@ -1,24 +1,33 @@
+<?php
+require "../../database/config.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Reports</title>
+  <title>Add New Activity|PLDT InnoLab</title>
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
   <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+  body{
+    overflow-x:hidden;
+  }
+  </style>
 </head>
 <body>
   <div id="wrapper">
@@ -32,7 +41,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Reports</a>
+        <a class="navbar-brand" href="../index.php">Reports</a>
       </div>
       <!-- Top Menu Items -->
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -53,10 +62,10 @@
             <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="main" class="collapse">
               <li>
-                <a href="maintenance.php"> Add Information</a>
+                <a href="../index.php"> Add Information</a>
               </li>
               <li>
-                <a href="view.php">View Information </a>
+                <a href="#">View Information </a>
               </li>
             </ul>
           </li>
@@ -75,7 +84,7 @@
             </h1>
             <ol class="breadcrumb">
               <li class="active">
-                <a href="maintenance.php"> Back to Maintenance </a>
+                <a href="../index.php"> Back to Maintenance </a>
               </li>
             </ol>
           </div>
@@ -104,7 +113,6 @@
             </div>
           </div>
           <?php
-          require 'dbConnection.php';
           if(isset($_POST['btnSubmit']))
           {
             $actName = $_POST['txtNameAct'];
@@ -127,16 +135,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                <td>001</td>
-                <td>Techno Update</td>
-              </tr>
-              <tr>
-                <td><button class="btn btn-primary"> Edit</button> <button class="btn btn-danger">Delete</button></td>
-                <td>002</td>
-                <td>Tour</td>
-              </tr>
+
             </tbody>
           </table>
         </div>
@@ -147,8 +146,8 @@
   </div>
   <!-- /#wrapper -->
   <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+  <script src="../../js/jquery.js"></script>
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
 </body>
 </html>

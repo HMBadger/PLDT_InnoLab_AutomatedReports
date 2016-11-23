@@ -1,5 +1,5 @@
 <?php
-require "dbConnection.php";
+require "../../database/config.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -10,13 +10,13 @@ require "dbConnection.php";
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Reports</title>
+  <title>Add New Branch|PLDT InnoLab</title>
   <!-- Bootstrap Core CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom CSS -->
-  <link href="css/sb-admin.css" rel="stylesheet">
+  <link href="../../css/sb-admin.css" rel="stylesheet">
   <!-- Custom Fonts -->
-  <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -41,7 +41,7 @@ require "dbConnection.php";
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.html">Reports</a>
+        <a class="navbar-brand" href="../index.php">Reports</a>
       </div>
       <!-- Top Menu Items -->
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -62,10 +62,10 @@ require "dbConnection.php";
             <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="main" class="collapse">
               <li>
-                <a href="maintenance.php"> Add Information</a>
+                <a href="../index.php"> Add Information</a>
               </li>
               <li>
-                <a href="view.php">View Information </a>
+                <a href="#">View Information </a>
               </li>
             </ul>
           </li>
@@ -84,7 +84,7 @@ require "dbConnection.php";
             </h1>
             <ol class="breadcrumb">
               <li class="active">
-                <a href="maintenance.php"> Back to Maintenance </a>
+                <a href="../index.php"> Back to Maintenance </a>
               </li>
             </ol>
           </div>
@@ -112,7 +112,7 @@ require "dbConnection.php";
             </div>
           </div>
           <?php
-          require 'dbConnection.php';
+          require '../../database/config.php';
           if(isset($_POST['btnSubmit']))
           {
             $locName = $_POST['txtNameLoc'];
@@ -136,14 +136,14 @@ require "dbConnection.php";
             </thead>
             <tbody>
               <?php
-              require 'dbConnection.php';
+              require '../../database/config.php';
               $sql = "Select * from db_innolab.tbllocation";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
                 ?>
                 <tr>
-                  <td><a href="update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-                    <a name="btnDelete" onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
+                  <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
+                    <a name="btnDelete" onclick="return confirm('Delete Data?')" href="location_delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
                   </td>
                   <td><?php echo $row['Location_ID']?></td>
                   <td><?php echo $row['Location_Name']?></td>
@@ -161,8 +161,8 @@ require "dbConnection.php";
   </div>
   <!-- /#wrapper -->
   <!-- jQuery -->
-  <script src="js/jquery.js"></script>
+  <script src="../../js/jquery.js"></script>
   <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
 </body>
 </html>
