@@ -91,6 +91,9 @@ require "../../database/config.php";
             </div>
           </div>
           <!-- /.row -->
+          <form method="post">
+
+
           <div class="container form-group" >
             <div class="row">
               <div class="col-xs-1">
@@ -111,6 +114,7 @@ require "../../database/config.php";
               </div>
             </div>
           </div>
+          </form>
           <?php
           if(isset($_POST['btnSubmit']))
           {
@@ -139,8 +143,8 @@ require "../../database/config.php";
                 while($row=mysqli_fetch_array($query)){
                   ?>
                   <tr>
-                    <td><a href="update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
-                      <a name="btnDelete" onclick="return confirm('Delete Data?')" href="delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" >Delete</a>
+                    <td><a href="group_update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
+                      <a name="btnDelete" onclick="return confirm('Delete Data?')" href="group_delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['Group_ID']?></td>
                     <td><?php echo $row['Group_Vis']?></td>
