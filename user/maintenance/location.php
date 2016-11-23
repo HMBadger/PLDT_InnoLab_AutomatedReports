@@ -141,6 +141,10 @@ require "../../database/config.php";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
                 ?>
+				
+				<?php require "location_delete.php";
+				?>
+				
                 <tr>
                   <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
                     <a name="btnDelete" onclick="return confirm('Delete Data?')" href="location_delete.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>

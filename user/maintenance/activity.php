@@ -125,17 +125,32 @@ require "../../database/config.php";
           }
           ?>
         </form>
-        <div class="table-responsive">
+         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>
               <tr>
                 <th>Actions</th>
                 <th>ID</th>
-                <th>Location</th>
+                <th>Activity</th>
               </tr>
             </thead>
             <tbody>
-
+              <?php
+              require '../../database/config.php';
+              $sql = "Select * from db_innolab.tblactivity";
+              $query = mysqli_query($conn,$sql);
+              while($row=mysqli_fetch_array($query)){
+                ?>
+                <tr>
+                  <td><a href="activity_update.php?id=	<?php echo $row['Activity_ID']?>" class="btn btn-primary"> Edit</a>
+                    <a name="btnDelete" onclick="return confirm('Delete Data?')" href="activity_delete.php?id= <?php echo $row['Activity_ID']?>" class="btn btn-danger" >Delete</a>
+                  </td>
+                  <td><?php echo $row['Activity_ID']?></td>
+                  <td><?php echo $row['Activity_Name']?></td>
+                </tr>
+                <?php
+              }
+              ?>
             </tbody>
           </table>
         </div>
