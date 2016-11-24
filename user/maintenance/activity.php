@@ -143,7 +143,7 @@ require "../../database/config.php";
                 ?>
                 <tr>
                   <td><a href="activity_update.php?id=	<?php echo $row['Activity_ID']?>" class="btn btn-primary"> Edit</a>
-                    <a name="btnDelete" onclick="return confirm('Delete Data?')" href="activity_delete.php?id= <?php echo $row['Activity_ID']?>" class="btn btn-danger" >Delete</a>
+                    <a  onclick="return confirm('Delete Data?')" href="activity_delete.php?del= <?php echo $row['Activity_ID']?>" class="btn btn-danger" >Delete</a>
                   </td>
                   <td><?php echo $row['Activity_ID']?></td>
                   <td><?php echo $row['Activity_Name']?></td>

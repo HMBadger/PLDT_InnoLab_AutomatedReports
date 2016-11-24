@@ -144,7 +144,7 @@ require "../../database/config.php";
                   ?>
                   <tr>
                     <td><a href="group_update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
-                      <a name="btnDelete" onclick="return confirm('Delete Data?')" href="group_delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" >Delete</a>
+                      <a href="group_delete.php?del= <?php echo $row['Group_ID']?>" onclick="return confirm('Delete Data?')"  class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['Group_ID']?></td>
                     <td><?php echo $row['Group_Vis']?></td>
