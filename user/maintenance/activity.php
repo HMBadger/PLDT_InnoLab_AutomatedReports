@@ -1,5 +1,5 @@
 <?php
-require "../../database/config.php";
+require_once('../../database/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

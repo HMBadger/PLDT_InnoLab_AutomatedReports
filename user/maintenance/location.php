@@ -1,5 +1,5 @@
 <?php
-require "../../database/config.php";
+require_once('../../database/config.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -112,7 +112,6 @@ require "../../database/config.php";
             </div>
           </div>
           <?php
-          require '../../database/config.php';
           if(isset($_POST['btnSubmit']))
           {
             $locName = $_POST['txtNameLoc'];
@@ -136,7 +135,6 @@ require "../../database/config.php";
             </thead>
             <tbody>
               <?php
-              require '../../database/config.php';
               $sql = "Select * from db_innolab.tbllocation";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
