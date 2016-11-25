@@ -108,6 +108,30 @@ require_once('../database/config.php');
 
         <form method="post">
 
+		<?php
+		
+		
+          if(isset($_POST['btnSubmit']))
+          {
+            $repDate = $_POST['txtDateRep'];
+			$repLoc = $_POST['optLocRep'];
+			$repGroup = $_POST['optGroupRep'];
+			$repCat = $_POST['optCatRep'];
+			$repClient = $_POST['txtClientRep'];
+			$repPic = $_POST['txtPicRep'];
+			$repAct = $_POST['optActRep'];
+			
+			header('Location: index.php');
+			
+            $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
+            $exec = mysqli_query($conn, $insert);
+            if($exec)
+            {
+              echo "<br>Data has been added!";
+            }
+          }
+          ?>
+		
           <div class="form-group">
             <label>Date</label>
             <input name="txtDateRep" class="form-control" type="date">
@@ -218,30 +242,7 @@ require_once('../database/config.php');
           </center>
         </br>
 		
-		<?php
 		
-		
-          if(isset($_POST['btnSubmit']))
-          {
-            $repDate = $_POST['txtDateRep'];
-			$repLoc = $_POST['optLocRep'];
-			$repGroup = $_POST['optGroupRep'];
-			$repCat = $_POST['optCatRep'];
-			$repClient = $_POST['txtClientRep'];
-			$repPic = $_POST['txtPicRep'];
-			$repAct = $_POST['optActRep'];
-			
-			
-			
-            $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
-            $exec = mysqli_query($conn, $insert);
-            if($exec)
-            {
-              echo "<br>Data has been added!";
-            }
-          }
-          ?>
-
       </form>
 
 
