@@ -1,3 +1,7 @@
+<?php
+require_once('../database/config.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -102,16 +106,16 @@
         </div>
         <!-- /.row -->
 
-        <form role="form">
+        <form method="post">
 
           <div class="form-group">
             <label>Date</label>
-            <input class="form-control" type="date">
+            <input name="txtDateRep" class="form-control" type="date">
           </div>
 
           <label>Location</label>
           <div class="form-group" style="display:flex">
-            <select name="cmbLocation" class="form-control" style="width:80%!important;">
+            <select name="optLocRep" class="form-control" style="width:80%!important;">
 
               <?php
               require '../database/config.php';
@@ -134,7 +138,7 @@
 
           <label>Visitor Group</label>
           <div class="form-group" style="display:flex">
-            <select name="cmbGroup" class="form-control" style="width:80%!important;">
+            <select name="optGroupRep" class="form-control" style="width:80%!important;">
               <?php
               require '../database/config.php';
 
@@ -156,7 +160,7 @@
 
           <label>Visitor Category</label>
           <div class="form-group" >
-            <select name="cmbCategory" class="form-control">
+            <select name="optCatRep" class="form-control">
               <?php
               require '../database/config.php';
 
@@ -177,17 +181,17 @@
 
           <div class="form-group">
             <label>Client Name or Event</label>
-            <input class="form-control" type="text">
+            <input name="txtClientRep" class="form-control" type="text">
           </div>
 
           <div class="form-group">
             <label>Person In Charge</label>
-            <input class="form-control" type="text">
+            <input name="txtPicRep" class="form-control" type="text">
           </div>
 
           <label>Activity</label>
           <div class="form-group" style="display:flex">
-            <select name="cmbActivity" class="form-control" style="width:80%!important;">
+            <select name="optActRep" class="form-control" style="width:80%!important;">
               <?php
               require '../database/config.php';
 
@@ -210,9 +214,29 @@
 
           <br>
           <center>
-            <button class="btn btn-lg btn-primary">Save</button>
+			<input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
           </center>
         </br>
+		
+		<?php
+          if(isset($_POST['btnSubmit']))
+          {
+            $repDate = $_POST['txtDateRep'];
+			$repLoc = $_POST['optLocRep'];
+			$repGroup = $_POST['optGroupRep'];
+			$repCat = $_POST['optCatRep'];
+			$repClient = $_POST['txtClientRep'];
+			$repPic = $_POST['txtPicRep'];
+			$repAct = $_POST['optActRep'];
+			
+            $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
+            $exec = mysqli_query($conn, $insert);
+            if($exec)
+            {
+              echo "<br>Data has been added!";
+            }
+          }
+          ?>
 
       </form>
 
