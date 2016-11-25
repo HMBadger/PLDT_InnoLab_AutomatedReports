@@ -11,7 +11,11 @@ require_once('../database/config.php');
   <meta name="description" content="">
   <meta name="author" content="">
 
-  title>Reports</title>
+  <title>Reports</title>
+
+  <!-- Data table --> 
+
+`	<link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
   <!-- Bootstrap Core CSS -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +26,9 @@ require_once('../database/config.php');
   <!-- Custom Fonts -->
   <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -30,7 +37,12 @@ require_once('../database/config.php');
   <![endif]-->
 </head>
 <body>
+
+
+
   <form method="post">
+  
+ 
     <div id="wrapper">
 
       <!-- Navigation -->
@@ -83,9 +95,9 @@ require_once('../database/config.php');
 
 
       <div id="page-wrapper">
-        <div class="container-fluid">
+        <div class="container-fluid"><br>
           <div class="table-responsive">
-            <table class="table table-bordered table-hover">
+            <table id="tabreport" class="table table-striped table-bordered">
               <thead>
                 <tr>
                   <th>Actions</th>
@@ -100,7 +112,7 @@ require_once('../database/config.php');
               </thead>
               <tbody>
                 <?php
-                $sql = "SELECT a.*. b.ReportDate as RepDate, c.ReportLoc as RepLoc,w";
+                $sql = "SELECT * from db_innolab.tblreport";
                 $query = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($query)){
                   ?>
@@ -128,7 +140,17 @@ require_once('../database/config.php');
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="../js/jquery.js"></script>
+  
+  <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  
+  
+	<script>
+	$(document).ready(function() {
+		$('#tabreport').DataTable();
+	} );
+	</script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../js/bootstrap.min.js"></script>
