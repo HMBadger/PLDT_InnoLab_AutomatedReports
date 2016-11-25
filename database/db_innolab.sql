@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 21, 2016 at 08:20 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Generation Time: Nov 25, 2016 at 08:18 AM
+-- Server version: 5.7.11
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -37,7 +37,8 @@ CREATE TABLE `tblactivity` (
 
 INSERT INTO `tblactivity` (`Activity_ID`, `Activity_Name`) VALUES
 (1, 'Tour'),
-(2, 'Tour Ulit');
+(2, 'Meeting'),
+(3, 'Tourism');
 
 -- --------------------------------------------------------
 
@@ -49,6 +50,14 @@ CREATE TABLE `tblcategory` (
   `Categ_ID` int(20) NOT NULL,
   `Categ_Name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblcategory`
+--
+
+INSERT INTO `tblcategory` (`Categ_ID`, `Categ_Name`) VALUES
+(1, 'Revenue'),
+(2, 'Non-Revenue');
 
 -- --------------------------------------------------------
 
@@ -66,8 +75,8 @@ CREATE TABLE `tblgroup` (
 --
 
 INSERT INTO `tblgroup` (`Group_ID`, `Group_Vis`) VALUES
-(1, 'Home'),
-(2, 'PLDT');
+(1, 'PLDT Alpha'),
+(3, 'PLDT SME Nation');
 
 -- --------------------------------------------------------
 
@@ -85,8 +94,10 @@ CREATE TABLE `tbllocation` (
 --
 
 INSERT INTO `tbllocation` (`Location_ID`, `Location_Name`) VALUES
-(1, 'Manila'),
-(2, 'Makati');
+(1, 'Davao'),
+(2, 'Makati'),
+(3, 'Cebu'),
+(4, 'Manila');
 
 -- --------------------------------------------------------
 
@@ -104,6 +115,14 @@ CREATE TABLE `tblreport` (
   `ReportPerson` varchar(50) NOT NULL,
   `ReportAct` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblreport`
+--
+
+INSERT INTO `tblreport` (`ReportID`, `ReportDate`, `ReportLoc`, `ReportGroup`, `ReportCateg`, `ReportCName`, `ReportPerson`, `ReportAct`) VALUES
+(1, '2016-11-30', 4, 1, 2, 'Camille', 'Camzie', 1),
+(2, '2016-11-30', 1, 1, 1, 'sda', 'uadjksaldas', 1);
 
 --
 -- Indexes for dumped tables
@@ -151,12 +170,12 @@ ALTER TABLE `tblreport`
 -- AUTO_INCREMENT for table `tblactivity`
 --
 ALTER TABLE `tblactivity`
-  MODIFY `Activity_ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Activity_ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `tblcategory`
 --
 ALTER TABLE `tblcategory`
-  MODIFY `Categ_ID` int(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `Categ_ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `tblgroup`
 --
@@ -166,12 +185,12 @@ ALTER TABLE `tblgroup`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `Location_ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Location_ID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tblreport`
 --
 ALTER TABLE `tblreport`
-  MODIFY `ReportID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `ReportID` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --
@@ -180,7 +199,7 @@ ALTER TABLE `tblreport`
 -- Constraints for table `tblreport`
 --
 ALTER TABLE `tblreport`
-  ADD CONSTRAINT `fk_act_id` FOREIGN KEY (`ReportCateg`) REFERENCES `tblcategory` (`Categ_ID`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_act_id` FOREIGN KEY (`ReportAct`) REFERENCES `tblactivity` (`Activity_ID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_cat_id` FOREIGN KEY (`ReportCateg`) REFERENCES `tblcategory` (`Categ_ID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_grp_id` FOREIGN KEY (`ReportGroup`) REFERENCES `tblgroup` (`Group_ID`) ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_loc_id` FOREIGN KEY (`ReportLoc`) REFERENCES `tbllocation` (`Location_ID`) ON UPDATE CASCADE;
