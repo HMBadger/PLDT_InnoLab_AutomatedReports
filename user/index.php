@@ -219,6 +219,8 @@ require_once('../database/config.php');
         </br>
 		
 		<?php
+		
+		
           if(isset($_POST['btnSubmit']))
           {
             $repDate = $_POST['txtDateRep'];
@@ -228,6 +230,8 @@ require_once('../database/config.php');
 			$repClient = $_POST['txtClientRep'];
 			$repPic = $_POST['txtPicRep'];
 			$repAct = $_POST['optActRep'];
+			
+			
 			
             $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
             $exec = mysqli_query($conn, $insert);
