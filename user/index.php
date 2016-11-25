@@ -74,7 +74,7 @@ require_once('../database/config.php');
                 <a href="index.php"> Add Information</a>
               </li>
               <li>
-                <a href="view.html">View Information </a>
+                <a href="view_info.php">View Information </a>
               </li>
             </ul>
           </li>
@@ -109,8 +109,8 @@ require_once('../database/config.php');
         <form method="post">
 
 		<?php
-		
-		
+
+
           if(isset($_POST['btnSubmit']))
           {
             $repDate = $_POST['txtDateRep'];
@@ -120,9 +120,9 @@ require_once('../database/config.php');
 			$repClient = $_POST['txtClientRep'];
 			$repPic = $_POST['txtPicRep'];
 			$repAct = $_POST['optActRep'];
-			
+
 			header('Location: index.php');
-			
+
             $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
@@ -131,7 +131,7 @@ require_once('../database/config.php');
             }
           }
           ?>
-		
+
           <div class="form-group">
             <label>Date</label>
             <input name="txtDateRep" class="form-control" type="date">
@@ -241,8 +241,8 @@ require_once('../database/config.php');
 			<input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
           </center>
         </br>
-		
-		
+
+
       </form>
 
 
