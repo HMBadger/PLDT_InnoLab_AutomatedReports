@@ -13,7 +13,7 @@ require_once('../database/config.php');
 
   <title>Reports</title>
 
-  <!-- Data table --> 
+  <!-- Data table -->
 
 `	<link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
 
@@ -41,8 +41,8 @@ require_once('../database/config.php');
 
 
   <form method="post">
-  
- 
+
+
     <div id="wrapper">
 
       <!-- Navigation -->
@@ -112,7 +112,15 @@ require_once('../database/config.php');
               </thead>
               <tbody>
                 <?php
-                $sql = "SELECT * from db_innolab.tblreport";
+                $sql = "SELECT * from db_innolab.tblreport r
+                            left join db_innolab.tbllocation l
+                            ON r.ReportLoc =   l.Location_ID
+                            left join db_innolab.tblgroup g
+                            ON r.ReportGroup = g.Group_ID
+                            left join db_innolab.tblcategory c
+                            ON r.ReportCateg = c.Categ_ID
+                            left join db_innolab.tblactivity a
+                            ON r.ReportAct = a.Activity_ID";
                 $query = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($query)){
                   ?>
@@ -121,12 +129,12 @@ require_once('../database/config.php');
                       <a  onclick="return confirm('Delete Data?')" href="#" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['ReportDate']?></td>
-                    <td><?php echo $row['ReportLoc']?></td>
-                    <td><?php echo $row['ReportGroup']?></td>
-                    <td><?php echo $row['ReportCateg']?></td>
+                    <td><?php echo $row['Location_Name']?></td>
+                    <td><?php echo $row['Group_Vis']?></td>
+                    <td><?php echo $row['Categ_Name']?></td>
                     <td><?php echo $row['ReportCName']?></td>
                     <td><?php echo $row['ReportPerson']?></td>
-                    <td><?php echo $row['ReportAct']?></td>
+                    <td><?php echo $row['Activity_Name']?></td>
                   </tr>
                   <?php
                 } //while
@@ -140,12 +148,12 @@ require_once('../database/config.php');
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-  
+
   <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-  
-  
+
+
 	<script>
 	$(document).ready(function() {
 		$('#tabreport').DataTable();
