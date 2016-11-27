@@ -126,7 +126,7 @@ require_once('../database/config.php');
                   ?>
                   <tr>
                     <td><a href="#" class="btn btn-primary"> Edit</a>
-                      <a  onclick="return confirm('Delete Data?')" href="#" class="btn btn-danger" >Delete</a>
+                      <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['ReportDate']?></td>
                     <td><?php echo $row['Location_Name']?></td>
