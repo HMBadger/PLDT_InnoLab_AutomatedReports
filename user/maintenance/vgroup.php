@@ -94,26 +94,26 @@ require_once('../../database/config.php');
           <form method="post">
 
 
-          <div class="container form-group" >
-            <div class="row">
-              <div class="col-xs-1">
-                <label>ID: &nbsp;</label>
-              </div>
-              <div class="col-xs-11">
-                <input name ="txtGrpID" class="form-control disabled" type="text" style="width:20%" disabled>
-              </div>
-              <br><br>
-              <div class="col-xs-1">
-                <label>Visitor Group: &nbsp;</label>
-              </div>
-              <div class="col-xs-11">
-                <input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%">
-              </div><br><br>
-              <div class="col-xs-11 offset col-xs-.5">
-                <input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="ADD" type="submit">
+            <div class="container form-group" >
+              <div class="row">
+                <div class="col-xs-1">
+                  <label>ID: &nbsp;</label>
+                </div>
+                <div class="col-xs-11">
+                  <input name ="txtGrpID" class="form-control disabled" type="text" style="width:20%" disabled>
+                </div>
+                <br><br>
+                <div class="col-xs-1">
+                  <label>Visitor Group: &nbsp;</label>
+                </div>
+                <div class="col-xs-11">
+                  <input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%">
+                </div><br><br>
+                <div class="col-xs-11 offset col-xs-.5">
+                  <input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="ADD" type="submit">
+                </div>
               </div>
             </div>
-          </div>
           </form>
           <?php
           if(isset($_POST['btnSubmit']))

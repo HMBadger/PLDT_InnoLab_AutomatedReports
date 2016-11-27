@@ -124,40 +124,40 @@ require_once('../../database/config.php');
           }
           ?>
 
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th>Actions</th>
-                <th>ID</th>
-                <th>Location</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php
-              $sql = "Select * from db_innolab.tbllocation";
-              $query = mysqli_query($conn,$sql);
-              while($row=mysqli_fetch_array($query)){
-                $id = $row['Location_ID'];
-                ?>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
                 <tr>
-                  <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-                    <a  href="location_delete.php?del= <?php echo $row['Location_ID']?>" onclick="return confirm('Delete Data?')" class="btn btn-danger" >Delete</a>
-                  </td>
-                  <td><?php echo $row['Location_ID']?></td>
-                  <td><?php echo $row['Location_Name']?></td>
+                  <th>Actions</th>
+                  <th>ID</th>
+                  <th>Location</th>
                 </tr>
+              </thead>
+              <tbody>
                 <?php
-              }
-              ?>
-            </tbody>
-          </table>
+                $sql = "Select * from db_innolab.tbllocation";
+                $query = mysqli_query($conn,$sql);
+                while($row=mysqli_fetch_array($query)){
+                
+                  ?>
+                  <tr>
+                    <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
+                      <a  href="location_delete.php?del= <?php echo $row['Location_ID']?>" onclick="return confirm('Delete Data?')" class="btn btn-danger" >Delete</a>
+                    </td>
+                    <td><?php echo $row['Location_ID']?></td>
+                    <td><?php echo $row['Location_Name']?></td>
+                  </tr>
+                  <?php
+                }
+                ?>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <!-- /.container-fluid -->
       </div>
-      <!-- /.container-fluid -->
+      <!-- /#page-wrapper -->
     </div>
-    <!-- /#page-wrapper -->
-  </div>
   </form>
   <!-- /#wrapper -->
   <!-- jQuery -->

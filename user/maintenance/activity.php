@@ -125,7 +125,7 @@ require_once('../../database/config.php');
           }
           ?>
         </form>
-         <div class="table-responsive">
+        <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>
               <tr>

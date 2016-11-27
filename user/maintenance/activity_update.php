@@ -91,19 +91,19 @@ require_once('../../database/config.php');
 					</div>
 					<!-- /.row -->
 					<?php
-			        $id = $_GET['id'];
-			        if(isset($id)){
-			          $sql = "Select * from db_innolab.tblactivity where Activity_ID='$id'";
-			          $query = mysqli_query($conn,$sql);
-			          $data=mysqli_fetch_array($query);
-			         ?>
+					$id = $_GET['id'];
+					if(isset($id)){
+						$sql = "Select * from db_innolab.tblactivity where Activity_ID='$id'";
+						$query = mysqli_query($conn,$sql);
+						$data=mysqli_fetch_array($query);
+						?>
 						<div class="container form-group" >
 							<div class="row">
 								<div class="col-xs-1">
 									<label>ID: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									  <input name="txtIdAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Activity_ID']?>" readonly>
+									<input name="txtIdAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Activity_ID']?>" readonly>
 								</div>
 								<br><br>
 								<div class="col-xs-1">
@@ -122,7 +122,7 @@ require_once('../../database/config.php');
 						{
 
 							$actID = $_POST['txtIdAct'];
-			        $actName = $_POST['txtNameAct'];
+							$actName = $_POST['txtNameAct'];
 
 							$sql = "select Activity_ID from db_innolab.tblactivity where Activity_ID= '$actID'";
 							$query = mysqli_query($conn, $sql);
@@ -130,9 +130,9 @@ require_once('../../database/config.php');
 							{
 								header('Location: activity.php');
 								$sql = "update db_innolab.tblactivity
-										 set  Activity_Name = '$actName'
-											  where Activity_ID = '$actID';
-											";
+								set  Activity_Name = '$actName'
+								where Activity_ID = '$actID';
+								";
 								$query = mysqli_query($conn, $sql);
 								if($query)
 								{
