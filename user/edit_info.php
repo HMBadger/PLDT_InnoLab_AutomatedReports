@@ -36,8 +36,8 @@ require_once('../database/config.php');
 
 <body>
 	<form method="post">
-	<div id="wrapper">
-	<!-- Navigation -->
+		<div id="wrapper">
+			<!-- Navigation -->
 			<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header">
@@ -79,24 +79,20 @@ require_once('../database/config.php');
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
-			
-		<div id="page-wrapper">
-	
-		
-			<?php
-					$id = $_GET['id'];
-					if(isset($id)){
-						$sql = "Select * from db_innolab.tblreport where ReportID='$id'";
-						$query = mysqli_query($conn,$sql);
-						$info=mysqli_fetch_array($query);
-						?>
-		
-		
-		
-		
-			<div class="container-fluid">
-				
-<?php
+
+			<div id="page-wrapper">
+
+
+				<?php
+				$id = $_GET['id'];
+				if(isset($id)){
+					$sql = "SELECT * FROM ict_database.tblreports where ReportID='$id'";
+					$query = mysqli_query($conn,$sql);
+					$info=mysqli_fetch_array($query);
+					?>
+					<div class="container-fluid">
+
+						<?php
 						if(isset($_POST['btnSubmit']))
 						{
 
@@ -109,13 +105,13 @@ require_once('../database/config.php');
 							$repPic = $_POST['txtPicRep'];
 							$repAct = $_POST['optActRep'];
 
-							$sql = "select ReportID from db_innolab.tblreport where ReportID= '$repID'";
+							$sql = "SELECT ReportID from ict_database.tblreports where ReportID= '$repID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
-								
-								$sql = "update db_innolab.tblreport
-								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', 	ReportCateg = '$repCat', ReportCName = '$repClient', ReportPerson = '$repPic', ReportAct = '$repAct'
+
+								$sql = "UPDATE ict_database.tblreports
+								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', 	ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
 								where ReportID = '$repID'
 								";
 								header('Location: view_info.php');
@@ -133,169 +129,169 @@ require_once('../database/config.php');
 						}
 
 						?>
-				<div class="row">
-					<div class="col-md-6">
-						<!--Hidden ID-->
-						<div class="form-group">
-							<input name="txtIdRep" class="form-control" type="hidden" 
-							value="<?php echo $info['ReportID']?>" />
+						<div class="row">
+							<div class="col-md-6">
+								<!--Hidden ID-->
+								<div class="form-group">
+									<input name="txtIdRep" class="form-control" type="hidden"
+									value="<?php echo $info['ReportID']?>" />
+								</div>
+
+								<!--Date-->
+								<div class="form-group">
+									<label>Date</label>
+									<input name="txtDateRep" class="form-control" type="date" value="<?php echo $info['ReportDate']?>" />
+								</div>
+
+								<!--Location-->
+								<label>Location</label><br />
+								<div class="form-group" style="display:flex">
+
+									<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
+										<?php
+										$sql = "SELECT * FROM ict_database.tbllocation";
+										$query = mysqli_query($conn, $sql);
+
+										while($row = mysqli_fetch_array($query)){
+											$loc_id = $row['LocationID'];
+											$loc_name = $row['LocationName'];
+											echo "<option value=\"$loc_id\">$loc_name</option>";
+										}
+										?>
+									</select>
+								</div>
+
+								<!--Visitor-->
+								<label>Visitor Group</label><br />
+								<div class="form-group" style="display:flex">
+
+									<select name="optGroupRep" class="form-control" value="<?php echo $info['ReportGroup']?>">
+										<?php
+										$sql = "SELECT * FROM ict_database.tblgroup";
+										$query = mysqli_query($conn, $sql);
+
+										while($row = mysqli_fetch_array($query)){
+											$grp_id = $row['GroupID'];
+											$grp_name = $row['GroupName'];
+											echo "<option value=\"$grp_id\">$grp_name</option>";
+										}
+										?>
+									</select>
+								</div>
+
+								<!--Category-->
+								<label>Visitor Category</label><br />
+								<div class="form-group" style="display:flex">
+
+									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
+										<?php
+										$sql = "SELECT * FROM ict_database.tblcategory";
+										$query = mysqli_query($conn, $sql);
+
+										while($row = mysqli_fetch_array($query)){
+											$cat_id = $row['CategoryID'];
+											$cat_name = $row['CategoryName'];
+											echo "<option value=\"$cat_id\">$cat_name</option>";
+										}
+										?>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6"><br>
+								<!--Client-->
+								<div class="form-group">
+									<label>Event Name/Client Name</label>
+									<input name="txtClientRep" class="form-control" type="text" value="<?php echo $info['ReportClient']?>"/>
+								</div>
+								<!--PIC-->
+								<div class="form-group">
+									<label>Person In Charge</label>
+									<input name="txtPicRep" class="form-control" type="text" value="<?php echo $info['ReportPerson']?>">
+								</div>
+								<!--Activity-->
+								<label>Activity</label><br />
+								<div class="form-group" style="display:flex">
+									<select name="optActRep" class="form-control" value="<?php echo $info['ReportActivity']?>">
+										<?php
+										$sql = "SELECT * FROM ict_database.tblactivity";
+										$query = mysqli_query($conn, $sql);
+
+										while($row = mysqli_fetch_array($query)){
+											$act_id = $row['ActivityID'];
+											$act_name = $row['ActivityName'];
+											echo "<option value=\"$act_id\">$act_name</option>";
+										}
+										?>
+									</select>
+								</div>
+
+
+
+							</div>
+							<center><input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="SAVE"></center>
 						</div>
-					
-						<!--Date-->
-						<div class="form-group">
-							<label>Date</label>
-							<input name="txtDateRep" class="form-control" type="date" value="<?php echo $info['ReportDate']?>" />
-						</div>
 
-						<!--Location-->
-						<label>Location</label><br />
-						<div class="form-group" style="display:flex">
 
-							<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
-								<?php
-								$sql = "SELECT * FROM db_innolab.tbllocation";
-								$query = mysqli_query($conn, $sql);
-
-								while($row = mysqli_fetch_array($query)){
-									$loc_id = $row['Location_ID'];
-									$loc_name = $row['Location_Name'];
-									echo "<option value=\"$loc_id\">$loc_name</option>";
-								}
-								?>
-							</select>
-						</div>
-
-						<!--Visitor-->
-						<label>Visitor Group</label><br />
-						<div class="form-group" style="display:flex">
-
-							<select name="optGroupRep" class="form-control" value="<?php echo $info['ReportGroup']?>">
-								<?php
-								$sql = "SELECT * FROM db_innolab.tblgroup";
-								$query = mysqli_query($conn, $sql);
-
-								while($row = mysqli_fetch_array($query)){
-									$grp_id = $row['Group_ID'];
-									$grp_name = $row['Group_Vis'];
-									echo "<option value=\"$grp_id\">$grp_name</option>";
-								}
-								?>
-							</select>
-						</div>
-
-						<!--Category-->
-						<label>Visitor Category</label><br />
-						<div class="form-group" style="display:flex">
-
-							<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
-								<?php
-								$sql = "SELECT * FROM db_innolab.tblcategory";
-								$query = mysqli_query($conn, $sql);
-
-								while($row = mysqli_fetch_array($query)){
-									$cat_id = $row['Categ_ID'];
-									$cat_name = $row['Categ_Name'];
-									echo "<option value=\"$cat_id\">$cat_name</option>";
-								}
-								?>
-							</select>
-						</div>
-					</div>
-
-					<div class="col-md-6"><br>
-						<!--Client-->
-						<div class="form-group">
-							<label>Event Name/Client Name</label>
-							<input name="txtClientRep" class="form-control" type="text" value="<?php echo $info['ReportCName']?>"/>
-						</div>
-						<!--PIC-->
-						<div class="form-group">
-							<label>Person In Charge</label>
-							<input name="txtPicRep" class="form-control" type="text" value="<?php echo $info['ReportPerson']?>">
-						</div>
-						<!--Activity-->
-						<label>Activity</label><br />
-						<div class="form-group" style="display:flex">
-							<select name="optActRep" class="form-control" value="<?php echo $info['ReportAct']?>">
-								<?php
-								$sql = "SELECT * FROM db_innolab.tblactivity";
-								$query = mysqli_query($conn, $sql);
-
-								while($row = mysqli_fetch_array($query)){
-									$act_id = $row['Activity_ID'];
-									$act_name = $row['Activity_Name'];
-									echo "<option value=\"$act_id\">$act_name</option>";
-								}
-								?>
-							</select>
-						</div>
-						
-						
-						
-					</div>
-					<center><input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="SAVE"></center>
-				</div>
-				
-				
 						<?php
 					}
 					else{
 						echo "<script>location.href='view_info.php'</script>";
 					}
 					?>
-				
-				
-				<div class="table-responsive">
-					<table id="tb" class="table table-striped table-bordered">
-						<thead>
-							<tr>
-								<th>Actions</th>
-								<th>Reservation Date</th>
-								<th>Location</th>
-								<th>Visitor Group</th>
-								<th>Visit Category</th>
-								<th>Client Name/Event</th>
-								<th>Person In Charge</th>
-								<th>Activity</th>
-							</tr>
-						</thead>
-						<tbody>
-						 <?php
-				require '../database/config.php';
-                $sql = "SELECT * from db_innolab.tblreport r
-                left join db_innolab.tbllocation l
-                ON r.ReportLoc =   l.Location_ID
-                left join db_innolab.tblgroup g
-                ON r.ReportGroup = g.Group_ID
-                left join db_innolab.tblcategory c
-                ON r.ReportCateg = c.Categ_ID
-                left join db_innolab.tblactivity a
-                ON r.ReportAct = a.Activity_ID";
-                $query = mysqli_query($conn, $sql);
-                while($row = mysqli_fetch_array($query)){
-                  ?>
-                  <tr>
-                    <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
-                      <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
-                    </td>
-                    <td><?php echo $row['ReportDate']?></td>
-                    <td><?php echo $row['Location_Name']?></td>
-                    <td><?php echo $row['Group_Vis']?></td>
-                    <td><?php echo $row['Categ_Name']?></td>
-                    <td><?php echo $row['ReportCName']?></td>
-                    <td><?php echo $row['ReportPerson']?></td>
-                    <td><?php echo $row['Activity_Name']?></td>
-                  </tr>
-                  <?php
-                } //while
-                ?>
-						</tbody>
-					</table>
-				</div>
 
+
+					<div class="table-responsive">
+						<table id="tb" class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<th>Actions</th>
+									<th>Reservation Date</th>
+									<th>Location</th>
+									<th>Visitor Group</th>
+									<th>Visit Category</th>
+									<th>Client Name/Event</th>
+									<th>Person In Charge</th>
+									<th>Activity</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								require '../database/config.php';
+								$sql = "SELECT * FROM ict_database.tblreports r
+								left join ict_database.tbllocation l
+								ON r.ReportLoc =   l.LocationID
+								left join ict_database.tblgroup g
+								ON r.ReportGroup = g.GroupID
+								left join ict_database.tblcategory c
+								ON r.ReportCategory = c.CategoryID
+								left join ict_database.tblactivity a
+								ON r.ReportActivity = a.ActivityID";
+								$query = mysqli_query($conn, $sql);
+								while($row = mysqli_fetch_array($query)){
+									?>
+									<tr>
+										<td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
+											<a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
+										</td>
+										<td><?php echo $row['ReportDate']?></td>
+										<td><?php echo $row['LocationName']?></td>
+										<td><?php echo $row['GroupName']?></td>
+										<td><?php echo $row['CategoryName']?></td>
+										<td><?php echo $row['ReportClient']?></td>
+										<td><?php echo $row['ReportPerson']?></td>
+										<td><?php echo $row['ActivityName']?></td>
+									</tr>
+									<?php
+								} //while
+								?>
+							</tbody>
+						</table>
+					</div>
+
+				</div>
 			</div>
 		</div>
-	</div>
 
 
 		<!-- jQuery -->

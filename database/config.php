@@ -2,7 +2,7 @@
 $server = "localhost";
 $username = "root";
 $password = "";
-$database = "db_innolab";
+$database = "ict_database";
 	$conn = mysqli_connect($server, $username, $password, $database);
 
 	if($conn)
@@ -11,5 +11,4 @@ $database = "db_innolab";
 	}
 	else
 		die("Error: " . mysqli_connect_error());
-
 ?>

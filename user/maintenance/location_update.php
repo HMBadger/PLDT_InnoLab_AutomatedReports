@@ -93,7 +93,7 @@ require_once('../../database/config.php');
 					<?php
 					$id = $_GET['id'];
 					if(isset($id)){
-						$sql = "Select * from db_innolab.tbllocation where Location_ID='$id'";
+						$sql = "SELECT * FROM ict_database.tbllocation WHERE LocationID='$id' AND LocationIsActive = 1";
 						$query = mysqli_query($conn,$sql);
 						$data=mysqli_fetch_array($query);
 						?>
@@ -103,14 +103,14 @@ require_once('../../database/config.php');
 									<label>ID: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name ="txtIdLoc" class="form-control" type="text" style="width:20%" value="<?php echo $data['Location_ID']?>"  readonly>
+									<input name ="txtIdLoc" class="form-control" type="text" style="width:20%" value="<?php echo $data['LocationID']?>"  readonly>
 								</div>
 								<br><br>
 								<div class="col-xs-1">
 									<label>Visitor Group: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Location_Name']?>">
+									<input name="txtNameLoc" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['LocationName']?>">
 								</div><br><br>
 								<div class="col-xs-11 offset col-xs-.5">
 									<input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="Save" type="submit">
@@ -125,15 +125,12 @@ require_once('../../database/config.php');
 							$locName = $_POST['txtNameLoc'];
 
 
-							$sql = "select Location_ID from db_innolab.tbllocation where Location_ID= '$locID'";
+							$sql = "SELECT LocationID from ict_database.tbllocation where LocationID= '$locID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
 								header('Location: location.php');
-								$sql = "update db_innolab.tbllocation
-								set  Location_Name = '$locName'
-								where Location_ID = '$locID';
-								";
+								$sql = "UPDATE ict_database.tbllocation SET  LocationName = '$locName' WHERE LocationID = '$locID'";
 								$query = mysqli_query($conn, $sql);
 								if($query)
 								{
@@ -168,16 +165,16 @@ require_once('../../database/config.php');
 							</thead>
 							<tbody>
 								<?php
-								$sql = "Select * from db_innolab.tbllocation";
+								$sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
 								$query = mysqli_query($conn,$sql);
 								while($row=mysqli_fetch_array($query)){
 									?>
 									<tr>
-										<td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="location.php?id= <?php echo $row['Location_ID']?>" class="btn btn-danger" >Delete</a>
+										<td><a href="location_update.php?id=	<?php echo $row['LocationID']?>" class="btn btn-primary"> Edit</a>
+											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="location.php?del= <?php echo $row['LocationID']?>" class="btn btn-danger" >Delete</a>
 										</td>
-										<td><?php echo $row['Location_ID']?></td>
-										<td><?php echo $row['Location_Name']?></td>
+										<td><?php echo $row['LocationID']?></td>
+										<td><?php echo $row['LocationName']?></td>
 									</tr>
 									<?php
 								}

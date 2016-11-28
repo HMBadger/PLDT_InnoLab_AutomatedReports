@@ -123,7 +123,8 @@ require_once('../database/config.php');
 
             header('Location: index.php');
 
-            $insert = "INSERT INTO db_innolab.tblreport(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportCName, ReportPerson, ReportAct) values ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
+            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportClient, ReportPerson, ReportActivity)
+            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -131,11 +132,11 @@ require_once('../database/config.php');
             }
           }
           ?>
-			
+
 			<div class="form-group">
 				<input name="txtIdRep" class="form-control" type="hidden" />
 			</div>
-			  
+
           <div class="form-group">
             <label>Date</label>
             <input name="txtDateRep" class="form-control" type="date">
@@ -148,13 +149,13 @@ require_once('../database/config.php');
               <?php
               require '../database/config.php';
 
-              $sql = "Select * from db_innolab.tbllocation";
+              $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
               $query = mysqli_query($conn,$sql);
 
               while($row=mysqli_fetch_array($query))
               {
-                $loc_id = $row['Location_ID'];
-                $loc_name = $row['Location_Name'];
+                $loc_id = $row['LocationID'];
+                $loc_name = $row['LocationName'];
 
                 echo "<option value=\"$loc_id\">$loc_name</option>";
               }
@@ -170,13 +171,13 @@ require_once('../database/config.php');
               <?php
               require '../database/config.php';
 
-              $sql = "Select * from db_innolab.tblgroup";
+              $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
               $query = mysqli_query($conn,$sql);
 
               while($row=mysqli_fetch_array($query))
               {
-                $grp_id = $row['Group_ID'];
-                $grp_name = $row['Group_Vis'];
+                $grp_id = $row['GroupID'];
+                $grp_name = $row['GroupName'];
 
                 echo "<option value=\"$grp_id\">$grp_name</option>";
               }
@@ -192,13 +193,13 @@ require_once('../database/config.php');
               <?php
               require '../database/config.php';
 
-              $sql = "Select * from db_innolab.tblcategory";
+              $sql = "SELECT * FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
               $query = mysqli_query($conn,$sql);
 
               while($row=mysqli_fetch_array($query))
               {
-                $cat_id = $row['Categ_ID'];
-                $cat_name = $row['Categ_Name'];
+                $cat_id = $row['CategoryID'];
+                $cat_name = $row['CategoryName'];
 
                 echo "<option value=\"$cat_id\">$cat_name</option>";
               }
@@ -223,13 +224,13 @@ require_once('../database/config.php');
               <?php
               require '../database/config.php';
 
-              $sql = "Select * from db_innolab.tblactivity";
+              $sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
               $query = mysqli_query($conn,$sql);
 
               while($row=mysqli_fetch_array($query))
               {
-                $act_id = $row['Activity_ID'];
-                $act_name = $row['Activity_Name'];
+                $act_id = $row['ActivityID'];
+                $act_name = $row['ActivityName'];
 
                 echo "<option value=\"$act_id\">$act_name</option>";
               }

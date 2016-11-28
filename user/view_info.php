@@ -111,18 +111,17 @@ require_once('../database/config.php');
                 </tr>
               </thead>
               <tbody>
-			  
+
                 <?php
-				require '../database/config.php';
-                $sql = "SELECT * from db_innolab.tblreport r
-                left join db_innolab.tbllocation l
-                ON r.ReportLoc =   l.Location_ID
-                left join db_innolab.tblgroup g
-                ON r.ReportGroup = g.Group_ID
-                left join db_innolab.tblcategory c
-                ON r.ReportCateg = c.Categ_ID
-                left join db_innolab.tblactivity a
-                ON r.ReportAct = a.Activity_ID";
+                $sql = "SELECT * FROM ict_database.tblreports r
+                left join ict_database.tbllocation l
+                ON r.ReportLoc =   l.LocationID
+                left join ict_database.tblgroup g
+                ON r.ReportGroup = g.GroupID
+                left join ict_database.tblcategory c
+                ON r.ReportCategory = c.CategoryID
+                left join ict_database.tblactivity a
+                ON r.ReportActivity = a.ActivityID";
                 $query = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($query)){
                   ?>
@@ -131,12 +130,12 @@ require_once('../database/config.php');
                       <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['ReportDate']?></td>
-                    <td><?php echo $row['Location_Name']?></td>
-                    <td><?php echo $row['Group_Vis']?></td>
-                    <td><?php echo $row['Categ_Name']?></td>
-                    <td><?php echo $row['ReportCName']?></td>
+                    <td><?php echo $row['LocationName']?></td>
+                    <td><?php echo $row['GroupName']?></td>
+                    <td><?php echo $row['CategoryName']?></td>
+                    <td><?php echo $row['ReportClient']?></td>
                     <td><?php echo $row['ReportPerson']?></td>
-                    <td><?php echo $row['Activity_Name']?></td>
+                    <td><?php echo $row['ActivityName']?></td>
                   </tr>
                   <?php
                 } //while

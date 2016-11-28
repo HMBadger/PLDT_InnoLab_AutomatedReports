@@ -119,7 +119,9 @@ require_once('../../database/config.php');
           if(isset($_POST['btnSubmit']))
           {
             $grpName = $_POST['txtNameGrp'];
-            $insert = "INSERT INTO db_innolab.tblgroup(Group_Vis) values ('$grpName');";
+            $grpCtr = 0;
+            $grpStatus = 1;
+            $insert = "INSERT INTO ict_database.tblgroup(GroupName, GroupCTR, GroupIsActive) values ('$grpName', '$grpCtr', '$grpStatus')";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -138,16 +140,16 @@ require_once('../../database/config.php');
               </thead>
               <tbody>
                 <?php
-                $sql = "Select * from db_innolab.tblgroup";
+                $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
                 $query = mysqli_query($conn,$sql);
                 while($row=mysqli_fetch_array($query)){
                   ?>
                   <tr>
-                    <td><a href="group_update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
-                      <a href="group_delete.php?del= <?php echo $row['Group_ID']?>" onclick="return confirm('Delete Data?')"  class="btn btn-danger" >Delete</a>
+                    <td><a href="group_update.php?id=	<?php echo $row['GroupID']?>" class="btn btn-primary"> Edit</a>
+                      <a href="group_delete.php?del= <?php echo $row['GroupID']?>" onclick="return confirm('Delete Data?')"  class="btn btn-danger" >Delete</a>
                     </td>
-                    <td><?php echo $row['Group_ID']?></td>
-                    <td><?php echo $row['Group_Vis']?></td>
+                    <td><?php echo $row['GroupID']?></td>
+                    <td><?php echo $row['GroupName']?></td>
                   </tr>
                   <?php
                 }

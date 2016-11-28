@@ -93,7 +93,7 @@ require_once('../../database/config.php');
 					<?php
 					$id = $_GET['id'];
 					if(isset($id)){
-						$sql = "Select * from db_innolab.tblgroup where Group_ID='$id'";
+						$sql = "SELECT * FROM ict_database.tblgroup WHERE GroupID = '$id'";
 						$query = mysqli_query($conn,$sql);
 						$data=mysqli_fetch_array($query);
 						?>
@@ -103,14 +103,14 @@ require_once('../../database/config.php');
 									<label>ID: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name ="txtGrpID" class="form-control" type="text" style="width:20%" value="<?php echo $data['Group_ID']?>"  readonly>
+									<input name ="txtGrpID" class="form-control" type="text" style="width:20%" value="<?php echo $data['GroupID']?>"  readonly>
 								</div>
 								<br><br>
 								<div class="col-xs-1">
 									<label>Visitor Group: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Group_Vis']?>">
+									<input name="txtNameGrp" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['GroupName']?>">
 								</div><br><br>
 								<div class="col-xs-11 offset col-xs-.5">
 									<input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="Save" type="submit">
@@ -120,20 +120,14 @@ require_once('../../database/config.php');
 						<?php
 						if(isset($_POST['btnSubmit']))
 						{
-
 							$gID = $_POST['txtGrpID'];
 							$grpName = $_POST['txtNameGrp'];
-
-
-							$sql = "select Group_ID from db_innolab.tblgroup where Group_ID= '$gID'";
+							$sql = "SELECT GroupID from ict_database.tblgroup where GroupID= '$gID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
 								header('Location: vgroup.php');
-								$sql = "update db_innolab.tblgroup
-								set  Group_Vis = '$grpName'
-								where Group_ID = '$gID';
-								";
+								$sql = "UPDATE ict_database.tblgroup SET  GroupName = '$grpName' WHERE GroupID = '$gID';";
 								$query = mysqli_query($conn, $sql);
 								if($query)
 								{
@@ -168,16 +162,16 @@ require_once('../../database/config.php');
 							</thead>
 							<tbody>
 								<?php
-								$sql = "Select * from db_innolab.tblgroup";
+								$sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
 								$query = mysqli_query($conn,$sql);
 								while($row=mysqli_fetch_array($query)){
 									?>
 									<tr>
-										<td><a href="group_update.php?id=	<?php echo $row['Group_ID']?>" class="btn btn-primary"> Edit</a>
-											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="group_delete.php?id= <?php echo $row['Group_ID']?>" class="btn btn-danger" >Delete</a>
+										<td><a href="group_update.php?id=	<?php echo $row['GroupID']?>" class="btn btn-primary"> Edit</a>
+											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="group_delete.php?del= <?php echo $row['GroupID']?>" class="btn btn-danger" >Delete</a>
 										</td>
-										<td><?php echo $row['Group_ID']?></td>
-										<td><?php echo $row['Group_Vis']?></td>
+										<td><?php echo $row['GroupID']?></td>
+										<td><?php echo $row['GroupName']?></td>
 									</tr>
 									<?php
 								}

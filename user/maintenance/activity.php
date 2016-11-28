@@ -116,7 +116,9 @@ require_once('../../database/config.php');
           if(isset($_POST['btnSubmit']))
           {
             $actName = $_POST['txtNameAct'];
-            $insert = "INSERT INTO db_innolab.tblactivity(Activity_Name) values ('$actName');";
+            $activityCtr = 0;
+            $activityIsActive = 1;
+            $insert = "INSERT INTO ict_database.tblactivity(ActivityName, ActivityCTR, ActivityIsActive) values ('$actName', '$activityCtr', '$activityIsActive');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -136,17 +138,16 @@ require_once('../../database/config.php');
             </thead>
             <tbody>
               <?php
-              require '../../database/config.php';
-              $sql = "Select * from db_innolab.tblactivity";
+              $sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
               $query = mysqli_query($conn,$sql);
               while($row=mysqli_fetch_array($query)){
                 ?>
                 <tr>
-                  <td><a href="activity_update.php?id=	<?php echo $row['Activity_ID']?>" class="btn btn-primary"> Edit</a>
-                    <a  onclick="return confirm('Delete Data?')" href="activity_delete.php?del= <?php echo $row['Activity_ID']?>" class="btn btn-danger" >Delete</a>
+                  <td><a href="activity_update.php?id=	<?php echo $row['ActivityID']?>" class="btn btn-primary"> Edit</a>
+                    <a  onclick="return confirm('Delete Data?')" href="activity_delete.php?del= <?php echo $row['ActivityID']?>" class="btn btn-danger" >Delete</a>
                   </td>
-                  <td><?php echo $row['Activity_ID']?></td>
-                  <td><?php echo $row['Activity_Name']?></td>
+                  <td><?php echo $row['ActivityID']?></td>
+                  <td><?php echo $row['ActivityName']?></td>
                 </tr>
                 <?php
               }

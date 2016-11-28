@@ -84,7 +84,7 @@ require_once('../../database/config.php');
 							</h1>
 							<ol class="breadcrumb">
 								<li class="active">
-									<a href="../index.php"> Back to Maintenance </a>
+									<a href="index.php"> Back to Maintenance </a>
 								</li>
 							</ol>
 						</div>
@@ -93,7 +93,7 @@ require_once('../../database/config.php');
 					<?php
 					$id = $_GET['id'];
 					if(isset($id)){
-						$sql = "Select * from db_innolab.tblactivity where Activity_ID='$id'";
+						$sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityID = '$id'";
 						$query = mysqli_query($conn,$sql);
 						$data=mysqli_fetch_array($query);
 						?>
@@ -103,14 +103,14 @@ require_once('../../database/config.php');
 									<label>ID: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name="txtIdAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Activity_ID']?>" readonly>
+									<input name="txtIdAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['ActivityID']?>" readonly>
 								</div>
 								<br><br>
 								<div class="col-xs-1">
 									<label>Visitor Group: &nbsp;</label>
 								</div>
 								<div class="col-xs-11">
-									<input name="txtNameAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['Activity_Name']?>">
+									<input name="txtNameAct" class="form-control disabled" type="text" style="width:20%" value="<?php echo $data['ActivityName']?>">
 								</div><br><br>
 								<div class="col-xs-11 offset col-xs-.5">
 									<input class="btn btn-primary" style="width:15%!important;" name="btnSubmit" id="btnSubmit" value="Save" type="submit">
@@ -124,15 +124,12 @@ require_once('../../database/config.php');
 							$actID = $_POST['txtIdAct'];
 							$actName = $_POST['txtNameAct'];
 
-							$sql = "select Activity_ID from db_innolab.tblactivity where Activity_ID= '$actID'";
+							$sql = "SELECT ActivityID FROM ict_database.tblactivity WHERE ActivityID = '$actID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
 								header('Location: activity.php');
-								$sql = "update db_innolab.tblactivity
-								set  Activity_Name = '$actName'
-								where Activity_ID = '$actID';
-								";
+								$sql ="UPDATE ict_database.tblactivity SET ActivityName='$actName' WHERE ActivityID = '$actID'";
 								$query = mysqli_query($conn, $sql);
 								if($query)
 								{
@@ -164,16 +161,16 @@ require_once('../../database/config.php');
 							</thead>
 							<tbody>
 								<?php
-								$sql = "Select * from db_innolab.tblactivity";
+								$sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
 								$query = mysqli_query($conn,$sql);
 								while($row=mysqli_fetch_array($query)){
 									?>
 									<tr>
-										<td><a href="activity_update.php?id=	<?php echo $row['Activity_ID']?>" class="btn btn-primary"> Edit</a>
-											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="activity_delete.php?id= <?php echo $row['Activity_ID']?>" class="btn btn-danger" >Delete</a>
+										<td><a href="activity_update.php?id=	<?php echo $row['ActivityID']?>" class="btn btn-primary"> Edit</a>
+											<a name="btnDelete" onclick="return confirm('Delete Data?')" href="activity_delete.php?del= <?php echo $row['ActivityID']?>" class="btn btn-danger" >Delete</a>
 										</td>
-										<td><?php echo $row['Activity_ID']?></td>
-										<td><?php echo $row['Activity_Name']?></td>
+										<td><?php echo $row['ActivityID']?></td>
+										<td><?php echo $row['ActivityName']?></td>
 									</tr>
 									<?php
 								}

@@ -111,11 +111,14 @@ require_once('../../database/config.php');
               </div>
             </div>
           </div>
+
           <?php
           if(isset($_POST['btnSubmit']))
           {
             $locName = $_POST['txtNameLoc'];
-            $insert = "INSERT INTO db_innolab.tbllocation(Location_Name) values ('$locName');";
+            $locStatus = 1;
+            $locCtr = 0;
+            $insert = "INSERT INTO ict_database.tbllocation(LocationName, LocationCTR, LocationIsActive) values ('$locName', '$locCtr', '$locStatus')";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -135,17 +138,17 @@ require_once('../../database/config.php');
               </thead>
               <tbody>
                 <?php
-                $sql = "Select * from db_innolab.tbllocation";
+                $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
                 $query = mysqli_query($conn,$sql);
                 while($row=mysqli_fetch_array($query)){
-                
+
                   ?>
                   <tr>
-                    <td><a href="location_update.php?id=	<?php echo $row['Location_ID']?>" class="btn btn-primary"> Edit</a>
-                      <a  href="location_delete.php?del= <?php echo $row['Location_ID']?>" onclick="return confirm('Delete Data?')" class="btn btn-danger" >Delete</a>
+                    <td><a href="location_update.php?id=	<?php echo $row['LocationID']?>" class="btn btn-primary"> Edit</a>
+                      <a  href="location_delete.php?del= <?php echo $row['LocationID']?>" onclick="return confirm('Delete Data?')" class="btn btn-danger" >Delete</a>
                     </td>
-                    <td><?php echo $row['Location_ID']?></td>
-                    <td><?php echo $row['Location_Name']?></td>
+                    <td><?php echo $row['LocationID']?></td>
+                    <td><?php echo $row['LocationName']?></td>
                   </tr>
                   <?php
                 }
