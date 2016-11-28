@@ -86,7 +86,7 @@ require_once('../database/config.php');
 				<?php
 				$id = $_GET['id'];
 				if(isset($id)){
-					$sql = "SELECT * FROM ict_database.tblreports where ReportID='$id'";
+					$sql = "SELECT * FROM ict_database.tblreports WHERE ReportID='$id' AND ReportIsActive = 1";
 					$query = mysqli_query($conn,$sql);
 					$info=mysqli_fetch_array($query);
 					?>
@@ -149,7 +149,7 @@ require_once('../database/config.php');
 
 									<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
 										<?php
-										$sql = "SELECT * FROM ict_database.tbllocation";
+										$sql = "SELECT LocationName FROM ict_database.tbllocation WHERE LocationIsActive = 1";
 										$query = mysqli_query($conn, $sql);
 
 										while($row = mysqli_fetch_array($query)){
@@ -167,7 +167,7 @@ require_once('../database/config.php');
 
 									<select name="optGroupRep" class="form-control" value="<?php echo $info['ReportGroup']?>">
 										<?php
-										$sql = "SELECT * FROM ict_database.tblgroup";
+										$sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
 										$query = mysqli_query($conn, $sql);
 
 										while($row = mysqli_fetch_array($query)){
@@ -185,7 +185,7 @@ require_once('../database/config.php');
 
 									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
 										<?php
-										$sql = "SELECT * FROM ict_database.tblcategory";
+										$sql = "SELECT * FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
 										$query = mysqli_query($conn, $sql);
 
 										while($row = mysqli_fetch_array($query)){
@@ -214,7 +214,7 @@ require_once('../database/config.php');
 								<div class="form-group" style="display:flex">
 									<select name="optActRep" class="form-control" value="<?php echo $info['ReportActivity']?>">
 										<?php
-										$sql = "SELECT * FROM ict_database.tblactivity";
+										$sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
 										$query = mysqli_query($conn, $sql);
 
 										while($row = mysqli_fetch_array($query)){
@@ -266,7 +266,8 @@ require_once('../database/config.php');
 								left join ict_database.tblcategory c
 								ON r.ReportCategory = c.CategoryID
 								left join ict_database.tblactivity a
-								ON r.ReportActivity = a.ActivityID";
+								ON r.ReportActivity = a.ActivityID
+								WHERE ReportIsActive = 1";
 								$query = mysqli_query($conn, $sql);
 								while($row = mysqli_fetch_array($query)){
 									?>
@@ -308,6 +309,7 @@ require_once('../database/config.php');
 			$('#tb').DataTable();
 		} );
 		</script>
+
 	</form>
 </body>
 

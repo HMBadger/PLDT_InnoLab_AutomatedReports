@@ -120,11 +120,11 @@ require_once('../database/config.php');
             $repClient = $_POST['txtClientRep'];
             $repPic = $_POST['txtPicRep'];
             $repAct = $_POST['optActRep'];
-
+            $repIsActive = 1;
             header('Location: index.php');
 
-            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportCateg, ReportClient, ReportPerson, ReportActivity)
-            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct');";
+            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
+            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -162,7 +162,7 @@ require_once('../database/config.php');
 
               ?>
             </select>&nbsp; &nbsp;
-            <a href="maintenance/location.php" class="btn btn-primary" style="width:18%!important;">New InnoLab Branch</a>
+            <a href="maintenance/location.php" class="btn btn-primary" style="width:18%!important;">Edit Branches</a>
           </div>
 
           <label>Visitor Group</label>
@@ -184,7 +184,7 @@ require_once('../database/config.php');
 
               ?>
             </select>&nbsp; &nbsp;
-            <a href="maintenance/vgroup.php" class="btn btn-primary" style="width:18%!important;">New Visitor Group</a>
+            <a href="maintenance/vgroup.php" class="btn btn-primary" style="width:18%!important;">Edit Visitor Groups</a>
           </div>
 
           <label>Visitor Category</label>
@@ -237,7 +237,7 @@ require_once('../database/config.php');
 
               ?>
             </select>&nbsp; &nbsp;
-            <a href="maintenance/activity.php" class="btn btn-primary" style="width:18%!important;">New Activity</a>
+            <a href="maintenance/activity.php" class="btn btn-primary" style="width:18%!important;">Edit Activities</a>
           </div>
 
 

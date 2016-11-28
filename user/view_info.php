@@ -36,8 +36,8 @@ require_once('../database/config.php');
   <![endif]-->
 </head>
 <body>
-
-
+<form method="post">
+  
 
 
 
@@ -121,13 +121,14 @@ require_once('../database/config.php');
                 left join ict_database.tblcategory c
                 ON r.ReportCategory = c.CategoryID
                 left join ict_database.tblactivity a
-                ON r.ReportActivity = a.ActivityID";
+                ON r.ReportActivity = a.ActivityID
+                WHERE ReportIsActive = 1";
                 $query = mysqli_query($conn, $sql);
                 while($row = mysqli_fetch_array($query)){
                   ?>
                   <tr>
                     <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
-                      <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
+                      <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del= <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['ReportDate']?></td>
                     <td><?php echo $row['LocationName']?></td>
@@ -164,6 +165,6 @@ require_once('../database/config.php');
 
   <!-- Bootstrap Core JavaScript -->
   <script src="../js/bootstrap.min.js"></script>
-
+</form>
 </body>
 </html>
