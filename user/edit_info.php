@@ -113,11 +113,12 @@ require_once('../database/config.php');
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
-								header('Location: view_info.php');
+								
 								$sql = "update db_innolab.tblreport
-								set  ReportDate = '$repDate' ReportLoc = '$repLoc' ReportGroup = '$repGroup' 		ReportCateg = '$repCat' ReportCName = '$repClient' ReportPerson = '$repPic' ReportAct = '$repAct'
+								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', 	ReportCateg = '$repCat', ReportCName = '$repClient', ReportPerson = '$repPic', ReportAct = '$repAct'
 								where ReportID = '$repID'
 								";
+								header('Location: view_info.php');
 								$query = mysqli_query($conn, $sql);
 								if($query)
 								{
@@ -259,6 +260,35 @@ require_once('../database/config.php');
 							</tr>
 						</thead>
 						<tbody>
+						 <?php
+				require '../database/config.php';
+                $sql = "SELECT * from db_innolab.tblreport r
+                left join db_innolab.tbllocation l
+                ON r.ReportLoc =   l.Location_ID
+                left join db_innolab.tblgroup g
+                ON r.ReportGroup = g.Group_ID
+                left join db_innolab.tblcategory c
+                ON r.ReportCateg = c.Categ_ID
+                left join db_innolab.tblactivity a
+                ON r.ReportAct = a.Activity_ID";
+                $query = mysqli_query($conn, $sql);
+                while($row = mysqli_fetch_array($query)){
+                  ?>
+                  <tr>
+                    <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
+                      <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
+                    </td>
+                    <td><?php echo $row['ReportDate']?></td>
+                    <td><?php echo $row['Location_Name']?></td>
+                    <td><?php echo $row['Group_Vis']?></td>
+                    <td><?php echo $row['Categ_Name']?></td>
+                    <td><?php echo $row['ReportCName']?></td>
+                    <td><?php echo $row['ReportPerson']?></td>
+                    <td><?php echo $row['Activity_Name']?></td>
+                  </tr>
+                  <?php
+                } //while
+                ?>
 						</tbody>
 					</table>
 				</div>
