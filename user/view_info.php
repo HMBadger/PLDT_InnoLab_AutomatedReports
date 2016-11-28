@@ -111,7 +111,9 @@ require_once('../database/config.php');
                 </tr>
               </thead>
               <tbody>
+			  
                 <?php
+				require '../database/config.php';
                 $sql = "SELECT * from db_innolab.tblreport r
                 left join db_innolab.tbllocation l
                 ON r.ReportLoc =   l.Location_ID
@@ -125,7 +127,7 @@ require_once('../database/config.php');
                 while($row = mysqli_fetch_array($query)){
                   ?>
                   <tr>
-                    <td><a href="edit_info.php?eds = <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
+                    <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
                       <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
                     </td>
                     <td><?php echo $row['ReportDate']?></td>

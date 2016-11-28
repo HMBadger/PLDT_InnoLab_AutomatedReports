@@ -131,7 +131,11 @@ require_once('../database/config.php');
             }
           }
           ?>
-
+			
+			<div class="form-group">
+				<input name="txtIdRep" class="form-control" type="hidden" />
+			</div>
+			  
           <div class="form-group">
             <label>Date</label>
             <input name="txtDateRep" class="form-control" type="date">
