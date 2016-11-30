@@ -17,6 +17,7 @@ require_once('../../database/config.php');
   <link href="../../css/sb-admin.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link rel="icon" href="../../images/innolablogo.png">
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -42,7 +43,7 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">Reports</a>
+          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -52,10 +53,13 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="#">Table</a>
+                  <a href="../graphs/main_table.php">Table</a>
                 </li>
                 <li>
-                  <a href="#">Pie Graph</a>
+                  <a href="../graphs/pie_chart.php">Pie Graph</a>
+                </li>
+                <li>
+                  <a href="../graphs/bar_graph.php">Bar Graph</a>
                 </li>
               </ul>
             </li>
@@ -66,7 +70,7 @@ require_once('../../database/config.php');
                   <a href="../index.php"> Add Information</a>
                 </li>
                 <li>
-                  <a href="#">View Information </a>
+                  <a href="../view_info.php">View Information </a>
                 </li>
               </ul>
             </li>
@@ -92,8 +96,6 @@ require_once('../../database/config.php');
           </div>
           <!-- /.row -->
           <form method="post">
-
-
             <div class="container form-group" >
               <div class="row">
                 <div class="col-xs-1">

@@ -1,39 +1,30 @@
 <?php
 require_once('../database/config.php');
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">
 	<meta name="author" content="">
-
 	<title>Reports</title>
-
 	<!-- Bootstrap Core CSS -->
 	<link href="../css/bootstrap.min.css" rel="stylesheet">
-
 	<!-- Custom CSS -->
 	<link href="../css/sb-admin.css" rel="stylesheet">
-
 	<!-- Custom Fonts -->
 	<link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
 	<link href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet">
+	<link rel="icon" href="../images/innolablogo.png">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
 </head>
-
 <body>
 	<form method="post">
 		<div id="wrapper">
@@ -47,7 +38,7 @@ require_once('../database/config.php');
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="../index.php">Reports</a>
+					<a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
 				</div>
 				<!-- Top Menu Items -->
 				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -57,11 +48,14 @@ require_once('../database/config.php');
 							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="demo" class="collapse">
 								<li>
-									<a href="#">Table</a>
-								</li>
-								<li>
-									<a href="#">Pie Graph</a>
-								</li>
+	                <a href="graphs/main_table.php">Table</a>
+	              </li>
+	              <li>
+	                <a href="graphs/pie_chart.php">Pie Graph</a>
+	              </li>
+	              <li>
+	                <a href="graphs/bar_graph.php">Bar Graph</a>
+	              </li>
 							</ul>
 						</li>
 						<li>
@@ -71,7 +65,7 @@ require_once('../database/config.php');
 									<a href="index.php"> Add Information</a>
 								</li>
 								<li>
-									<a href="#">View Information </a>
+									<a href="view_info.php">View Information </a>
 								</li>
 							</ul>
 						</li>
@@ -79,10 +73,7 @@ require_once('../database/config.php');
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
-
 			<div id="page-wrapper">
-
-
 				<?php
 				$id = $_GET['id'];
 				if(isset($id)){
@@ -91,11 +82,9 @@ require_once('../database/config.php');
 					$info=mysqli_fetch_array($query);
 					?>
 					<div class="container-fluid">
-
 						<?php
 						if(isset($_POST['btnSubmit']))
 						{
-
 							$repID = $_POST['txtIdRep'];
 							$repDate = $_POST['txtDateRep'];
 							$repLoc = $_POST['optLocRep'];
@@ -104,12 +93,10 @@ require_once('../database/config.php');
 							$repClient = $_POST['txtClientRep'];
 							$repPic = $_POST['txtPicRep'];
 							$repAct = $_POST['optActRep'];
-
 							$sql = "SELECT ReportID from ict_database.tblreports where ReportID= '$repID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
 							{
-
 								$sql = "UPDATE ict_database.tblreports
 								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', 	ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
 								where ReportID = '$repID'
@@ -125,9 +112,7 @@ require_once('../database/config.php');
 									$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
 								}
 							}
-
 						}
-
 						?>
 						<div class="row">
 							<div class="col-md-6">
@@ -136,22 +121,18 @@ require_once('../database/config.php');
 									<input name="txtIdRep" class="form-control" type="hidden"
 									value="<?php echo $info['ReportID']?>" />
 								</div>
-
 								<!--Date-->
 								<div class="form-group">
 									<label>Date</label>
 									<input name="txtDateRep" class="form-control" type="date" value="<?php echo $info['ReportDate']?>" />
 								</div>
-
 								<!--Location-->
 								<label>Location</label><br />
 								<div class="form-group" style="display:flex">
-
 									<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
 										<?php
 										$sql = "SELECT LocationName FROM ict_database.tbllocation WHERE LocationIsActive = 1";
 										$query = mysqli_query($conn, $sql);
-
 										while($row = mysqli_fetch_array($query)){
 											$loc_id = $row['LocationID'];
 											$loc_name = $row['LocationName'];
@@ -160,16 +141,13 @@ require_once('../database/config.php');
 										?>
 									</select>
 								</div>
-
 								<!--Visitor-->
 								<label>Visitor Group</label><br />
 								<div class="form-group" style="display:flex">
-
 									<select name="optGroupRep" class="form-control" value="<?php echo $info['ReportGroup']?>">
 										<?php
 										$sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
 										$query = mysqli_query($conn, $sql);
-
 										while($row = mysqli_fetch_array($query)){
 											$grp_id = $row['GroupID'];
 											$grp_name = $row['GroupName'];
@@ -178,16 +156,13 @@ require_once('../database/config.php');
 										?>
 									</select>
 								</div>
-
 								<!--Category-->
 								<label>Visitor Category</label><br />
 								<div class="form-group" style="display:flex">
-
 									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
 										<?php
 										$sql = "SELECT * FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
 										$query = mysqli_query($conn, $sql);
-
 										while($row = mysqli_fetch_array($query)){
 											$cat_id = $row['CategoryID'];
 											$cat_name = $row['CategoryName'];
@@ -197,7 +172,6 @@ require_once('../database/config.php');
 									</select>
 								</div>
 							</div>
-
 							<div class="col-md-6"><br>
 								<!--Client-->
 								<div class="form-group">
@@ -216,7 +190,6 @@ require_once('../database/config.php');
 										<?php
 										$sql = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
 										$query = mysqli_query($conn, $sql);
-
 										while($row = mysqli_fetch_array($query)){
 											$act_id = $row['ActivityID'];
 											$act_name = $row['ActivityName'];
@@ -225,22 +198,15 @@ require_once('../database/config.php');
 										?>
 									</select>
 								</div>
-
-
-
 							</div>
 							<center><input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="SAVE"></center>
 						</div>
-
-
 						<?php
 					}
 					else{
 						echo "<script>location.href='view_info.php'</script>";
 					}
 					?>
-
-
 					<div class="table-responsive">
 						<table id="tb" class="table table-striped table-bordered">
 							<thead>
@@ -300,10 +266,8 @@ require_once('../database/config.php');
 
 		<!-- Bootstrap Core JavaScript -->
 		<script src="../js/bootstrap.min.js"></script>
-
 		<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 		<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-
 		<script>
 		$(document).ready(function() {
 			$('#tb').DataTable();

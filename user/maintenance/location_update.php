@@ -16,6 +16,7 @@ require_once('../../database/config.php');
 	<link href="../../css/sb-admin.css" rel="stylesheet">
 	<!-- Custom Fonts -->
 	<link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="icon" href="../../images/innolablogo.png">
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
@@ -41,7 +42,7 @@ require_once('../../database/config.php');
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="../index.php">Reports</a>
+					<a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
 				</div>
 				<!-- Top Menu Items -->
 				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -51,21 +52,24 @@ require_once('../../database/config.php');
 							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="demo" class="collapse">
 								<li>
-									<a href="#">Table</a>
-								</li>
-								<li>
-									<a href="#">Pie Graph</a>
-								</li>
+	                <a href="../graphs/main_table.php">Table</a>
+	              </li>
+	              <li>
+	                <a href="../graphs/pie_chart.php">Pie Graph</a>
+	              </li>
+	              <li>
+	                <a href="../graphs/bar_graph.php">Bar Graph</a>
+	              </li>
 							</ul>
 						</li>
 						<li>
 							<a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="main" class="collapse">
 								<li>
-									<a href="../index.php"> Add Information</a>
+									<a href="../index.php">Add Information</a>
 								</li>
 								<li>
-									<a href="#">View Information </a>
+									<a href="../view_info.php">View Information</a>
 								</li>
 							</ul>
 						</li>
@@ -120,11 +124,8 @@ require_once('../../database/config.php');
 						<?php
 						if(isset($_POST['btnSubmit']))
 						{
-
 							$locID = $_POST['txtIdLoc'];
 							$locName = $_POST['txtNameLoc'];
-
-
 							$sql = "SELECT LocationID from ict_database.tbllocation where LocationID= '$locID'";
 							$query = mysqli_query($conn, $sql);
 							if(mysqli_num_rows($query) > 0)
@@ -143,11 +144,7 @@ require_once('../../database/config.php');
 							}
 
 						}
-
 						?>
-
-
-
 						<?php
 					}
 					else{
