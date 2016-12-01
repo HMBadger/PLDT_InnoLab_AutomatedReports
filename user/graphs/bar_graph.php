@@ -1,9 +1,8 @@
 <?php
 require_once('../../database/config.php');
-require_once '../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php';
-require_once '../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel2007.php';
-require_once '../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
-
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel2007.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
 /** Error reporting */
 error_reporting(E_ALL);
 ini_set('display_errors', TRUE);
