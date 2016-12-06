@@ -74,14 +74,15 @@ require_once('../database/config.php');
 				<!-- /.navbar-collapse -->
 			</nav>
 			<div id="page-wrapper">
-				<?php
-				$id = $_GET['id'];
-				if(isset($id)){
-					$sql = "SELECT * FROM ict_database.tblreports WHERE ReportID='$id' AND ReportIsActive = 1";
-					$query = mysqli_query($conn,$sql);
-					$info=mysqli_fetch_array($query);
-					?>
+					<?php
+					$id = $_GET['id'];
+					if(isset($id)){
+						$sql = "SELECT * FROM ict_database.tblreports WHERE ReportID='$id' AND ReportIsActive = 1";
+						$query = mysqli_query($conn,$sql);
+						$info=mysqli_fetch_array($query);
+						?>
 					<div class="container-fluid">
+					
 						<?php
 						if(isset($_POST['btnSubmit']))
 						{
@@ -94,14 +95,15 @@ require_once('../database/config.php');
 							$repClient = $_POST['txtClientRep'];
 							$repPic = $_POST['txtPicRep'];
 							$repAct = $_POST['optActRep'];
+							
 							$sql = "SELECT ReportID from ict_database.tblreports where ReportID= '$repID'";
 							$query = mysqli_query($conn, $sql);
+							
 							if(mysqli_num_rows($query) > 0)
 							{
 								$sql = "UPDATE ict_database.tblreports
 								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', ReportVisitor = '$repVisit', ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
-								where ReportID = '$repID'
-								";
+								where ReportID = '$repID'";
 								header('Location: view_info.php');
 								$query = mysqli_query($conn, $sql);
 								if($query)
@@ -130,9 +132,9 @@ require_once('../database/config.php');
 								<!--Location-->
 								<label>Location</label><br />
 								<div class="form-group" style="display:flex">
-									<select name="optLocRep" class="form-control" value="<?php echo $info['LocationID']?>">
+									<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
 										<?php
-										$sql = "SELECT LocationName FROM ict_database.tbllocation WHERE LocationIsActive = 1";
+										$sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
 										$query = mysqli_query($conn, $sql);
 										while($row = mysqli_fetch_array($query)){
 											$loc_id = $row['LocationID'];
@@ -176,7 +178,7 @@ require_once('../database/config.php');
 								<!--Category-->
 								<label>Category</label><br />
 								<div class="form-group" style="display:flex">
-									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
+									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCategory']?>">
 										<?php
 										$sql = "SELECT * FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
 										$query = mysqli_query($conn, $sql);
