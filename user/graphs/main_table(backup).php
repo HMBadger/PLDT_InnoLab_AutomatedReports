@@ -99,7 +99,8 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
           </div>
           <div class="row">
             <div class="col-md-12">
-              <input type="submit" name="genExcel">Generate Excel File(.xls)</a>
+              <a href="excel_config.php">Generate Excel File(.xls)</a>
+              <input type="submit" value="Generate" name="btnGen"/>
             </div>
           </div>
           <div class="row">
@@ -123,7 +124,7 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                     if(isset($_POST['btnGenReport'])){
                       $dateFrom = mysqli_real_escape_string($conn, $_POST['txtDateFrom']);
                       $dateTo = mysqli_real_escape_string($conn, $_POST['txtDateTo']);
-                      $sql = "SELECT * FROM ict_database.tblreports r
+                      $GLOBALS['esql'] = "SELECT * FROM ict_database.tblreports r
                       left join ict_database.tbllocation l
                       ON r.ReportLoc =   l.LocationID
                       left join ict_database.tblgroup g
@@ -135,7 +136,7 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                       left join ict_database.tblactivity a
                       ON r.ReportActivity = a.ActivityID
                       WHERE ReportIsActive = 1 AND ReportDate BETWEEN '$dateFrom' and '$dateTo'";
-                      $query = mysqli_query($conn, $sql);
+                      $GLOBALS['query'] = mysqli_query($conn, $esql);
                       while($row = mysqli_fetch_array($query)){
                         ?>
                         <tr>
@@ -151,25 +152,6 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                         <?php
                       } //while
                     }//genReport
-                    if(isset($_POST['genExcel'])){
-                      $objPHPExcel = new PHPExcel();
-                      $excelCol = 0;
-                      $excelRow = 1;
-                      while($exrow = mysqli_fetch_assoc($query)){
-                        foreach($exrow as $key=>$value){
-                          $objPHPExcel->getActiveSheet()->setCellValue("A1" .$row, $mrow['ReportDate']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("B1" . $row, $mrow['LocationName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("C1" . $row, $mrow['GroupName']);
-                          $objPHPExcel->getActiveSheet()->setCellValue("D1" . $row, $mrow['VisitorName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("E1" . $row, $mrow['CategoryName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("F1" . $row, $mrow['ReportClient']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("G1" . $row, $mrow['ReportPerson']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("H1" . $row, $mrow['ActivityName']);
-                      		$excelcol++;
-                        }//foreachs
-                        	$excelRow++;
-                      }//genWhile
-                    }//genExcel
                     ?>
                   </tbody>
                 </table>
@@ -193,6 +175,13 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
   $(document).ready(function() {
     $('#tabreport').DataTable();
   } );
+  </script>
+  <script>
+  function generateFile(){
+    <?php
+
+     ?>
+  }
   </script>
 </div>
 </body>
