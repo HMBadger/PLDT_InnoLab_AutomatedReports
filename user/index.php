@@ -155,7 +155,7 @@ require_once('../database/config.php');
           </div>
           <label>Visitor Category</label>
           <div class="form-group" style="display:flex">
-            <select name="optVisitCateg" class="form-control" style="width:80%!important;">
+            <select name="optVisitCateg" class="form-control" >
             <?php
             $sql = "SELECT * FROM ict_database.tblvisitors WHERE VisitorIsActive = 1";
             $query = mysqli_query($conn, $sql);
