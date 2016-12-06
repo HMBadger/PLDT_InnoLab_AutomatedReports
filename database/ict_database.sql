@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.5.1
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 28, 2016 at 06:34 AM
--- Server version: 5.7.11
--- PHP Version: 5.6.19
+-- Generation Time: Dec 06, 2016 at 02:26 AM
+-- Server version: 5.7.14
+-- PHP Version: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -38,10 +38,10 @@ CREATE TABLE `tblactivity` (
 --
 
 INSERT INTO `tblactivity` (`ActivityID`, `ActivityName`, `ActivityCTR`, `ActivityIsActive`) VALUES
-(1, 'Tour', 0, 1),
-(2, 'Meeting', 0, 1),
+(1, 'Tour', 10, 1),
+(2, 'Meeting', 17, 1),
 (3, 'Training', 0, 0),
-(4, 'Educational Tour', 0, 1),
+(4, 'Educational Tour', 9, 1),
 (5, 'To', 0, 0);
 
 -- --------------------------------------------------------
@@ -62,8 +62,8 @@ CREATE TABLE `tblcategory` (
 --
 
 INSERT INTO `tblcategory` (`CategoryID`, `CategoryName`, `CategoryCTR`, `CategoryIsActive`) VALUES
-(1, 'Revenue', 0, 1),
-(2, 'Non-Revenue', 0, 1);
+(1, 'Revenue', 56, 1),
+(2, 'Non-Revenue', 23, 1);
 
 -- --------------------------------------------------------
 
@@ -84,9 +84,9 @@ CREATE TABLE `tblgroup` (
 
 INSERT INTO `tblgroup` (`GroupID`, `GroupName`, `GroupCTR`, `GroupIsActive`) VALUES
 (1, 'PLDT Alphanet', 0, 0),
-(2, 'PLDT GlobalNation', 0, 1),
+(2, 'PLDT GlobalNation', 12, 1),
 (3, 'Digital', 0, 0),
-(4, 'Globe', 0, 1),
+(4, 'Globe', 22, 1),
 (5, 'He he he', 0, 0);
 
 -- --------------------------------------------------------
@@ -107,11 +107,13 @@ CREATE TABLE `tbllocation` (
 --
 
 INSERT INTO `tbllocation` (`LocationID`, `LocationName`, `LocationCTR`, `LocationIsActive`) VALUES
-(1, 'Manila', 0, 1),
-(2, 'Mindanao', 0, 1),
-(3, 'Clark', 0, 0),
+(1, 'Manila', 12, 1),
+(2, 'Mindanao', 11, 1),
+(3, 'Clark', 5, 1),
 (8, 'Visayas', 0, 0),
-(9, 'Boni InnoLab', 0, 1);
+(9, 'Boni InnoLab', 0, 0),
+(11, 'Mandaluyong City', 0, 0),
+(12, 'Makati City', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -138,7 +140,7 @@ CREATE TABLE `tblreports` (
 INSERT INTO `tblreports` (`ReportID`, `ReportDate`, `ReportLoc`, `ReportGroup`, `ReportCategory`, `ReportClient`, `ReportPerson`, `ReportActivity`, `ReportIsActive`) VALUES
 (1, '2016-11-27', 1, 3, 1, 'PLDT Alpha Enterprise', 'Camille Escobar', 1, 1),
 (2, '2016-11-30', 2, 2, 2, 'Cisco Training', 'Cam Escobar', 1, 1),
-(3, '2016-12-03', 9, 4, 2, 'Globe Hackathon', 'Tom and Jerry', 2, 1);
+(3, '2016-12-03', 9, 4, 2, 'Globe Hackathon', 'Tom and Jerry', 2, 0);
 
 --
 -- Indexes for dumped tables
@@ -201,7 +203,7 @@ ALTER TABLE `tblgroup`
 -- AUTO_INCREMENT for table `tbllocation`
 --
 ALTER TABLE `tbllocation`
-  MODIFY `LocationID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `LocationID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `tblreports`
 --
