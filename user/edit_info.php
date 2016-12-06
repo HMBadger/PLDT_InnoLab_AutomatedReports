@@ -129,7 +129,7 @@ require_once('../database/config.php');
 								<!--Location-->
 								<label>Location</label><br />
 								<div class="form-group" style="display:flex">
-									<select name="optLocRep" class="form-control" value="<?php echo $info['ReportLoc']?>">
+									<select name="optLocRep" class="form-control" value="<?php echo $info['LocationID']?>">
 										<?php
 										$sql = "SELECT LocationName FROM ict_database.tbllocation WHERE LocationIsActive = 1";
 										$query = mysqli_query($conn, $sql);

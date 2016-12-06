@@ -54,6 +54,7 @@ $objPHPExcel -> getActiveSheet() -> getColumnDimension("D") -> setAutoSize(true)
 $objPHPExcel -> getActiveSheet() -> getColumnDimension("E") -> setAutoSize(true);
 $objPHPExcel -> getActiveSheet() -> getColumnDimension("F") -> setAutoSize(true);
 $objPHPExcel -> getActiveSheet() -> getColumnDimension("G") -> setAutoSize(true);
+
 while($mrow = mysqli_fetch_assoc($res)) {
 	$col = 0;
 	foreach($mrow as $key=>$value) {
