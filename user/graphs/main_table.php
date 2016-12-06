@@ -1,5 +1,8 @@
 <?php
 require_once('../../database/config.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel2007.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
 ?>
 <!DOCTYPE HTML>
 <html lang ="en">
@@ -96,6 +99,11 @@ require_once('../../database/config.php');
           </div>
           <div class="row">
             <div class="col-md-12">
+              <a href="excel_config.php" name="genExcel">Generate Excel File(.xls)</a>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
               <div class="table-responsive">
                 <table id="tabreport" class="table table-striped table-bordered">
                   <thead>
@@ -140,7 +148,25 @@ require_once('../../database/config.php');
                         </tr>
                         <?php
                       } //while
-                    }//if
+                    }//genReport
+                    if(isset($_POST['genExcel'])){
+                      $objPHPExcel = new PHPExcel();
+                      $excelCol = 0;
+                      $excelRow = 1;
+                      while($exrow = mysqli_fetch_assoc($query)){
+                        foreach($exrow as $key=>$value){
+                          $objPHPExcel->getActiveSheet()->setCellValue("A1" .$row, $mrow['ReportDate']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("B1" . $row, $mrow['LocationName']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("C1" . $row, $mrow['GroupName']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("D1" . $row, $mrow['CategoryName']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("E1" . $row, $mrow['ReportClient']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("F1" . $row, $mrow['ReportPerson']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("G1" . $row, $mrow['ActivityName']);
+                      		$col++;
+                        }//foreach
+                        	$row++;
+                      }//genWhile
+                    }//genExcel
                     ?>
                   </tbody>
                 </table>
