@@ -89,6 +89,7 @@ require_once('../database/config.php');
 							$repDate = $_POST['txtDateRep'];
 							$repLoc = $_POST['optLocRep'];
 							$repGroup = $_POST['optGroupRep'];
+							$repVisit = $_POST['optVisitCateg'];
 							$repCat = $_POST['optCatRep'];
 							$repClient = $_POST['txtClientRep'];
 							$repPic = $_POST['txtPicRep'];
@@ -98,7 +99,7 @@ require_once('../database/config.php');
 							if(mysqli_num_rows($query) > 0)
 							{
 								$sql = "UPDATE ict_database.tblreports
-								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', 	ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
+								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', ReportVisitor = '$repVisit', ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
 								where ReportID = '$repID'
 								";
 								header('Location: view_info.php');
@@ -156,8 +157,24 @@ require_once('../database/config.php');
 										?>
 									</select>
 								</div>
-								<!--Category-->
+								<!--Visitor Category-->
 								<label>Visitor Category</label><br />
+								<div class="form-group" style="display:flex">
+									 <select name="optVisitCateg" class="form-control" value="<?php echo $info['ReportVisitor']?>" >
+										<?php
+										$sql = "SELECT * FROM ict_database.tblvisitors WHERE VisitorIsActive = 1";
+										$query = mysqli_query($conn, $sql);
+										while($row = mysqli_fetch_array($query))
+										{
+										  $vis_id = $row['VisitorID'];
+										  $vis_name = $row['VisitorName'];
+										  echo "<option value = \"$vis_id\">$vis_name</option>";
+										}
+										?></select>&nbsp; &nbsp;
+								</div>
+								
+								<!--Category-->
+								<label>Category</label><br />
 								<div class="form-group" style="display:flex">
 									<select name="optCatRep" class="form-control" value="<?php echo $info['ReportCateg']?>">
 										<?php
@@ -216,6 +233,7 @@ require_once('../database/config.php');
 									<th>Location</th>
 									<th>Visitor Group</th>
 									<th>Visit Category</th>
+									<th>Category</th>
 									<th>Client Name/Event</th>
 									<th>Person In Charge</th>
 									<th>Activity</th>
@@ -223,31 +241,33 @@ require_once('../database/config.php');
 							</thead>
 							<tbody>
 								<?php
-								require '../database/config.php';
-								$sql = "SELECT * FROM ict_database.tblreports r
-								left join ict_database.tbllocation l
-								ON r.ReportLoc =   l.LocationID
-								left join ict_database.tblgroup g
-								ON r.ReportGroup = g.GroupID
-								left join ict_database.tblcategory c
-								ON r.ReportCategory = c.CategoryID
-								left join ict_database.tblactivity a
-								ON r.ReportActivity = a.ActivityID
-								WHERE ReportIsActive = 1";
-								$query = mysqli_query($conn, $sql);
-								while($row = mysqli_fetch_array($query)){
+								  $sql = "SELECT * FROM ict_database.tblreports r
+								  left join ict_database.tbllocation l
+								  ON r.ReportLoc =   l.LocationID
+								  left join ict_database.tblgroup g
+								  ON r.ReportGroup = g.GroupID
+								  left join ict_database.tblvisitors v
+								  ON r.ReportVisitor = v.VisitorID
+								  left join ict_database.tblcategory c
+								  ON r.ReportCategory = c.CategoryID
+								  left join ict_database.tblactivity a
+								  ON r.ReportActivity = a.ActivityID
+								  WHERE ReportIsActive = 1";
+								  $query = mysqli_query($conn, $sql);
+								  while($row = mysqli_fetch_array($query)){
 									?>
 									<tr>
 										<td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
 											<a  onclick="return confirm('Delete Data?')" href="delete_report.php?del = <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
 										</td>
-										<td><?php echo $row['ReportDate']?></td>
-										<td><?php echo $row['LocationName']?></td>
-										<td><?php echo $row['GroupName']?></td>
-										<td><?php echo $row['CategoryName']?></td>
-										<td><?php echo $row['ReportClient']?></td>
-										<td><?php echo $row['ReportPerson']?></td>
-										<td><?php echo $row['ActivityName']?></td>
+										 <td><?php echo $row['ReportDate']?></td>
+										  <td><?php echo $row['LocationName']?></td>
+										  <td><?php echo $row['GroupName']?></td>
+										  <td><?php echo $row['VisitorName']?></td>
+										  <td><?php echo $row['CategoryName']?></td>
+										  <td><?php echo $row['ReportClient']?></td>
+										  <td><?php echo $row['ReportPerson']?></td>
+										  <td><?php echo $row['ActivityName']?></td>
 									</tr>
 									<?php
 								} //while
