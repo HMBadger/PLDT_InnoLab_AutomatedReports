@@ -1,8 +1,6 @@
 <?php
 require_once('../../database/config.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel2007.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
+
 ?>
 <!DOCTYPE HTML>
 <html lang ="en">
@@ -28,6 +26,7 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
   <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
+
 </head>
 <body>
   <div id="wrapper">
@@ -98,10 +97,11 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
             </div>
           </div>
           <div class="row">
-            <div class="col-md-12">
-              <input type="submit" name="genExcel">Generate Excel File(.xls)</a>
-            </div>
+           <input type="button" onclick="tableToExcel('tabreport')" value="Export to Excel">
           </div>
+		
+		
+		  
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
@@ -151,25 +151,7 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                         <?php
                       } //while
                     }//genReport
-                    if(isset($_POST['genExcel'])){
-                      $objPHPExcel = new PHPExcel();
-                      $excelCol = 0;
-                      $excelRow = 1;
-                      while($exrow = mysqli_fetch_assoc($query)){
-                        foreach($exrow as $key=>$value){
-                          $objPHPExcel->getActiveSheet()->setCellValue("A1" .$row, $mrow['ReportDate']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("B1" . $row, $mrow['LocationName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("C1" . $row, $mrow['GroupName']);
-                          $objPHPExcel->getActiveSheet()->setCellValue("D1" . $row, $mrow['VisitorName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("E1" . $row, $mrow['CategoryName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("F1" . $row, $mrow['ReportClient']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("G1" . $row, $mrow['ReportPerson']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("H1" . $row, $mrow['ActivityName']);
-                      		$excelcol++;
-                        }//foreachs
-                        	$excelRow++;
-                      }//genWhile
-                    }//genExcel
+                  
                     ?>
                   </tbody>
                 </table>
@@ -194,6 +176,27 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
     $('#tabreport').DataTable();
   } );
   </script>
+  
+
+
+<script type="text/javascript">
+var tableToExcel = (function() {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
+    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
+    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+  return function(table, name) {
+    if (!table.nodeType) table = document.getElementById(table)
+    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
+    window.location.href = uri + base64(format(template, ctx))
+  }
+})()
+</script>
+
+  </script>
+  
+  
+
 </div>
 </body>
 </html>
