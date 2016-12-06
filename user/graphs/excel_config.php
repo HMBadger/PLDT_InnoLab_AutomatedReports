@@ -22,7 +22,9 @@ left join ict_database.tblcategory c
 ON r.ReportCategory = c.CategoryID
 left join ict_database.tblactivity a
 ON r.ReportActivity = a.ActivityID
-WHERE ReportIsActive = 1";
+WHERE ReportIsActive = 1
+AND ReportDate BETWEEN '$dateFrom' and '$dateTo'
+";
 $res= mysqli_query($conn, $sql);
 
 /** Error reporting */

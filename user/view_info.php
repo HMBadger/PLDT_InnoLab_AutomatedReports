@@ -49,13 +49,13 @@ require_once('../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="../graphs/main_table.php">Table</a>
+                  <a href="graphs/main_table.php">Table</a>
                 </li>
                 <li>
-                  <a href="../graphs/pie_chart.php">Pie Graph</a>
+                  <a href="graphs/pie_chart.php">Pie Graph</a>
                 </li>
                 <li>
-                  <a href="../graphs/bar_graph.php">Bar Graph</a>
+                  <a href="graphs/bar_graph.php">Bar Graph</a>
                 </li>
               </ul>
             </li>
