@@ -85,7 +85,8 @@ require_once('../database/config.php');
                     <th>Reservation Date</th>
                     <th>Location</th>
                     <th>Visitor Group</th>
-                    <th>Visit Category</th>
+                    <th>Visitor Category</th>
+                    <th>Category</th>
                     <th>Client Name/Event</th>
                     <th>Person In Charge</th>
                     <th>Activity</th>
@@ -98,6 +99,8 @@ require_once('../database/config.php');
                   ON r.ReportLoc =   l.LocationID
                   left join ict_database.tblgroup g
                   ON r.ReportGroup = g.GroupID
+                  left join ict_database.tblvisitors v
+                  ON r.ReportVisitor = v.VisitorID
                   left join ict_database.tblcategory c
                   ON r.ReportCategory = c.CategoryID
                   left join ict_database.tblactivity a
@@ -113,6 +116,7 @@ require_once('../database/config.php');
                       <td><?php echo $row['ReportDate']?></td>
                       <td><?php echo $row['LocationName']?></td>
                       <td><?php echo $row['GroupName']?></td>
+                      <td><?php echo $row['VisitorName']?></td>
                       <td><?php echo $row['CategoryName']?></td>
                       <td><?php echo $row['ReportClient']?></td>
                       <td><?php echo $row['ReportPerson']?></td>

@@ -99,7 +99,7 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
           </div>
           <div class="row">
             <div class="col-md-12">
-              <a href="excel_config.php" name="genExcel">Generate Excel File(.xls)</a>
+              <input type="submit" name="genExcel">Generate Excel File(.xls)</a>
             </div>
           </div>
           <div class="row">
@@ -111,7 +111,8 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                       <th>Reservation Date</th>
                       <th>Location</th>
                       <th>Visitor Group</th>
-                      <th>Visit Category</th>
+                      <th>Visitor Category</th>
+                      <th>Category</th>
                       <th>Client Name/Event</th>
                       <th>Person In Charge</th>
                       <th>Activity</th>
@@ -127,20 +128,21 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                       ON r.ReportLoc =   l.LocationID
                       left join ict_database.tblgroup g
                       ON r.ReportGroup = g.GroupID
+                      left join ict_database.tblvisitors v
+                      ON r.ReportVisitor = v.VisitorID
                       left join ict_database.tblcategory c
                       ON r.ReportCategory = c.CategoryID
                       left join ict_database.tblactivity a
                       ON r.ReportActivity = a.ActivityID
                       WHERE ReportIsActive = 1 AND ReportDate BETWEEN '$dateFrom' and '$dateTo'";
-
                       $query = mysqli_query($conn, $sql);
-
                       while($row = mysqli_fetch_array($query)){
                         ?>
                         <tr>
                           <td><?php echo date('F d, Y',strtotime($row['ReportDate']))?></td>
                           <td><?php echo $row['LocationName']?></td>
                           <td><?php echo $row['GroupName']?></td>
+                          <td><?php echo $row['VisitorName']?></td>
                           <td><?php echo $row['CategoryName']?></td>
                           <td><?php echo $row['ReportClient']?></td>
                           <td><?php echo $row['ReportPerson']?></td>
@@ -158,13 +160,14 @@ require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
                           $objPHPExcel->getActiveSheet()->setCellValue("A1" .$row, $mrow['ReportDate']);
                       		$objPHPExcel->getActiveSheet()->setCellValue("B1" . $row, $mrow['LocationName']);
                       		$objPHPExcel->getActiveSheet()->setCellValue("C1" . $row, $mrow['GroupName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("D1" . $row, $mrow['CategoryName']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("E1" . $row, $mrow['ReportClient']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("F1" . $row, $mrow['ReportPerson']);
-                      		$objPHPExcel->getActiveSheet()->setCellValue("G1" . $row, $mrow['ActivityName']);
-                      		$col++;
-                        }//foreach
-                        	$row++;
+                          $objPHPExcel->getActiveSheet()->setCellValue("D1" . $row, $mrow['VisitorName']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("E1" . $row, $mrow['CategoryName']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("F1" . $row, $mrow['ReportClient']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("G1" . $row, $mrow['ReportPerson']);
+                      		$objPHPExcel->getActiveSheet()->setCellValue("H1" . $row, $mrow['ActivityName']);
+                      		$excelcol++;
+                        }//foreachs
+                        	$excelRow++;
                       }//genWhile
                     }//genExcel
                     ?>

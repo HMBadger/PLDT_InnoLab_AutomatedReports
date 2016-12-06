@@ -96,14 +96,15 @@ require_once('../database/config.php');
             $repDate = $_POST['txtDateRep'];
             $repLoc = $_POST['optLocRep'];
             $repGroup = $_POST['optGroupRep'];
+            $repVisit = $_POST['optVisitCateg'];
             $repCat = $_POST['optCatRep'];
             $repClient = $_POST['txtClientRep'];
             $repPic = $_POST['txtPicRep'];
             $repAct = $_POST['optActRep'];
             $repIsActive = 1;
             header('Location: index.php');
-            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
-            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive');";
+            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportVisitor, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
+            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repVisit', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -153,6 +154,20 @@ require_once('../database/config.php');
             <a href="maintenance/vgroup.php" class="btn btn-primary" style="width:18%!important;">Edit Visitor Groups</a>
           </div>
           <label>Visitor Category</label>
+          <div class="form-group" style="display:flex">
+            <select name="optVisitCateg" class="form-control" style="width:80%!important;">
+            <?php
+            $sql = "SELECT * FROM ict_database.tblvisitors WHERE VisitorIsActive = 1";
+            $query = mysqli_query($conn, $sql);
+            while($row = mysqli_fetch_array($query))
+            {
+              $vis_id = $row['VisitorID'];
+              $vis_name = $row['VisitorName'];
+              echo "<option value = \"$vis_id\">$vis_name</option>";
+            }
+            ?></select>&nbsp; &nbsp;
+          </div>
+          <label>Category</label>
           <div class="form-group" >
             <select name="optCatRep" class="form-control">
               <?php
