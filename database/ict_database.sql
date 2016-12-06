@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.5.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2016 at 02:26 AM
--- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- Generation Time: Dec 06, 2016 at 02:50 AM
+-- Server version: 5.7.11
+-- PHP Version: 5.6.19
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -126,6 +126,7 @@ CREATE TABLE `tblreports` (
   `ReportDate` date NOT NULL,
   `ReportLoc` int(20) NOT NULL,
   `ReportGroup` int(20) NOT NULL,
+  `ReportVisitor` int(20) NOT NULL,
   `ReportCategory` int(20) NOT NULL,
   `ReportClient` varchar(50) NOT NULL,
   `ReportPerson` varchar(50) NOT NULL,
@@ -137,10 +138,31 @@ CREATE TABLE `tblreports` (
 -- Dumping data for table `tblreports`
 --
 
-INSERT INTO `tblreports` (`ReportID`, `ReportDate`, `ReportLoc`, `ReportGroup`, `ReportCategory`, `ReportClient`, `ReportPerson`, `ReportActivity`, `ReportIsActive`) VALUES
-(1, '2016-11-27', 1, 3, 1, 'PLDT Alpha Enterprise', 'Camille Escobar', 1, 1),
-(2, '2016-11-30', 2, 2, 2, 'Cisco Training', 'Cam Escobar', 1, 1),
-(3, '2016-12-03', 9, 4, 2, 'Globe Hackathon', 'Tom and Jerry', 2, 0);
+INSERT INTO `tblreports` (`ReportID`, `ReportDate`, `ReportLoc`, `ReportGroup`, `ReportVisitor`, `ReportCategory`, `ReportClient`, `ReportPerson`, `ReportActivity`, `ReportIsActive`) VALUES
+(1, '2016-11-27', 1, 3, 1, 1, 'PLDT Alpha Enterprise', 'Camille Escobar', 1, 1),
+(2, '2016-11-30', 2, 2, 1, 2, 'Cisco Training', 'Cam Escobar', 1, 1),
+(3, '2016-12-03', 9, 4, 2, 2, 'Globe Hackathon', 'Tom and Jerry', 2, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tblvisitors`
+--
+
+CREATE TABLE `tblvisitors` (
+  `VisitorID` int(20) NOT NULL,
+  `VisitorName` varchar(50) NOT NULL,
+  `VisitorCTR` int(20) NOT NULL,
+  `VisitorIsActive` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `tblvisitors`
+--
+
+INSERT INTO `tblvisitors` (`VisitorID`, `VisitorName`, `VisitorCTR`, `VisitorIsActive`) VALUES
+(1, 'Client', 19, 1),
+(2, 'Internal', 12, 1);
 
 --
 -- Indexes for dumped tables
@@ -178,7 +200,15 @@ ALTER TABLE `tblreports`
   ADD KEY `ReportLocation` (`ReportLoc`,`ReportGroup`,`ReportCategory`,`ReportActivity`),
   ADD KEY `fk_activity_id` (`ReportActivity`),
   ADD KEY `fk_category_id` (`ReportCategory`),
-  ADD KEY `fk_group_id` (`ReportGroup`);
+  ADD KEY `fk_group_id` (`ReportGroup`),
+  ADD KEY `ReportVisitor` (`ReportVisitor`),
+  ADD KEY `ReportVisitor_2` (`ReportVisitor`);
+
+--
+-- Indexes for table `tblvisitors`
+--
+ALTER TABLE `tblvisitors`
+  ADD PRIMARY KEY (`VisitorID`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -210,6 +240,11 @@ ALTER TABLE `tbllocation`
 ALTER TABLE `tblreports`
   MODIFY `ReportID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
+-- AUTO_INCREMENT for table `tblvisitors`
+--
+ALTER TABLE `tblvisitors`
+  MODIFY `VisitorID` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
 -- Constraints for dumped tables
 --
 
@@ -220,7 +255,8 @@ ALTER TABLE `tblreports`
   ADD CONSTRAINT `fk_activity_id` FOREIGN KEY (`ReportActivity`) REFERENCES `tblactivity` (`ActivityID`),
   ADD CONSTRAINT `fk_branch_id` FOREIGN KEY (`ReportLoc`) REFERENCES `tbllocation` (`LocationID`),
   ADD CONSTRAINT `fk_category_id` FOREIGN KEY (`ReportCategory`) REFERENCES `tblcategory` (`CategoryID`),
-  ADD CONSTRAINT `fk_group_id` FOREIGN KEY (`ReportGroup`) REFERENCES `tblgroup` (`GroupID`);
+  ADD CONSTRAINT `fk_group_id` FOREIGN KEY (`ReportGroup`) REFERENCES `tblgroup` (`GroupID`),
+  ADD CONSTRAINT `fk_visit_id` FOREIGN KEY (`ReportVisitor`) REFERENCES `tblvisitors` (`VisitorID`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
