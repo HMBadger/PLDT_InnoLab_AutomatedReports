@@ -102,9 +102,21 @@ require_once('../database/config.php');
             $repPic = $_POST['txtPicRep'];
             $repAct = $_POST['optActRep'];
             $repIsActive = 1;
+
             header('Location: index.php');
             $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportVisitor, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
-            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repVisit', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive');";
+            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repVisit', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive')";
+            $act_ctr++;
+            $locCTR ="UPDATE ict_database.tbllocation SET LocationCTR = LocationCTR + 1 WHERE LocationID = '$repLoc'";
+            $grpCTR = "UPDATE ict_database.tblgroup SET GroupCTR = GroupCTR + 1 WHERE GroupID = '$repGroup'";
+            $visCTR = "UPDATE ict_database.tblvisitors SET VisitorCTR = VisitorCTR + 1 WHERE VisitorID = '$repVisit'";
+            $catCTR = "UPDATE ict_database.tblcategory SET CategoryCTR = CategoryCTR + 1 WHERE CategoryID = '$repCat'";
+            $actCTR = "UPDATE ict_database.tblactivity SET ActivityCTR = ActivityCTR + 1 WHERE ActivityID = '$repAct'";
+            mysqli_query($conn, $locCTR);
+            mysqli_query($conn, $grpCTR);
+            mysqli_query($conn, $visCTR);
+            mysqli_query($conn, $catCTR);
+            mysqli_query($conn, $actCTR);
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {

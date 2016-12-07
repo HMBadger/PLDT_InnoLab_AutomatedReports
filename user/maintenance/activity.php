@@ -121,7 +121,8 @@ require_once('../../database/config.php');
             $actName = $_POST['txtNameAct'];
             $activityCtr = 0;
             $activityIsActive = 1;
-            $insert = "INSERT INTO ict_database.tblactivity(ActivityName, ActivityCTR, ActivityIsActive) values ('$actName', '$activityCtr', '$activityIsActive');";
+            $insert = "INSERT INTO ict_database.tblactivity(ActivityName, ActivityCTR, ActivityIsActive)
+            values ('$actName', '$activityCtr', '$activityIsActive');";
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
