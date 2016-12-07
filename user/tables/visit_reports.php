@@ -50,9 +50,6 @@ require_once('../../database/config.php');
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
               <li>
-                <a href="main_table.php">Table</a>
-              </li>
-              <li>
                 <a href="pie_chart.php">Pie Graph</a>
               </li>
               <li>
@@ -71,6 +68,17 @@ require_once('../../database/config.php');
               </li>
             </ul>
           </li>
+          <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="tables" class="collapse">
+              <li>
+                <a href="#">Innolab Yearly Report</a>
+              </li>
+              <li>
+                <a href="visit_summary.php">Innolab Visit Summary</a>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -78,12 +86,12 @@ require_once('../../database/config.php');
     <form method="post">
       <div id="page-wrapper">
         <div class="container-fluid"><br>
-          <h1>PLDT Innolab Reports</h1>
+          <h1>PLDT Innolab Yearly Report</h1>
           <ol class="breadcrumb">
             <li><a href="../index.php"><i class="fa fa-dashboard"></i>Add Information</a></li>
             <li class="active"><i class="fa fa-table"></i> Tables</li>
           </ol>
-          <div class="row" style="margin-bottom: 40px">
+          <!--<div class="row" style="margin-bottom: 40px">
             <div class="col-md-5">
               <label>From:</label>
               <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
@@ -95,20 +103,10 @@ require_once('../../database/config.php');
             <div class="col-md-2">
               <input class="btn btn-lg btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
             </div>
-          </div>
-          <div class="row">
-<<<<<<< HEAD:user/graphs/main_table(backup).php
-            <div class="col-md-12">
-              <a href="excel_config.php">Generate Excel File(.xls)</a>
-              <input type="submit" value="Generate" name="btnGen"/>
-            </div>
-=======
-           <input type="button" onclick="tableToExcel('tabreport')" value="Export to Excel">
->>>>>>> 554dd03cdaa31446e943c4d616f2a85faf8b5321:user/graphs/main_table.php
-          </div>
-		
-		
-		  
+          </div>-->
+          <!--GENERATE EXCEL FILE-->
+          <a href="excel_config.php" name="genExcel">Generate Excel File(.xls)</a>
+          <!--/GENERATE EXCEL FILE-->
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
@@ -127,10 +125,10 @@ require_once('../../database/config.php');
                   </thead>
                   <tbody>
                     <?php
-                    if(isset($_POST['btnGenReport'])){
-                      $dateFrom = mysqli_real_escape_string($conn, $_POST['txtDateFrom']);
-                      $dateTo = mysqli_real_escape_string($conn, $_POST['txtDateTo']);
-                      $GLOBALS['esql'] = "SELECT * FROM ict_database.tblreports r
+                    //if(isset($_POST['btnGenReport'])){
+                      //$dateFrom = mysqli_real_escape_string($conn, $_POST['txtDateFrom']);
+                      //$dateTo = mysqli_real_escape_string($conn, $_POST['txtDateTo']);
+                      $sql = "SELECT * FROM ict_database.tblreports r
                       left join ict_database.tbllocation l
                       ON r.ReportLoc =   l.LocationID
                       left join ict_database.tblgroup g
@@ -141,8 +139,9 @@ require_once('../../database/config.php');
                       ON r.ReportCategory = c.CategoryID
                       left join ict_database.tblactivity a
                       ON r.ReportActivity = a.ActivityID
-                      WHERE ReportIsActive = 1 AND ReportDate BETWEEN '$dateFrom' and '$dateTo'";
-                      $GLOBALS['query'] = mysqli_query($conn, $esql);
+                      WHERE ReportIsActive = 1";
+                      //AND ReportDate BETWEEN '$dateFrom' and '$dateTo'
+                      $query = mysqli_query($conn, $sql);
                       while($row = mysqli_fetch_array($query)){
                         ?>
                         <tr>
@@ -157,15 +156,12 @@ require_once('../../database/config.php');
                         </tr>
                         <?php
                       } //while
-                    }//genReport
-<<<<<<< HEAD:user/graphs/main_table(backup).php
-=======
-                  
->>>>>>> 554dd03cdaa31446e943c4d616f2a85faf8b5321:user/graphs/main_table.php
+                  //  }//genReport
                     ?>
                   </tbody>
                 </table>
               </div><!--#table-->
+
             </div>
           </div>
         </div>
@@ -186,37 +182,6 @@ require_once('../../database/config.php');
     $('#tabreport').DataTable();
   } );
   </script>
-<<<<<<< HEAD:user/graphs/main_table(backup).php
-  <script>
-  function generateFile(){
-    <?php
-
-     ?>
-  }
-  </script>
-=======
-  
-
-
-<script type="text/javascript">
-var tableToExcel = (function() {
-  var uri = 'data:application/vnd.ms-excel;base64,'
-    , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--><meta http-equiv="content-type" content="text/plain; charset=UTF-8"/></head><body><table>{table}</table></body></html>'
-    , base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) }
-    , format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
-  return function(table, name) {
-    if (!table.nodeType) table = document.getElementById(table)
-    var ctx = {worksheet: name || 'Worksheet', table: table.innerHTML}
-    window.location.href = uri + base64(format(template, ctx))
-  }
-})()
-</script>
-
-  </script>
-  
-  
-
->>>>>>> 554dd03cdaa31446e943c4d616f2a85faf8b5321:user/graphs/main_table.php
 </div>
 </body>
 </html>

@@ -47,9 +47,6 @@ require_once('../database/config.php');
 						<li>
 							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="demo" class="collapse">
-								<li>
-	                <a href="graphs/main_table.php">Table</a>
-	              </li>
 	              <li>
 	                <a href="graphs/pie_chart.php">Pie Graph</a>
 	              </li>
@@ -69,6 +66,17 @@ require_once('../database/config.php');
 								</li>
 							</ul>
 						</li>
+						<li>
+	            <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
+	            <ul id="tables" class="collapse">
+	              <li>
+	                <a href="tables/visit_reports.php">Innolab Yearly Report</a>
+	              </li>
+	              <li>
+	                <a href="tables/visit_summary.php">Innolab Visit Summary</a>
+	              </li>
+	            </ul>
+	          </li>
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -82,7 +90,7 @@ require_once('../database/config.php');
 						$info=mysqli_fetch_array($query);
 						?>
 					<div class="container-fluid">
-					
+
 						<?php
 						if(isset($_POST['btnSubmit']))
 						{
@@ -95,10 +103,10 @@ require_once('../database/config.php');
 							$repClient = $_POST['txtClientRep'];
 							$repPic = $_POST['txtPicRep'];
 							$repAct = $_POST['optActRep'];
-							
+
 							$sql = "SELECT ReportID from ict_database.tblreports where ReportID= '$repID'";
 							$query = mysqli_query($conn, $sql);
-							
+
 							if(mysqli_num_rows($query) > 0)
 							{
 								$sql = "UPDATE ict_database.tblreports
@@ -174,7 +182,7 @@ require_once('../database/config.php');
 										}
 										?></select>&nbsp; &nbsp;
 								</div>
-								
+
 								<!--Category-->
 								<label>Category</label><br />
 								<div class="form-group" style="display:flex">

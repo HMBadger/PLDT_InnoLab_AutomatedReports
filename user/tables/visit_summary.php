@@ -50,9 +50,6 @@ require_once('../../database/config.php');
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
               <li>
-                <a href="main_table.php">Table</a>
-              </li>
-              <li>
                 <a href="pie_chart.php">Pie Graph</a>
               </li>
               <li>
@@ -68,6 +65,17 @@ require_once('../../database/config.php');
               </li>
               <li>
                 <a href="../view_info.php">View Information </a>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
+            <ul id="tables" class="collapse">
+              <li>
+                <a href="visit_reports.php">Innolab Yearly Report</a>
+              </li>
+              <li>
+                <a href="#">Innolab Visit Summary</a>
               </li>
             </ul>
           </li>
@@ -99,60 +107,37 @@ require_once('../../database/config.php');
           <div class="row">
             <input type="button" onclick="tableToExcel('tabreport')" value="Export to Excel">
           </div>
-
-
-
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
                 <table id="tabreport" class="table table-striped table-bordered">
                   <thead>
                     <tr>
-                      <th>Reservation Date</th>
-                      <th>Location</th>
-                      <th>Visitor Group</th>
-                      <th>Visitor Category</th>
-                      <th>Category</th>
-                      <th>Client Name/Event</th>
-                      <th>Person In Charge</th>
-                      <th>Activity</th>
+                      <th>Innolab Branch</th>
+                      <th>Revenue Generating Visit</th>
+                      <th>Non Revenue Generating Visit</th>
+                      <th>Total Visits</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <?php
-                    if(isset($_POST['btnGenReport'])){
-                      $dateFrom = mysqli_real_escape_string($conn, $_POST['txtDateFrom']);
-                      $dateTo = mysqli_real_escape_string($conn, $_POST['txtDateTo']);
-                      $sql = "SELECT * FROM ict_database.tblreports r
-                      left join ict_database.tbllocation l
-                      ON r.ReportLoc =   l.LocationID
-                      left join ict_database.tblgroup g
-                      ON r.ReportGroup = g.GroupID
-                      left join ict_database.tblvisitors v
-                      ON r.ReportVisitor = v.VisitorID
-                      left join ict_database.tblcategory c
-                      ON r.ReportCategory = c.CategoryID
-                      left join ict_database.tblactivity a
-                      ON r.ReportActivity = a.ActivityID
-                      WHERE ReportIsActive = 1 AND ReportDate BETWEEN '$dateFrom' and '$dateTo'";
-                      $query = mysqli_query($conn, $sql);
-                      while($row = mysqli_fetch_array($query)){
-                        ?>
-                        <tr>
-                          <td><?php echo date('F d, Y',strtotime($row['ReportDate']))?></td>
-                          <td><?php echo $row['LocationName']?></td>
-                          <td><?php echo $row['GroupName']?></td>
-                          <td><?php echo $row['VisitorName']?></td>
-                          <td><?php echo $row['CategoryName']?></td>
-                          <td><?php echo $row['ReportClient']?></td>
-                          <td><?php echo $row['ReportPerson']?></td>
-                          <td><?php echo $row['ActivityName']?></td>
-                        </tr>
-                        <?php
-                      } //while
-                    }//genReport
-
-                    ?>
+										<?php
+											$summary_sql = "SELECT * FROM ict_database.tbllocation l
+											LEFT JOIN ict_database.tblcategory c
+											ON l.LocationID = c.CategoryID
+											WHERE LocationIsActive = 1 AND CategoryIsActive = 1";
+											$query = mysqli_query($conn, $summary_sql);
+											while($row = mysqli_fetch_array($query)){?>
+												<tr>
+												<td>
+												<?php echo $row['LocationName'] ?>
+												</td>
+												<td>
+													<?php echo $row['CategoryName']?>
+												</td>
+												</tr>
+												<?php
+											}//while
+										?>
                   </tbody>
                 </table>
               </div><!--#table-->

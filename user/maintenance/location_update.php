@@ -51,9 +51,6 @@ require_once('../../database/config.php');
 						<li>
 							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="demo" class="collapse">
-								<li>
-	                <a href="../graphs/main_table.php">Table</a>
-	              </li>
 	              <li>
 	                <a href="../graphs/pie_chart.php">Pie Graph</a>
 	              </li>
@@ -70,6 +67,17 @@ require_once('../../database/config.php');
 								</li>
 								<li>
 									<a href="../view_info.php">View Information</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
+							<ul id="tables" class="collapse">
+								<li>
+									<a href="../tables/visit_reports.php">Innolab Yearly Report</a>
+								</li>
+								<li>
+									<a href="../tables/visit_summary.php">Innolab Visit Summary</a>
 								</li>
 							</ul>
 						</li>
