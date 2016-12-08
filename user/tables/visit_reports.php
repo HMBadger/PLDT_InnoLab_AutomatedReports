@@ -1,6 +1,5 @@
 <?php
 require_once('../../database/config.php');
-
 ?>
 <!DOCTYPE HTML>
 <html lang ="en">
