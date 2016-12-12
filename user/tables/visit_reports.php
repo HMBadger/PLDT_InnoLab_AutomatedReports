@@ -90,6 +90,18 @@ require_once('../../database/config.php');
             <li><a href="../index.php"><i class="fa fa-dashboard"></i>Add Information</a></li>
             <li class="active"><i class="fa fa-table"></i> Tables</li>
           </ol>
+                      <select>
+          <?php
+            $sql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+            $query = mysqli_query($conn, $sql);
+            while($row = mysqli_fetch_array($query)){
+            ?>
+              <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+            <?php
+           }?>
+           </select>
+
+          <input class="btn btn-lg btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
           <!--<div class="row" style="margin-bottom: 40px">
             <div class="col-md-5">
               <label>From:</label>
@@ -124,9 +136,7 @@ require_once('../../database/config.php');
                   </thead>
                   <tbody>
                     <?php
-                    //if(isset($_POST['btnGenReport'])){
-                      //$dateFrom = mysqli_real_escape_string($conn, $_POST['txtDateFrom']);
-                      //$dateTo = mysqli_real_escape_string($conn, $_POST['txtDateTo']);
+                    if(isset($_POST['btnGenReport'])){
                       $sql = "SELECT * FROM ict_database.tblreports r
                       left join ict_database.tbllocation l
                       ON r.ReportLoc =   l.LocationID
@@ -139,7 +149,6 @@ require_once('../../database/config.php');
                       left join ict_database.tblactivity a
                       ON r.ReportActivity = a.ActivityID
                       WHERE ReportIsActive = 1";
-                      //AND ReportDate BETWEEN '$dateFrom' and '$dateTo'
                       $query = mysqli_query($conn, $sql);
                       while($row = mysqli_fetch_array($query)){
                         ?>
@@ -155,7 +164,7 @@ require_once('../../database/config.php');
                         </tr>
                         <?php
                       } //while
-                  //  }//genReport
+                    }//genReport
                     ?>
                   </tbody>
                 </table>
