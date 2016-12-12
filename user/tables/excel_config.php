@@ -23,7 +23,7 @@ left join ict_database.tblvisitors v
 ON r.ReportVisitor = v.VisitorID
 left join ict_database.tblactivity a
 ON r.ReportActivity = a.ActivityID
-WHERE ReportIsActive = 1 ORDER BY LocationName, ReportDate ASC";
+WHERE ReportIsActive = 1 ORDER BY LocationName, YEAR(ReportDate)= '$yr' ASC";
 $res= mysqli_query($conn, $sql);
 /** Error reporting */
 error_reporting(E_ALL);

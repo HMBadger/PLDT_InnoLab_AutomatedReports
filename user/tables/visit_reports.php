@@ -90,18 +90,22 @@ require_once('../../database/config.php');
             <li><a href="../index.php"><i class="fa fa-dashboard"></i>Add Information</a></li>
             <li class="active"><i class="fa fa-table"></i> Tables</li>
           </ol>
-                      <select>
-          <?php
-            $sql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
-            $query = mysqli_query($conn, $sql);
-            while($row = mysqli_fetch_array($query)){
-            ?>
-              <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+          <div style="display:flex">
+            <select name="txtYears" id="txtYears" class="form-control" style="width: 80%!important">
             <?php
-           }?>
-           </select>
+              $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+              $queryyear = mysqli_query($conn, $sqlyear);
+              while($row = mysqli_fetch_array($queryyear)){
+              ?>
+                <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+              <?php
+             }?>
+           </select>&nbsp;&nbsp;
+             <input class="btn btn-primary" type="submit" name="btnGenReport" value="Generate Table" style="width: 20%!important"/>
+          </div>
 
-          <input class="btn btn-lg btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
+
+
           <!--<div class="row" style="margin-bottom: 40px">
             <div class="col-md-5">
               <label>From:</label>
@@ -137,6 +141,7 @@ require_once('../../database/config.php');
                   <tbody>
                     <?php
                     if(isset($_POST['btnGenReport'])){
+                      $GLOBALS['yr'] = $_POST['txtYears'];
                       $sql = "SELECT * FROM ict_database.tblreports r
                       left join ict_database.tbllocation l
                       ON r.ReportLoc =   l.LocationID
@@ -148,7 +153,7 @@ require_once('../../database/config.php');
                       ON r.ReportCategory = c.CategoryID
                       left join ict_database.tblactivity a
                       ON r.ReportActivity = a.ActivityID
-                      WHERE ReportIsActive = 1";
+                      WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yr'";
                       $query = mysqli_query($conn, $sql);
                       while($row = mysqli_fetch_array($query)){
                         ?>
