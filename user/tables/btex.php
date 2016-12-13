@@ -3,6 +3,12 @@ require_once('../../database/config.php');
 require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
 require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel5.php');
 require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
+if(!empty($_POST['txtYears'])){
+  $yrs = $_POST['txtYears'];
+}
+else {
+  $yrs = date("Y");
+}
 if(isset($_POST['btnGenEx'])){
   /** Error reporting */
   error_reporting(E_ALL);
@@ -11,12 +17,7 @@ if(isset($_POST['btnGenEx'])){
   if (PHP_SAPI == 'cli')
   die('This example should only be run from a Web Browser');
   $objPHPExcel = new PHPExcel();
-  if(!empty($_POST['txtYears'])){
-    $yr = $_POST['txtYears'];
-  }
-  else {
-    $yr = date("Y");
-  }
+
   $sql = "SELECT * FROM ict_database.tblreports r
   left join ict_database.tbllocation l
   ON r.ReportLoc =   l.LocationID
@@ -28,7 +29,7 @@ if(isset($_POST['btnGenEx'])){
   ON r.ReportVisitor = v.VisitorID
   left join ict_database.tblactivity a
   ON r.ReportActivity = a.ActivityID
-  WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yr' ORDER BY LocationName, ReportDate ASC";
+  WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yrs' ORDER BY LocationName, ReportDate ASC";
   $res= mysqli_query($conn, $sql);
   /** Error reporting */
   error_reporting(E_ALL);
