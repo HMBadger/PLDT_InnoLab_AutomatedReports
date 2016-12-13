@@ -1,5 +1,8 @@
 <?php
 require_once('../../database/config.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel5.php');
+require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
 ?>
 <!DOCTYPE HTML>
 <html lang ="en">
@@ -28,6 +31,74 @@ require_once('../../database/config.php');
 
 </head>
 <body>
+  <?php
+  if(isset($_POST['btnGenEx'])){
+    /** Error reporting */
+    error_reporting(E_ALL);
+    ini_set('display_errors', TRUE);
+    ini_set('display_startup_errors', TRUE);
+    if (PHP_SAPI == 'cli')
+    die('This example should only be run from a Web Browser');
+    $objPHPExcel = new PHPExcel();
+    $sql = "SELECT * FROM ict_database.tblreports r
+    left join ict_database.tbllocation l
+    ON r.ReportLoc =   l.LocationID
+    left join ict_database.tblgroup g
+    ON r.ReportGroup = g.GroupID
+    left join ict_database.tblcategory c
+    ON r.ReportCategory = c.CategoryID
+    left join ict_database.tblvisitors v
+    ON r.ReportVisitor = v.VisitorID
+    left join ict_database.tblactivity a
+    ON r.ReportActivity = a.ActivityID
+    WHERE ReportIsActive = 1 ORDER BY LocationName, ReportDate ASC";
+    $res= mysqli_query($conn, $sql);
+    /** Error reporting */
+    error_reporting(E_ALL);
+    $objPHPExcel = new PHPExcel();
+    if(!$res){
+      die("Error");
+    }
+    // Set active sheet index to the first sheet, so Excel opens this as the first sheet
+    $objPHPExcel->setActiveSheetIndex(0);
+    // Save Excel 2007 file
+    $objPHPExcel->setActiveSheetIndex(0);
+    $objPHPExcel->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+    $objPHPExcel->getActiveSheet()->setCellValue("A1", "Date");
+    $objPHPExcel->getActiveSheet()->setCellValue("B1", "Branch");
+    $objPHPExcel->getActiveSheet()->setCellValue("C1", "Visitor Group");
+    $objPHPExcel->getActiveSheet()->setCellValue("D1", "Visitor Category");
+    $objPHPExcel->getActiveSheet()->setCellValue("E1", "Category");
+    $objPHPExcel->getActiveSheet()->setCellValue("F1", "Client Name or Event Title");
+    $objPHPExcel->getActiveSheet()->setCellValue("G1", "Person In Charge");
+    $objPHPExcel->getActiveSheet()->setCellValue("H1", "Activity Type");
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("A") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("B") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("C") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("D") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("E") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("F") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("G") -> setAutoSize(true);
+    $objPHPExcel -> getActiveSheet() -> getColumnDimension("H") -> setAutoSize(true);
+    $rowCount = 2;
+    while($exrow = mysqli_fetch_assoc($res)) {
+      $objPHPExcel->getActiveSheet()->setCellValue("A" .$rowCount, date('m/d/Y', strtotime($exrow['ReportDate'])));
+      $objPHPExcel->getActiveSheet()->setCellValue("B" .$rowCount, $exrow['LocationName']);
+      $objPHPExcel->getActiveSheet()->setCellValue("C" .$rowCount, $exrow['GroupName']);
+      $objPHPExcel->getActiveSheet()->setCellValue("D" .$rowCount, $exrow['VisitorName']);
+      $objPHPExcel->getActiveSheet()->setCellValue("E" .$rowCount, $exrow['CategoryName']);
+      $objPHPExcel->getActiveSheet()->setCellValue("F" .$rowCount, $exrow['ReportClient']);
+      $objPHPExcel->getActiveSheet()->setCellValue("G" .$rowCount, $exrow['ReportPerson']);
+      $objPHPExcel->getActiveSheet()->setCellValue("H" .$rowCount, $exrow['ActivityName']);
+      $rowCount++;
+    }
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment;filename="report.xlsx"');
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+    $objWriter->save('php://output');
+    exit;
+  }
+  ?>
   <div id="wrapper">
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -92,40 +163,22 @@ require_once('../../database/config.php');
           </ol>
           <div style="display:flex">
             <select name="txtYears" id="txtYears" class="form-control" style="width: 80%!important">
-            <?php
+              <?php
               $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
               $queryyear = mysqli_query($conn, $sqlyear);
               while($row = mysqli_fetch_array($queryyear)){
-              ?>
+                ?>
                 <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
-              <?php
-             }?>
-           </select>&nbsp;&nbsp;
-             <input class="btn btn-primary" type="submit" name="btnGenReport" value="Generate Table" style="width: 20%!important"/>
+                <?php
+              }?>
+            </select>&nbsp;&nbsp;
+            <input onclick="generatereports.php" class="btn btn-primary" type="submit" name="btnGenReport" value="Generate Table" style="width: 20%!important"/>
           </div>
 
-
-
-          <!--<div class="row" style="margin-bottom: 40px">
-            <div class="col-md-5">
-              <label>From:</label>
-              <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
-            </div>
-            <div class="col-md-5">
-              <label>To:</label>
-              <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
-            </div>
-            <div class="col-md-2">
-              <input class="btn btn-lg btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
-            </div>
-          </div>-->
-          <!--GENERATE EXCEL FILE-->
-          <a href="excel_config.php" name="genExcel">Generate Excel File(.xls)</a>
-          <!--/GENERATE EXCEL FILE-->
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
-                <table id="tabreport" class="table table-striped table-bordered">
+                <table id="tabreport" name="tabreport" class="table table-striped table-bordered">
                   <thead>
                     <tr>
                       <th>Reservation Date</th>
@@ -139,45 +192,17 @@ require_once('../../database/config.php');
                     </tr>
                   </thead>
                   <tbody>
-                    <?php
-                    if(isset($_POST['btnGenReport'])){
-                      $GLOBALS['yr'] = $_POST['txtYears'];
-                      $sql = "SELECT * FROM ict_database.tblreports r
-                      left join ict_database.tbllocation l
-                      ON r.ReportLoc =   l.LocationID
-                      left join ict_database.tblgroup g
-                      ON r.ReportGroup = g.GroupID
-                      left join ict_database.tblvisitors v
-                      ON r.ReportVisitor = v.VisitorID
-                      left join ict_database.tblcategory c
-                      ON r.ReportCategory = c.CategoryID
-                      left join ict_database.tblactivity a
-                      ON r.ReportActivity = a.ActivityID
-                      WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yr'";
-                      $query = mysqli_query($conn, $sql);
-                      while($row = mysqli_fetch_array($query)){
-                        ?>
-                        <tr>
-                          <td><?php echo date('F d, Y',strtotime($row['ReportDate']))?></td>
-                          <td><?php echo $row['LocationName']?></td>
-                          <td><?php echo $row['GroupName']?></td>
-                          <td><?php echo $row['VisitorName']?></td>
-                          <td><?php echo $row['CategoryName']?></td>
-                          <td><?php echo $row['ReportClient']?></td>
-                          <td><?php echo $row['ReportPerson']?></td>
-                          <td><?php echo $row['ActivityName']?></td>
-                        </tr>
-                        <?php
-                      } //while
-                    }//genReport
-                    ?>
+                    <?php include 'generatereports.php'; ?>
                   </tbody>
                 </table>
               </div><!--#table-->
-
             </div>
           </div>
         </div>
+        <!--GENERATE EXCEL FILE-->
+        <a href="excel_config.php" name="genExcel">Generate Excel File(.xls)</a>
+        <input  class="btn btn-primary" type="submit" name="btnGenEx" value="Generate Table" style="width: 20%!important"/>
+        <!--/GENERATE EXCEL FILE-->
       </div>
     </div>
   </form>
