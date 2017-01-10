@@ -1,6 +1,5 @@
 <?php
 require_once('../../database/config.php');
-include 'fusioncharts.php';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +18,8 @@ include 'fusioncharts.php';
   <link href="../../css/sb-admin.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="extension-page-style.css" rel="stylesheet" type="text/css"  />
   <link rel="icon" href="../images/innolablogo.png">
+  <link href="../../css/chartist.css" rel="stylesheet" type="text/css" />
   <!-- For chart-->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -88,146 +87,69 @@ include 'fusioncharts.php';
       </nav>
       <div id="page-wrapper">
         <div class="container-fluid"><br>
-		
-			   <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Pie Graph
-                            <small>Company vs Company</small>
-                        </h1>
-						
-						 <div class="row" style="margin-bottom: 40px">
-							<div class="col-md-6">
-							  <label>From:</label>
-							  <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
-							</div>
-							<div class="col-md-6">
-							  <label>To:</label>
-							  <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
-							</div>
-						 </div>
-						 
-						 <div class="row" style="margin-bottom: 40px">
-							<div class="col-md-5">
-							  <label>Company:</label>
-								<select name="optGroupRep" class="form-control" >
-								  <?php
-								
-								  $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-								  $query = mysqli_query($conn,$sql);
-								  while($row=mysqli_fetch_array($query))
-								  {
-									$grp_id = $row['GroupID'];
-									$grp_name = $row['GroupName'];
-									echo "<option value=\"$grp_id\">$grp_name</option>";
-								  } 
-								  ?>
-								</select>&nbsp; &nbsp; 
-							</div>
-							<div class="col-md-5">
-							  <label>Company:</label>
-							  <select name="optGroupRep" class="form-control" >
-							  <?php
-								  $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-								  $query = mysqli_query($conn,$sql);
-								  while($row=mysqli_fetch_array($query))
-								  {
-									$grp_id = $row['GroupID'];
-									$grp_name = $row['GroupName'];
-									echo "<option value=\"$grp_id\">$grp_name</option>";
-								  } 
-								  ?>
-								  </select>&nbsp; &nbsp; 
-							</div>
-							 <div class="col-md-2" style="margin-top:2%">
-							 
-							  <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Pie Chart"/>
-							</div>
-						 </div>
-						 
-						 <div id="chart-container">FusionCharts will render here</div> 
-						 <?php
-							// Create the chart - Pie 3D Chart with data given in constructor parameter // Syntax for the constructor - new FusionCharts("type of chart", "unique chart id", "width of chart", "height of chart", "div id to render the chart", "type of data", "actual data")
-$annotationChart = new FusionCharts("column2d", "ex1" , "100%", "300", "chart-1", "json", '{
-        "chart": {
-          "caption": "Top 4 Chocolate Brands Sold",
-          "subCaption": "Last Year",
-          "yAxisName": "Sales (in USD)",
-          "yAxisMaxValue": "120000",
-          "showXAxisLine": "0",
-          "numberPrefix": "$",
-          "theme": "fint",
-          "PlotfillAlpha": "0",
-          "placeValuesInside": "0",
-          "rotateValues": "0",
-          "valueFontColor": "#333333",
-          "showLabels": "0",
-          "chartBottomMargin": "20",
-          "plotToolText": "<div>Brand : <b>$label</b><br/>Total Revenue : <b>$$value</b></div>",
-        },
-        "annotations": {
-          "autoScale": "1",
-          "scaleImages": "1",
-          "origW": "400",
-          "origH": "300",
-          "groups": [{
-            "id": "user-images",
-            "items": [{
-              "id": "butterFinger-icon",
-              "type": "image",
-              "url": "http://static.fusioncharts.com/sampledata/images/butterFinger.png",
-              "x": "$dataset.0.set.0.CenterX - 28",
-              "y": "$dataset.0.set.0.STARTY",
-              "xScale": "50",
-              "toy": "$dataset.0.set.0.ENDY + 2",
-            }, {
-              "id": "snickrs-user-icon",
-              "type": "image",
-              "url": "http://static.fusioncharts.com/sampledata/images/snickrs.png",
-              "x": "$dataset.0.set.1.CenterX - 25",
-              "y": "$dataset.0.set.1.STARTY",
-              "xScale": "50",
-              "toy": "$dataset.0.set.1.ENDY + 2",
-            }, {
-              "id": "coffee_crisp-user-icon",
-              "type": "image",
-              "url": "http://static.fusioncharts.com/sampledata/images/coffee_crisp.png",
-              "x": "$dataset.0.set.2.CenterX - 25",
-              "y": "$dataset.0.set.2.STARTY",
-              "xScale": "50",
-              "toy": "$dataset.0.set.2.ENDY + 2",
-            }, {
-              "id": "100grand-user-icon",
-              "type": "image",
-              "url": "http://static.fusioncharts.com/sampledata/images/100grand.png",
-              "x": "$dataset.0.set.3.CenterX - 25",
-              "y": "$dataset.0.set.3.STARTY",
-              "xScale": "50",
-              "toy": "$dataset.0.set.3.ENDY + 2",
-            }]
-          }]
-        },
-        "data": [{
-          "label": "Butterfinger",
-          "value": "92000"
-        }, {
-          "label": "Snickers",
-          "value": "87000"
-        }, {
-          "label": "Coffee Crisp",
-          "value": "83000"
-        }, {
-          "label": "100 Grand",
-          "value": "80000"
-        }]
-      }');
-	// Render the chart
-	$annotationChart->render();
-	?>
-                    
-                    </div>
+
+          <!-- Page Heading -->
+          <div class="row">
+            <div class="col-lg-12">
+              <h1 class="page-header">
+                Pie Graph
+                <small>Company vs Company</small>
+              </h1>
+
+              <div class="row" style="margin-bottom: 40px">
+                <div class="col-md-6">
+                  <label>From:</label>
+                  <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
                 </div>
+                <div class="col-md-6">
+                  <label>To:</label>
+                  <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
+                </div>
+              </div>
+
+              <div class="row" style="margin-bottom: 40px">
+                <div class="col-md-5">
+                  <label>Company:</label>
+                  <select name="optGroupRep" class="form-control" >
+                    <?php
+
+                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
+                    $query = mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($query))
+                    {
+                      $grp_id = $row['GroupID'];
+                      $grp_name = $row['GroupName'];
+                      echo "<option value=\"$grp_id\">$grp_name</option>";
+                    }
+                    ?>
+                  </select>&nbsp; &nbsp;
+                </div>
+                <div class="col-md-5">
+                  <label>Company:</label>
+                  <select name="optGroupRep" class="form-control" >
+                    <?php
+                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
+                    $query = mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($query))
+                    {
+                      $grp_id = $row['GroupID'];
+                      $grp_name = $row['GroupName'];
+                      echo "<option value=\"$grp_id\">$grp_name</option>";
+                    }
+                    ?>
+                  </select>&nbsp; &nbsp;
+                </div>
+                <div class="col-md-2" style="margin-top:2%">
+
+                  <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Pie Chart"/>
+                </div>
+              </div>
+
+              <div class="ct-chart"></div>
+
+
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -236,19 +158,22 @@ $annotationChart = new FusionCharts("column2d", "ex1" , "100%", "300", "chart-1"
     <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-	<script src="fusioncharts-js/fusioncharts.js"></script>
-	<script src="fusioncharts-js/fusioncharts.charts.js"></script>
-	<script src="fusioncharts-js/fusioncharts.gantt.js"></script>
-	<script src="fusioncharts-js/fusioncharts.maps.js"></script>
-	<script src="fusioncharts-js/fusioncharts.powercharts.js"></script>
-	<script src="fusioncharts-js/fusioncharts.ssgrid.js"></script>
-	<script src="fusioncharts-js/fusioncharts.treemap.js"></script>
-	<script src="fusioncharts-js/fusioncharts.widgets.js"></script>
-	<script src="fusioncharts-js/fusioncharts.zoomscatter.js"></script>
-	
-   
+    <script src="../../js/chartist.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
+    <script>
+    new Chartist.Line('.ct-chart', {
+      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      series: [
+        [2, 3, 2, 4, 5],
+        [0, 2.5, 3, 2, 3],
+        [1, 2, 2.5, 3.5, 4]
+      ]
+    }, {
+      width: 500,
+      height: 300
+    });
+    </script>
   </form>
 </body>
 </html>
