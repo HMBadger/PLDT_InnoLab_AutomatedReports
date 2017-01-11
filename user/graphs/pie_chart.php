@@ -144,11 +144,12 @@ require_once('../../database/config.php');
                   <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Pie Chart"/>
                 </div>
               </div>
-
-              <div class="ct-chart"></div>
-
-
             </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="ct-chart"></div>
           </div>
         </div>
       </div>
@@ -162,16 +163,19 @@ require_once('../../database/config.php');
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
     <script>
-    new Chartist.Line('.ct-chart', {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
-      series: [
-        [2, 3, 2, 4, 5],
-        [0, 2.5, 3, 2, 3],
-        [1, 2, 2.5, 3.5, 4]
-      ]
-    }, {
-      width: 500,
-      height: 300
+    var animals = ['Dog','Cat','Cow','Snake'];
+
+    var data = {
+      series: [5, 3, 4]
+    };
+
+    var sum = function(a, b) { return a + b };
+
+    new Chartist.Pie('.ct-chart', data, {
+      labelInterpolationFnc: function(value, idx) {
+        var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
+        return animals[idx] + ' ' + percentage;
+      }
     });
     </script>
   </form>
