@@ -147,11 +147,7 @@ require_once('../../database/config.php');
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="ct-chart"></div>
-          </div>
-        </div>
+     
       </div>
     </div>
     <!-- /#wrapper -->
@@ -162,22 +158,7 @@ require_once('../../database/config.php');
     <script src="../../js/chartist.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
-    <script>
-    var animals = ['Dog','Cat','Cow','Snake'];
 
-    var data = {
-      series: [5, 3, 4]
-    };
-
-    var sum = function(a, b) { return a + b };
-
-    new Chartist.Pie('.ct-chart', data, {
-      labelInterpolationFnc: function(value, idx) {
-        var percentage = Math.round(value / data.series.reduce(sum) * 100) + '%';
-        return animals[idx] + ' ' + percentage;
-      }
-    });
-    </script>
   </form>
 </body>
 </html>
