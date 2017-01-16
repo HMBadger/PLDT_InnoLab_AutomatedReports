@@ -113,8 +113,8 @@ require_once('../../database/config.php');
                   <select name="optGroupRep" class="form-control" >
                     <?php
 
-                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-                    $query = mysqli_query($conn,$sql);
+                    
+                    $query = mysqli_query($conn,"SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1");
                     while($row=mysqli_fetch_array($query))
                     {
                       $grp_id = $row['GroupID'];
