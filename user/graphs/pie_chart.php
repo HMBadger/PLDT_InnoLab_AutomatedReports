@@ -171,10 +171,22 @@ require_once('../../database/config.php');
       google.charts.setOnLoadCallback(drawChart);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
+		
+		
           ['Company', 'Percentage'],
-          ['Alpha',     67],
-          ['SME',     30],
-          ['Others',  39],
+		  
+		   <?php
+        $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
+		$getSum = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
+
+        $exec = mysqli_query($conn,$query);
+        while($row = mysqli_fetch_array($exec)){
+
+          echo "['".$row['GroupName']."',".$row['GroupCTR']."],";
+        }
+        ?>
+		
+        
     
         ]);
 
