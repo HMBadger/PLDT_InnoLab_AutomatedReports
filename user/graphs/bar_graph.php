@@ -112,8 +112,6 @@ require_once('../../database/config.php');
                   <label>Company:</label>
                   <select name="optGroupRep" class="form-control" >
                     <?php
-
-                    
                     $query = mysqli_query($conn,"SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1");
                     while($row=mysqli_fetch_array($query))
                     {
