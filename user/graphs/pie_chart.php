@@ -175,6 +175,7 @@ require_once('../../database/config.php');
 
           ['Company', 'Percentage'],
 
+
 		   <?php
         $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
 		$getSum = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
