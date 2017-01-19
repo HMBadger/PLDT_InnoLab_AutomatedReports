@@ -178,15 +178,19 @@ require_once('../../database/config.php');
 
 		   <?php
         $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND GroupID = 2 OR GroupID = 4 ORDER BY GroupCTR DESC";
-		$getSum = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
+		$getSum = "SELECT SUM(GroupCTR) FROM ict_database.tblgroup WHERE GroupIsActive = 1 ";
 
         $exec = mysqli_query($conn,$query);
+		$exec2 = mysqli_query($conn, $getSum);
         while($row = mysqli_fetch_array($exec)){
 
-          echo "['".$row['GroupName']."',".$row['GroupCTR']."],";
+          echo "['".$row['GroupName']."',".$row['GroupCTR']."], ";
         }
+		//$row2 = mysqli_fetch_array($exec2);
         ?>
-
+		
+		['Onion', 1]
+		
         ]);
 
         var options = {
