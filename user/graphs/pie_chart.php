@@ -42,7 +42,7 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -52,10 +52,10 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="../graphs/pie_chart.php">Pie Graph</a>
+                  <a href="pie_chart.php">Pie Graph</a>
                 </li>
                 <li>
-                  <a href="../graphs/bar_graph.php">Bar Graph</a>
+                  <a href="bar_graph.php">Bar Graph</a>
                 </li>
               </ul>
             </li>
@@ -74,10 +74,10 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="tables" class="collapse">
                 <li>
-                  <a href="tables/visit_reports.php">Innolab Yearly Report</a>
+                  <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
                 </li>
                 <li>
-                  <a href="tables/visit_summary.php">Innolab Visit Summary</a>
+                  <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
                 </li>
               </ul>
             </li>
@@ -146,11 +146,11 @@ require_once('../../database/config.php');
               </div>
             </div>
           </div>
-			
+
 			<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-		  
+
         </div>
-     
+
       </div>
     </div>
     <!-- /#wrapper -->
@@ -161,11 +161,11 @@ require_once('../../database/config.php');
 
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
-	
+
 	<!-- Google Chart-->
 	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-	 
+
     <script type="text/javascript">
       google.charts.load("current", {packages:["corechart"]});
       google.charts.setOnLoadCallback(drawChart);
@@ -175,7 +175,7 @@ require_once('../../database/config.php');
           ['Alpha',     67],
           ['SME',     30],
           ['Others',  39],
-    
+
         ]);
 
         var options = {

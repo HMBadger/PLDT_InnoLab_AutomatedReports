@@ -144,6 +144,7 @@ require_once('../../database/config.php');
 								if($query)
 								{
 									$strMessage = "Location Successfully Edited: $locName";
+
 								}
 								else
 								{

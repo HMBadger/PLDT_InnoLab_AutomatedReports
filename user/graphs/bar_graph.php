@@ -41,7 +41,7 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -73,10 +73,10 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="tables" class="collapse">
                 <li>
-                  <a href="tables/visit_reports.php">Innolab Yearly Report</a>
+                  <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
                 </li>
                 <li>
-                  <a href="tables/visit_summary.php">Innolab Visit Summary</a>
+                  <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
                 </li>
               </ul>
             </li>
@@ -92,7 +92,7 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-                Pie Graph
+                Bar Graph
                 <small>Company vs Company</small>
               </h1>
 
@@ -165,10 +165,9 @@ require_once('../../database/config.php');
         ['Branch', 'Visitor Count'],
         <?php
         $query = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
-
+      //  $getLoc = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1"
         $exec = mysqli_query($conn,$query);
         while($row = mysqli_fetch_array($exec)){
-
           echo "['".$row['LocationName']."',".$row['LocationCTR']."],";
         }
         ?>

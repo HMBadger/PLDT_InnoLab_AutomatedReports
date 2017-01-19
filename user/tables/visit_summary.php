@@ -126,12 +126,16 @@ require_once('../../database/config.php');
 											ON l.LocationID = c.CategoryID
 											WHERE LocationIsActive = 1 AND CategoryIsActive = 1";
 											$query = mysqli_query($conn, $summary_sql);
-											while($row = mysqli_fetch_array($query)){?>
+											while($row = mysqli_fetch_array($query)){
+                        ?>
 												<tr>
 												<td>
 												<?php echo $row['LocationName'] ?>
 												</td>
 												<td>
+													<?php echo $row['CategoryName']?>
+												</td>
+                        <td>
 													<?php echo $row['CategoryName']?>
 												</td>
 												</tr>
