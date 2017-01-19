@@ -132,12 +132,17 @@ require_once('../../database/config.php');
 												<td>
 												<?php echo $row['LocationName'] ?>
 												</td>
-												<td>
-													<?php echo $row['CategoryName']?>
+												<td id="colOne">
+													<?php echo $row['CategoryCTR']?>
+												</td>
+                        <td id="colTwo">
+													<?php echo $row['CategoryCTR']?>
 												</td>
                         <td>
-													<?php echo $row['CategoryName']?>
-												</td>
+                          <?php
+                          var TotalSum = colOne + 
+                          ?>
+                        </td>
 												</tr>
 												<?php
 											}//while
