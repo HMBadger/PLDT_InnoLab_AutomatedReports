@@ -177,7 +177,7 @@ require_once('../../database/config.php');
 
 
 		   <?php
-        $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1 ORDER BY GroupCTR DESC";
+        $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND (GroupID = 2 OR GroupID = 4) ORDER BY GroupCTR DESC";
 		$getSum = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
 
         $exec = mysqli_query($conn,$query);
