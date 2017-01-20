@@ -147,7 +147,7 @@ require_once('../../database/config.php');
             </div>
           </div>
 
-			<div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+          <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
 
         </div>
 
@@ -162,45 +162,45 @@ require_once('../../database/config.php');
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
 
-	<!-- Google Chart-->
-	 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-	 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <!-- Google Chart-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
-      google.charts.load("current", {packages:["corechart"]});
-      google.charts.setOnLoadCallback(drawChart);
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
+    google.charts.load("current", {packages:["corechart"]});
+    google.charts.setOnLoadCallback(drawChart);
+    function drawChart() {
+      var data = google.visualization.arrayToDataTable([
 
 
-          ['Company', 'Percentage'],
+        ['Company', 'Percentage'],
 
 
-		   <?php
+        <?php
         $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND GroupID = 2 OR GroupID = 4 ORDER BY GroupCTR DESC";
-		$getSum = "SELECT SUM(GroupCTR) FROM ict_database.tblgroup WHERE GroupIsActive = 1 ";
-
         $exec = mysqli_query($conn,$query);
-		$exec2 = mysqli_query($conn, $getSum);
         while($row = mysqli_fetch_array($exec)){
-
           echo "['".$row['GroupName']."',".$row['GroupCTR']."], ";
         }
-		//$row2 = mysqli_fetch_array($exec2);
+
         ?>
-		
-		['Onion', 1]
-		
-        ]);
+        <?php
+        $getSum = "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup WHERE GroupIsActive = 1 ";
+        $exec2 = mysqli_query($conn, $getSum);
+        $row2 = mysqli_fetch_array($exec2);
+        echo "['Others', ".$row2['SubTotal']."]";
 
-        var options = {
-          title: 'Alpha VS SME',
-          is3D: true,
-        };
+        ?>
+      ]);
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-        chart.draw(data, options);
-      }
+      var options = {
+        title: 'Alpha VS SME',
+        is3D: true,
+      };
+
+      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+      chart.draw(data, options);
+    }
     </script>
 
   </form>

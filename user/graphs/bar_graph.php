@@ -92,55 +92,28 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-                Bar Graph
-                <small>Company vs Company</small>
+                Client Visits
+                <small>PLDT Innolab</small>
               </h1>
 
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-6">
-                  <label>From:</label>
-                  <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
+                  <label><h3>Select Year</h3></label>
+                  <select name="yearSelect" id="yearSelect" class="form-control" style="width: 80%!important">
+                    <?php
+                    $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+                    $yearQuery = mysqli_query($conn, $yearSql);
+                    while($row = mysqli_fetch_array($yearQuery)){
+                      ?>
+                      <option value="<?php echo $row['YEARS'] ?>" name="txtYear"><?php echo $row['YEARS'] ?></option>
+                      <?php
+                    }?>
+                  </select>
                 </div>
                 <div class="col-md-6">
-                  <label>To:</label>
-                  <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
+                  <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Column Charts"/>
                 </div>
               </div>
-
-              <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-5">
-                  <label>Company:</label>
-                  <select name="optGroupRep" class="form-control" >
-                    <?php
-                    $query = mysqli_query($conn,"SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1");
-                    while($row=mysqli_fetch_array($query))
-                    {
-                      $grp_id = $row['GroupID'];
-                      $grp_name = $row['GroupName'];
-                      echo "<option value=\"$grp_id\">$grp_name</option>";
-                    }
-                    ?>
-                  </select>&nbsp; &nbsp;
-                </div>
-                <div class="col-md-5">
-                  <label>Company:</label>
-                  <select name="optGroupRep" class="form-control" >
-                    <?php
-                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-                    $query = mysqli_query($conn,$sql);
-                    while($row=mysqli_fetch_array($query))
-                    {
-                      $grp_id = $row['GroupID'];
-                      $grp_name = $row['GroupName'];
-                      echo "<option value=\"$grp_id\">$grp_name</option>";
-                    }
-                    ?>
-                  </select>&nbsp; &nbsp;
-                </div>
-                <div class="col-md-2" style="margin-top:2%">
-
-                  <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Pie Chart"/>
-                </div>
               </div>
             </div>
           </div>
@@ -164,11 +137,11 @@ require_once('../../database/config.php');
       var data = google.visualization.arrayToDataTable([
         ['Branch', 'Visitor Count'],
         <?php
-        $query = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
-      //  $getLoc = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1"
+        $query = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
+
         $exec = mysqli_query($conn,$query);
         while($row = mysqli_fetch_array($exec)){
-          echo "['".$row['LocationName']."',".$row['LocationCTR']."],";
+          echo "['".$row['ActivityName']."',".$row['ActivityCTR']."],";
         }
         ?>
       ]);
