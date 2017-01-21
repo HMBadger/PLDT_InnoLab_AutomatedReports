@@ -1,7 +1,9 @@
 <?php
 require_once('../../database/config.php');
 ?>
+<!--/PHP Configuration File-->
 <!DOCTYPE html>
+<!--PHP Configuration File-->
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -18,9 +20,8 @@ require_once('../../database/config.php');
   <link href="../../css/sb-admin.css" rel="stylesheet">
   <!-- Custom Fonts -->
   <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <!--Company Logo-->
   <link rel="icon" href="../images/innolablogo.png">
-  <link href="../../css/chartist.css" rel="stylesheet" type="text/css" />
-  <!-- For chart-->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -110,7 +111,7 @@ require_once('../../database/config.php');
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select name="optGroupRep" class="form-control" >
+                  <select name="GroupOne" class="form-control" >
                     <?php
 
                     $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
@@ -126,7 +127,7 @@ require_once('../../database/config.php');
                 </div>
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select name="optGroupRep" class="form-control" >
+                  <select name="GroupTwo" class="form-control" >
                     <?php
                     $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
                     $query = mysqli_query($conn,$sql);
@@ -140,17 +141,13 @@ require_once('../../database/config.php');
                   </select>&nbsp; &nbsp;
                 </div>
                 <div class="col-md-2" style="margin-top:2%">
-
-                  <input class="btn btn-primary" type="submit" name="btnGenPie" value="Generate Pie Chart"/>
+                  <input class="btn btn-primary" type="button" id="btnGenPie" value="Generate Pie Chart"/>
                 </div>
               </div>
             </div>
           </div>
-
           <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
-
         </div>
-
       </div>
     </div>
     <!-- /#wrapper -->
@@ -167,32 +164,23 @@ require_once('../../database/config.php');
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
-    google.charts.load("current", {packages:["corechart"]});
-    google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = google.visualization.arrayToDataTable([
-
-
         ['Company', 'Percentage'],
-
-
         <?php
-        $query = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND GroupID = 2 OR GroupID = 4 ORDER BY GroupCTR DESC";
+        $query = "SELECT GroupName, GroupCTR FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND GroupID = 2 OR GroupID = 4 ORDER BY GroupCTR DESC";
         $exec = mysqli_query($conn,$query);
         while($row = mysqli_fetch_array($exec)){
-          echo "['".$row['GroupName']."',".$row['GroupCTR']."], ";
+          echo  "['".$row['GroupName']."',".$row['GroupCTR']."], ";
         }
-
         ?>
         <?php
         $getSum = "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup WHERE GroupIsActive = 1 ";
         $exec2 = mysqli_query($conn, $getSum);
         $row2 = mysqli_fetch_array($exec2);
         echo "['Others', ".$row2['SubTotal']."]";
-
         ?>
       ]);
-
       var options = {
         title: 'Alpha VS SME',
         is3D: true,
@@ -201,6 +189,19 @@ require_once('../../database/config.php');
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
+
+    /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
+    function initializeGraph(){
+      $(document).ready(function(){
+        $("#btnGenPie").on("click", function(){
+          drawChart();
+        });
+      });
+    }
+
+    /**INITIALIZE CHART DRAW**/
+    google.setOnLoadCallback(initializeGraph);
+    google.charts.load("current", {packages:["corechart"]});
     </script>
 
   </form>

@@ -138,7 +138,6 @@ require_once('../../database/config.php');
         ['Branch', 'Visitor Count'],
         <?php
         $query = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
-
         $exec = mysqli_query($conn,$query);
         while($row = mysqli_fetch_array($exec)){
           echo "['".$row['ActivityName']."',".$row['ActivityCTR']."],";
