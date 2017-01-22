@@ -120,33 +120,36 @@ require_once('../../database/config.php');
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td>Manila</td>
 										<?php
-											$summary_sql = "SELECT * FROM ict_database.tbllocation l
-											LEFT JOIN ict_database.tblcategory c
-											ON l.LocationID = c.CategoryID
-											WHERE LocationIsActive = 1 AND CategoryIsActive = 1";
-											$query = mysqli_query($conn, $summary_sql);
-											while($row = mysqli_fetch_array($query)){
-                        ?>
-												<tr>
-												<td>
-												<?php echo $row['LocationName'] ?>
-												</td>
-												<td id="colOne">
-													<?php echo $row['CategoryCTR']?>
-												</td>
-                        <td id="colTwo">
-													<?php echo $row['CategoryCTR']?>
-												</td>
+                      $revquery = "SELECT * FROM ict_database.tblcategory WHERE CategoryID = 1";
+                      $revexec = mysqli_query($conn,$revquery);
+                      while($row = mysqli_fetch_array($revexec)){?>
                         <td>
-                          <?php
-                          
-                          ?>
+                        <?php echo $row['CategoryCTR'];?>
                         </td>
-												</tr>
-												<?php
-											}//while
-										?>
+                      <?php }//while
+                    ?>
+                    <?php
+                    $nonrevquery = "SELECT * FROM ict_database.tblcategory WHERE CategoryID = 2";
+                    $nonrevexec = mysqli_query($conn, $nonrevquery);
+                    while($row2 = mysqli_fetch_array($nonrevexec)){?>
+                        <td>
+                          <?php echo $row2['CategoryCTR'];?>
+                        </td>
+                    <?php
+                  }//while2
+                    ?>
+                    <td>
+                      <?php
+                        $getTotal = "SELECT SUM(CategoryCTR) AS TotalCategory FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
+                        $totalExect = mysqli_query($conn, $getTotal);
+                        $SumTotal = mysqli_fetch_array($totalExect);
+                        echo $SumTotal['TotalCategory'];
+                       ?>
+                    </td>
+                  </tr>
                   </tbody>
                 </table>
               </div><!--#table-->
