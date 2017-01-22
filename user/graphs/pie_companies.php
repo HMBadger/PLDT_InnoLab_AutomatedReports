@@ -94,8 +94,28 @@ require_once('../../database/config.php');
             <div class="col-lg-12">
               <h1 class="page-header">
                 Pie Graph
-                <small>Activity Chart</small>
+                <small> Company Chart</small>
               </h1>
+			  
+			   <ol class="breadcrumb">
+							<li class="active">
+                                <i class="fa fa-users"></i> <a href="pie_chart.php"> Company vs Company </a>
+                            </li>
+							
+                            <li>
+                                <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
+                            </li>
+							
+							<li>
+                                <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
+                            </li>
+							
+							<li>
+                                <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
+                            </li>
+                            
+                            
+                </ol>
 
               <div class="row" style="margin-bottom: 40px">
 			  
