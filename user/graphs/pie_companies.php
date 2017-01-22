@@ -188,7 +188,7 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Companies Chart',
+                        title: 'Company Chart',
                         is3D: true,
                     };
 
