@@ -111,49 +111,74 @@ require_once('../../database/config.php');
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select id="GroupOne" name="GroupTwo" class="form-control" >
+                  <select class="form-control" 
+                          id="GroupOne"
+                          name="GroupOne"  
+                          >
                     <?php
+					
+                        $sql =  " SELECT 
+                                          * 
+                                  FROM    ict_database.tblgroup 
+                                  WHERE   GroupIsActive = 1
+                                ";
 
-                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-                    $query = mysqli_query($conn,$sql);
-                    while($row=mysqli_fetch_array($query))
-                    {
-                      $grp_id = $row['GroupID'];
-                      $grp_name = $row['GroupName'];
-                      echo "<option value=\"$grp_id\">$grp_name</option>";
-                    }
+                        $query = mysqli_query( $conn, $sql );
+                        
+                        while( $row = mysqli_fetch_array( $query ) )
+                        {
+                            $grp_id   = $row[ 'GroupID' ];
+                            $grp_name = $row[ 'GroupName' ];
+                            echo "<option value=\"$grp_id\">$grp_name</option>";
+                        }
+
                     ?>
                   </select>&nbsp; &nbsp;
                 </div>
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select id="GroupTwo" name= "GroupTwo" class="form-control" >
+                  <select class="form-control" 
+                          id="GroupTwo" 
+                          name="GroupTwo" 
+                          >
                     <?php
-                    $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
-                    $query = mysqli_query($conn,$sql);
-                    while($row=mysqli_fetch_array($query))
-                    {
-                      $grp_id = $row['GroupID'];
-                      $grp_name = $row['GroupName'];
-                      echo "<option value=\"$grp_id\">$grp_name</option>";
-                    }
+
+                        $sql =  " SELECT 
+                                          * 
+                                  FROM    ict_database.tblgroup 
+                                  WHERE   GroupIsActive = 1
+                                ";
+
+                        $query = mysqli_query( $conn, $sql );
+
+                        while( $row = mysqli_fetch_array( $query ) )
+                        {
+                            $grp_id   = $row[ 'GroupID' ];
+                            $grp_name = $row[ 'GroupName' ];
+                            echo "<option value=\"$grp_id\">$grp_name</option>";
+                        }
                     ?>
                   </select>&nbsp; &nbsp;
                 </div>
                 <div class="col-md-2" style="margin-top:2%">
-                  <input class="btn btn-primary" type="button" id="btnGenPie" value="Generate Pie Chart"  />
+                  
+                  <input type="button" class="btn btn-primary"  
+                          id="btnGenPie" 
+                          value="Generate Pie Chart"
+                          />
+
                 </div>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-md-12 center">
-              <div id="piechart_3d" style="width: 100%; height: 400px;"></div>
-            </div>
-          </div>
+          <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
         </div>
       </div>
     </div>
+
+		  
+	
+	
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -168,46 +193,81 @@ require_once('../../database/config.php');
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
     <script type="text/javascript">
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Company', 'Percentage'],
-        <?php
-        $g1 = isset($_POST['GroupOne']);
-        $g2 = isset($_POST['GroupTwo']);
-        $query = "SELECT GroupName, GroupCTR FROM ict_database.tblgroup
-        WHERE GroupIsActive = 1 AND GroupID = '$g1' OR GroupID = '$g2' ORDER BY GroupCTR DESC";
-        $exec = mysqli_query($conn,$query);
-        while($row = mysqli_fetch_array($exec)){
-          echo  "['".$row['GroupName']."',".$row['GroupCTR']."], ";
-        }
-        ?>
-        <?php
-        $getSum = "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup
-        WHERE (GroupID !=1 AND GroupID !=2) AND GroupIsActive = 1";
-        $exec2 = mysqli_query($conn, $getSum);
-        $row2 = mysqli_fetch_array($exec2);
-        echo "['Others', ".$row2['SubTotal']."]";
-        ?>
-      ]);
-      var options = {
-        title: 'Company Visit Comparison',
-        is3D: true,
-      };
 
-      var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
-      chart.draw(data, options);
+    // $( document ).ready(
+    //                     function() 
+    //                     {
+    //                         drawChart();
+    //                     }
+    //               );
+
+    function drawChart( arr ) {
+
+      // var arr = [
+      //             [ 'Company', 'Percentage' ],
+      //             [ 'PLDT GlobalNation', 12 ],
+      //             [ 'Globe', 22 ],
+      //             [ 'Others', null ],
+      //           ];
+
+      var data = google.visualization.arrayToDataTable( arr );
+
+      console.log( arr );
+      console.log( data );
+
+      var options = {
+                        title: 'Alpha VS SME',
+                        is3D: true,
+                    };
+
+      var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
+      chart.draw( data, options );
     }
+
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
     function initializeGraph(){
-     $(document).ready(function(){
-        $("#btnGenPie").on("click", function(){
-         drawChart();
-        });
+      $(document).ready(function(){
+        $( "#btnGenPie" ).on( "click", function()
+                                        {
+                                            // 
+                                            var gOne = $( "#GroupOne" ).val();
+                                            var gTwo = $( "#GroupTwo" ).val();
+                                            // 
+                                            // drawChart();
+                                            $.ajax({
+                                              url:      'ajax_PieChartData.php',
+                                              type:     'POST',
+                                              dataType: 'JSON',
+                                              data:     {
+                                                            GroupOne: gOne,
+                                                            GroupTwo: gTwo,
+                                                        },
+                                              success:  function( data )
+                                                        {
+                                                            console.log( data );
+                                                            drawChart( data );
+                                                        }
+                                            })
+                                            .done(function( data ) {
+                                              console.log("success");
+                                              // console.log( data );
+                                            })
+                                            .fail(function( data ) {
+                                              console.log("error");
+                                              // console.log( data );
+                                            })
+                                            .always(function( data ) {
+                                              console.log("complete");
+                                              // console.log( data );
+                                            });
+                                            
+                                        }
+                            );
       });
     }
+
     /**INITIALIZE CHART DRAW**/
     google.setOnLoadCallback(initializeGraph);
-    google.charts.load("current", {packages:["corechart"]});
     google.charts.load("current", {packages:["corechart"]});
     </script>
 
