@@ -111,7 +111,7 @@ require_once('../../database/config.php');
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select name="GroupOne" class="form-control" >
+                  <select id="GroupOne" name="GroupTwo" class="form-control" >
                     <?php
 
                     $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
@@ -127,7 +127,7 @@ require_once('../../database/config.php');
                 </div>
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select name="GroupTwo" class="form-control" >
+                  <select id="GroupTwo" name= "GroupTwo" class="form-control" >
                     <?php
                     $sql = "SELECT * FROM ict_database.tblgroup WHERE GroupIsActive = 1";
                     $query = mysqli_query($conn,$sql);
@@ -141,12 +141,16 @@ require_once('../../database/config.php');
                   </select>&nbsp; &nbsp;
                 </div>
                 <div class="col-md-2" style="margin-top:2%">
-                  <input class="btn btn-primary" type="button" id="btnGenPie" value="Generate Pie Chart"/>
+                  <input class="btn btn-primary" type="button" id="btnGenPie" value="Generate Pie Chart"  />
                 </div>
               </div>
             </div>
           </div>
-          <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+          <div class="row">
+            <div class="col-md-12 center">
+              <div id="piechart_3d" style="width: 100%; height: 400px;"></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -168,39 +172,42 @@ require_once('../../database/config.php');
       var data = google.visualization.arrayToDataTable([
         ['Company', 'Percentage'],
         <?php
-        $query = "SELECT GroupName, GroupCTR FROM ict_database.tblgroup WHERE GroupIsActive = 1 AND GroupID = 2 OR GroupID = 4 ORDER BY GroupCTR DESC";
+        $g1 = isset($_POST['GroupOne']);
+        $g2 = isset($_POST['GroupTwo']);
+        $query = "SELECT GroupName, GroupCTR FROM ict_database.tblgroup
+        WHERE GroupIsActive = 1 AND GroupID = '$g1' OR GroupID = '$g2' ORDER BY GroupCTR DESC";
         $exec = mysqli_query($conn,$query);
         while($row = mysqli_fetch_array($exec)){
           echo  "['".$row['GroupName']."',".$row['GroupCTR']."], ";
         }
         ?>
         <?php
-        $getSum = "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup WHERE GroupIsActive = 1 ";
+        $getSum = "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup
+        WHERE (GroupID !=1 AND GroupID !=2) AND GroupIsActive = 1";
         $exec2 = mysqli_query($conn, $getSum);
         $row2 = mysqli_fetch_array($exec2);
         echo "['Others', ".$row2['SubTotal']."]";
         ?>
       ]);
       var options = {
-        title: 'Alpha VS SME',
+        title: 'Company Visit Comparison',
         is3D: true,
       };
 
       var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
       chart.draw(data, options);
     }
-
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
     function initializeGraph(){
-      $(document).ready(function(){
+     $(document).ready(function(){
         $("#btnGenPie").on("click", function(){
-          drawChart();
+         drawChart();
         });
       });
     }
-
     /**INITIALIZE CHART DRAW**/
     google.setOnLoadCallback(initializeGraph);
+    google.charts.load("current", {packages:["corechart"]});
     google.charts.load("current", {packages:["corechart"]});
     </script>
 

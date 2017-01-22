@@ -96,17 +96,25 @@ include ('btex.php');
             <li class="active"><i class="fa fa-table"></i> Tables</li>
           </ol>
           <div style="display:flex">
-            <select name="txtYears" id="txtYears" class="form-control" style="width: 80%!important">
-              <?php
-              $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
-              $queryyear = mysqli_query($conn, $sqlyear);
-              while($row = mysqli_fetch_array($queryyear)){
-                ?>
-                <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
-                <?php
-              }?>
-            </select>&nbsp;&nbsp;
-            <input onclick="generatereports.php" class="btn btn-primary" type="submit" name="btnGenReport" value="Generate Table" style="width: 20%!important"/>
+            <div class="row">
+              <div class="col-md-6">
+                <select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+                  <?php
+                  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+                  $queryyear = mysqli_query($conn, $sqlyear);
+                  while($row = mysqli_fetch_array($queryyear)){
+                    ?>
+                    <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+                    <?php
+                  }?>
+                </select>&nbsp;&nbsp;
+              </div>
+              <div class="col-md-6">
+<input onclick="generatereports.php" class="btn btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
+              </div>
+            </div>
+
+
           </div>
 
           <div class="row">
