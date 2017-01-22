@@ -94,73 +94,22 @@ require_once('../../database/config.php');
             <div class="col-lg-12">
               <h1 class="page-header">
                 Pie Graph
-                <small>Company vs Company</small>
+                <small>Activity Chart</small>
               </h1>
 
               <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-6">
+			  
+                <div class="col-md-5">
                   <label>From:</label>
                   <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
                 </div>
-                <div class="col-md-6">
+				
+                <div class="col-md-5">
                   <label>To:</label>
                   <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
                 </div>
-              </div>
-
-              <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-5">
-                  <label>Company:</label>
-                  <select class="form-control" 
-                          id="GroupOne"
-                          name="GroupOne"  
-                          >
-                    <?php
-					
-                        $sql =  " SELECT 
-                                          * 
-                                  FROM    ict_database.tblgroup 
-                                  WHERE   GroupIsActive = 1
-                                ";
-
-                        $query = mysqli_query( $conn, $sql );
-                        
-                        while( $row = mysqli_fetch_array( $query ) )
-                        {
-                            $grp_id   = $row[ 'GroupID' ];
-                            $grp_name = $row[ 'GroupName' ];
-                            echo "<option value=\"$grp_id\">$grp_name</option>";
-                        }
-
-                    ?>
-                  </select>&nbsp; &nbsp;
-                </div>
-                <div class="col-md-5">
-                  <label>Company:</label>
-                  <select class="form-control" 
-                          id="GroupTwo" 
-                          name="GroupTwo" 
-                          >
-                    <?php
-
-                        $sql =  " SELECT 
-                                          * 
-                                  FROM    ict_database.tblgroup 
-                                  WHERE   GroupIsActive = 1
-                                ";
-
-                        $query = mysqli_query( $conn, $sql );
-
-                        while( $row = mysqli_fetch_array( $query ) )
-                        {
-                            $grp_id   = $row[ 'GroupID' ];
-                            $grp_name = $row[ 'GroupName' ];
-                            echo "<option value=\"$grp_id\">$grp_name</option>";
-                        }
-                    ?>
-                  </select>&nbsp; &nbsp;
-                </div>
-                <div class="col-md-2" style="margin-top:2%">
+				
+				 <div class="col-md-2" style="margin-top:2%">
                   
                   <input type="button" class="btn btn-primary"  
                           id="btnGenPie" 
@@ -168,7 +117,10 @@ require_once('../../database/config.php');
                           />
 
                 </div>
+				
               </div>
+
+            
             </div>
           </div>
           <div id="piechart_3d" style="width: 1000px; height: 500px;"></div>
@@ -216,8 +168,8 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Company vs Company',
-                        is3D: true,
+                        title: 'Activity Chart',
+                         pieHole: 0.5,
                     };
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
@@ -230,21 +182,17 @@ require_once('../../database/config.php');
         $( "#btnGenPie" ).on( "click", function()
                                         {
                                             // 
-                                            var gOne = $( "#GroupOne" ).val();
-                                            var gTwo = $( "#GroupTwo" ).val();
+                                        
                                             // 
                                             // drawChart();
                                             $.ajax({
-                                              url:      'ajax_PieChartData.php',
-                                              type:     'POST',
+                                              url:      'ajax_PieActivities.php',
+											  type:     'POST',
                                               dataType: 'JSON',
-                                              data:     {
-                                                            GroupOne: gOne,
-                                                            GroupTwo: gTwo,
-                                                        },
-                                              success:  function( data )
+                                              
+                                                 success:  function( data )
                                                         {
-                                                            var arr = [ "Company", "Percentage" ];
+                                                            var arr = [ "Activity", "Percentage" ];
 
                                                             data.sort(function(a, b){
                                                               return a[1]-b[1];
