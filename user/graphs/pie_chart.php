@@ -244,7 +244,15 @@ require_once('../../database/config.php');
                                                         },
                                               success:  function( data )
                                                         {
-                                                            console.log( data );
+                                                            var arr = [ "Company", "Percentage" ];
+
+                                                            data.sort(function(a, b){
+                                                              return a[1]-b[1];
+                                                            });
+                                                            
+                                                            data.push( arr );
+                                                            data.reverse();
+
                                                             drawChart( data );
                                                         }
                                             })

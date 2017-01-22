@@ -2,7 +2,8 @@
 
     require('../../database/config.php');
 
-    $array[]= array( "Company", "Percentage" );
+    // $array[]= array( "Company", "Percentage" );
+    // $array2[]= array();
 
     $grpOne = $_POST[ 'GroupOne' ];
     $grpTwo = $_POST[ 'GroupTwo' ];   
@@ -52,7 +53,11 @@
     $exec2  = mysqli_query( $conn, $getSum );
     $row2   = mysqli_fetch_array( $exec2 );
 
+    // asort( $array );
+
     $array[] = array( "Others", (float)$row2[ 'SubTotal' ] );//echo "['Others', ".$row2['SubTotal']."]";
 
+    // arsort( $array );
 
     echo json_encode( $array );
+    // print_r( [ $array ] );
