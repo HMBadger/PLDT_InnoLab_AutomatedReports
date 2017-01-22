@@ -140,7 +140,7 @@ require_once('../../database/config.php');
 												</td>
                         <td>
                           <?php
-                          var TotalSum = colOne + 
+                          
                           ?>
                         </td>
 												</tr>
