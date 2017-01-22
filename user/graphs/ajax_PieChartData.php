@@ -1,4 +1,4 @@
-<?php 
+<?php
 
     require('../../database/config.php');
 
@@ -6,21 +6,21 @@
     // $array2[]= array();
 
     $grpOne = $_POST[ 'GroupOne' ];
-    $grpTwo = $_POST[ 'GroupTwo' ];   
+    $grpTwo = $_POST[ 'GroupTwo' ];
 
-    $query  =   "   SELECT 
-                                    GroupName, 
-                                    GroupCTR 
-                    FROM            ict_database.tblgroup 
-                    WHERE           GroupIsActive = 1 
+    $query  =   "   SELECT
+                                    GroupName,
+                                    GroupCTR
+                    FROM            ict_database.tblgroup
+                    WHERE           GroupIsActive = 1
                         AND         GroupID = $grpOne
                 ";
 
-    $query2  =   "   SELECT 
-                                    GroupName, 
-                                    GroupCTR 
-                    FROM            ict_database.tblgroup 
-                    WHERE           GroupIsActive = 1 
+    $query2  =   "   SELECT
+                                    GroupName,
+                                    GroupCTR
+                    FROM            ict_database.tblgroup
+                    WHERE           GroupIsActive = 1
                         AND         GroupID = $grpTwo
                 ";
 
@@ -38,16 +38,16 @@
         $array[] = array( $row2[ 'GroupName' ], (float)$row2[ 'GroupCTR' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
-    $getSum =   "   SELECT 
+    $getSum =   "   SELECT
                                 SUM( GroupCTR )
                         AS      SubTotal
-                    FROM        ict_database.tblgroup 
-                    WHERE       GroupIsActive = 1 
-                        AND     ( 
-                                    GroupID != 2 
-                                AND 
-                                    GroupID != 4 
-                                ) 
+                    FROM        ict_database.tblgroup
+                    WHERE       GroupIsActive = 1
+                        AND     (
+                                    GroupID != '$grpOne'
+                                AND
+                                    GroupID != '$grpTwo' 
+                                )
                 ";
 
     $exec2  = mysqli_query( $conn, $getSum );
