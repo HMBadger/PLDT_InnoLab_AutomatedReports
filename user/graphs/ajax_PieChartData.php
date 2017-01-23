@@ -8,13 +8,8 @@
     $grpOne = $_POST[ 'GroupOne' ];
     $grpTwo = $_POST[ 'GroupTwo' ];
 
-    $query  =   "   SELECT
-                                    GroupName,
-                                    GroupCTR
-                    FROM            ict_database.tblgroup
-                    WHERE           GroupIsActive = 1
-                        AND         GroupID = $grpOne
-                ";
+    $query  =   "SELECT GroupName,GroupCTR FROM ict_database.tblgroup
+                 WHERE GroupIsActive = 1 AND GroupID = $grpOne";
 
     $query2  =   "   SELECT
                                     GroupName,
@@ -24,9 +19,16 @@
                         AND         GroupID = $grpTwo
                 ";
 
+	$testquery = "SELECT COUNT(r.ReportID) FROM ict_database.tblGroup g
+LEFT JOIN ict_database.tblReports r
+ON r.ReportID = g.GroupID WHERE YEAR(ReportDate) = 2016;";
 
-    $exec   = mysqli_query( $conn, $query );
-    $exec2  = mysqli_query( $conn, $query2 );
+	$testquery2 = "SELECT COUNT(r.ReportID) FROM ict_database.tblGroup g
+LEFT JOIN ict_database.tblReports r
+ON r.ReportID = g.GroupID WHERE YEAR(ReportDate) = 2016;";
+
+    $exec   = mysqli_query( $conn, $testquery );
+    $exec2  = mysqli_query( $conn, $testquery2 );
 
     while( $row = mysqli_fetch_array( $exec ) )
     {
