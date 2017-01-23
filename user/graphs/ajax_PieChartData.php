@@ -9,35 +9,39 @@
     $grpTwo = $_POST[ 'GroupTwo' ];
 
     $query  =   "SELECT GroupName,GroupCTR FROM ict_database.tblgroup
-                 WHERE GroupIsActive = 1 AND GroupID = $grpOne";
+                 WHERE GroupIsActive = 1 AND GroupID = '$grpOne'";
+    $query2  =  "SELECT GroupName,GroupCTR FROM ict_database.tblgroup
+                 WHERE GroupIsActive = 1 AND GroupID = '$grpTwo'";
 
-    $query2  =   "   SELECT
-                                    GroupName,
-                                    GroupCTR
-                    FROM            ict_database.tblgroup
-                    WHERE           GroupIsActive = 1
-                        AND         GroupID = $grpTwo
-                ";
+    /**TEST QUERIES**/
+    $query3 = "SELECT COUNT(GroupID) AS gID, GroupCTR FROM ict_database.tblgroup tblgrp
+    LEFT JOIN ict_database.tblreports tblrep
+    ON tblrep.ReportGroup = tblgrp.GroupID
+    WHERE GroupID = '$grpOne'";
 
-	$testquery = "SELECT COUNT(r.ReportID) FROM ict_database.tblGroup g
-LEFT JOIN ict_database.tblReports r
-ON r.ReportID = g.GroupID WHERE YEAR(ReportDate) = 2016;";
+    $query4 = "SELECT COUNT(GroupID) AS gID, GroupCTR FROM ict_database.tblgroup tblgrp
+    LEFT JOIN ict_database.tblreports tblrep
+    ON tblrep.ReportGroup = tblgrp.GroupID
+    WHERE GroupID = '$grpTwo'";
 
-	$testquery2 = "SELECT COUNT(r.ReportID) FROM ict_database.tblGroup g
-LEFT JOIN ict_database.tblReports r
-ON r.ReportID = g.GroupID WHERE YEAR(ReportDate) = 2016;";
+    $query5 = "SELECT COUNT(ReportID) as rID, ReportGroup FROM ict_database.tblreports r
+    LEFT JOIN ict_database.tblgroup g
+    ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpOne'";
+    $query6 = "SELECT COUNT(ReportID) as rID, ReportGroup FROM ict_database.tblreports r
+    LEFT JOIN ict_database.tblgroup g
+    ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpTwo'";
 
-    $exec   = mysqli_query( $conn, $testquery );
-    $exec2  = mysqli_query( $conn, $testquery2 );
+    $exec   = mysqli_query( $conn, $query5);
+    $exec2  = mysqli_query( $conn, $query6);
 
     while( $row = mysqli_fetch_array( $exec ) )
     {
-        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'GroupCTR' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
+        $array[] = array( $row[ 'ReportGroup' ], (float)$row[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
     while( $row2 = mysqli_fetch_array( $exec2 ) )
     {
-        $array[] = array( $row2[ 'GroupName' ], (float)$row2[ 'GroupCTR' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
+        $array[] = array( $row2[ 'ReportGroup' ], (float)$row2[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
     $getSum =   "   SELECT
@@ -48,7 +52,7 @@ ON r.ReportID = g.GroupID WHERE YEAR(ReportDate) = 2016;";
                         AND     (
                                     GroupID != '$grpOne'
                                 AND
-                                    GroupID != '$grpTwo' 
+                                    GroupID != '$grpTwo'
                                 )
                 ";
 
