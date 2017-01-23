@@ -120,23 +120,26 @@ require_once('../../database/config.php');
               <div class="row" style="margin-bottom: 40px">
 			  
                 <div class="col-md-5">
-                  <label>From:</label>
-                  <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
+                 	<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+						  <?php
+						  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+						  $queryyear = mysqli_query($conn, $sqlyear);
+						  while($row = mysqli_fetch_array($queryyear)){
+							?>
+							<option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+							<?php
+						  }?>
+					</select>&nbsp;&nbsp;
                 </div>
 				
-                <div class="col-md-5">
-                  <label>To:</label>
-                  <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
-                </div>
-				
-				 <div class="col-md-2" style="margin-top:2%">
-                  
-                  <input type="button" class="btn btn-primary"  
+                <div class="col-md-6">
+						<input type="button" class="btn btn-primary"  
                           id="btnGenPie" 
                           value="Generate Pie Chart"
                           />
-
                 </div>
+				
+				
 				
               </div>
 
@@ -202,13 +205,17 @@ require_once('../../database/config.php');
         $( "#btnGenPie" ).on( "click", function()
                                         {
                                             // 
-                                        
+												var rYear = $( "#txtYears").val();
                                             // 
                                             // drawChart();
                                             $.ajax({
                                               url:      'ajax_PieCompanies.php',
 											  type:     'POST',
                                               dataType: 'JSON',
+											  data:     {
+                                                            
+                                                        },
+											  
                                               
                                                  success:  function( data )
                                                         {
