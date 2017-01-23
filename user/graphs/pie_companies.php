@@ -213,7 +213,7 @@ require_once('../../database/config.php');
 											  type:     'POST',
                                               dataType: 'JSON',
 											  data:     {
-                                                            
+                                                            txtYears: rYear,
                                                         },
 											  
                                               
