@@ -111,7 +111,7 @@ require_once('../../database/config.php');
                   </select>
                 </div>
                 <div class="col-md-6">
-                  <input class="btn btn-primary" type="button" name="btnGenBar" value="Generate Column Charts"/>
+                  <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
                 </div>
               </div>
               </div>
@@ -131,45 +131,53 @@ require_once('../../database/config.php');
     <!-- Bootstrap Core JavaScript -->
     <script src="../../js/bootstrap.min.js"></script>
     <script type="text/javascript">
-    google.load("visualization", "1", {packages:["corechart"]});
-    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-      var data = google.visualization.arrayToDataTable([
-        ['Branch', 'Visitor Count'],
-        <?php
-        if(!empty($_POST['yearSelect'])){
-          $yrSel = $_POST['yearSelect'];
-        }
-        else{
-          $yrSel = date("Y");
-        }
-        $getVisitors = "SELECT * FROM ict_database.tblreports r
-        LEFT JOIN ict_database.tblactivity a
-        ON r.ReportActivity = a.ActivityID
-        LEFT JOIN ict_database.tbllocation l
-        ON r.ReportLoc = l.LocationID WHERE (ReportIsActive = 1 AND LocationID = 1) AND YEAR(ReportDate) =2016 ";
-        $query = "SELECT * FROM ict_database.tblactivity WHERE ActivityIsActive = 1";
-        $exec = mysqli_query($conn,$getVisitors);
-        while($row = mysqli_fetch_array($exec)){
-          echo "['".$row['ActivityName']."',".$row['ActivityCTR']."],";
-        }
-        ?>
-      ]);
-
+    function drawBarGraph(arr){
+      var data = google.visualization.arrayToDataTable( arr );
+      console.log(arr);
+      console.log(data);
       var options = {
-        title: 'Total Visitor in each branch'
-      };
-      var chart = new google.visualization.ColumnChart(document.getElementById("columnchart"));
-      chart.draw(data, options);
+                        title: 'Company vs Company',
+                    };
+      var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
+      chart.draw( data, options );
     }
-
-    function initializeBarGraph(){
+    function initializeGraph(){
       $(document).ready(function(){
-        $('#btnGenBar').on("click", function(){
-          drawChart();
-        });
+        $( "#btnGenBar" ).on( "click", function()
+                                        {
+                                            $.ajax({
+                                              url:      'bar_graph_data.php',
+                                              type:     'POST',
+                                              dataType: 'JSON',
+                                              data:     {
+                                                        },
+                                              success:  function( data )
+                                                        {
+                                                          var arr = [ "Company", "NO: " ];
+                                                          data.push( arr );
+                                                          data.reverse();
+                                                          drawBarGraph( data );
+                                                        }
+                                            })
+                                            .done(function( data ) {
+                                              console.log("success");
+                                              // console.log( data );
+                                            })
+                                            .fail(function( data ) {
+                                              console.log("error");
+                                              // console.log( data );
+                                            })
+                                            .always(function( data ) {
+                                              console.log("complete");
+                                              // console.log( data );
+                                            });
+
+                                        }
+                            );
       });
     }
+    google.setOnLoadCallback(initializeGraph);
+    google.charts.load("current", {packages:["corechart"]});
     </script>
   </form>
 </body>
