@@ -8,32 +8,20 @@
     $grpOne = $_POST[ 'GroupOne' ];
     $grpTwo = $_POST[ 'GroupTwo' ];
 
-    $query  =   "SELECT GroupName,GroupCTR FROM ict_database.tblgroup
-                 WHERE GroupIsActive = 1 AND GroupID = '$grpOne'";
-    $query2  =  "SELECT GroupName,GroupCTR FROM ict_database.tblgroup
-                 WHERE GroupIsActive = 1 AND GroupID = '$grpTwo'";
 
-    /**TEST QUERIES**/
-    $query3 = "SELECT COUNT(GroupID) AS gID, GroupCTR FROM ict_database.tblgroup tblgrp
-    LEFT JOIN ict_database.tblreports tblrep
-    ON tblrep.ReportGroup = tblgrp.GroupID
-    WHERE GroupID = '$grpOne'";
+    /**REAL QUERIES**/
 
-    $query4 = "SELECT COUNT(GroupID) AS gID, GroupCTR FROM ict_database.tblgroup tblgrp
-    LEFT JOIN ict_database.tblreports tblrep
-    ON tblrep.ReportGroup = tblgrp.GroupID
-    WHERE GroupID = '$grpTwo'";
 
-    $query5 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
+    $query = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
-    ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpOne'";
+    ON r.ReportGroup = g.GroupID WHERE ReportIsActive = 1 AND GroupID = '$grpOne' AND YEAR( ReportDate ) = 2016";
 	
-    $query6 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
+    $query2 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
-    ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpTwo'";
+    ON r.ReportGroup = g.GroupID WHERE ReportIsActive = 1 AND GroupID = '$grpTwo' AND YEAR( ReportDate ) = 2016";
 
-    $exec   = mysqli_query( $conn, $query5);
-    $exec2  = mysqli_query( $conn, $query6);
+    $exec   = mysqli_query( $conn, $query);
+    $exec2  = mysqli_query( $conn, $query2);
 
     while( $row = mysqli_fetch_array( $exec ) )
     {
@@ -47,7 +35,7 @@
 
     $getOthers =   "SELECT COUNT(ReportID) as SubTotal  FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
-    ON r.ReportGroup = g.GroupID WHERE GroupID != '$grpOne' AND GroupID != '$grpTwo' ";
+    ON r.ReportGroup = g.GroupID WHERE GroupID != '$grpOne' AND GroupID != '$grpTwo' AND ReportIsActive = 1 AND YEAR( ReportDate ) = 2016 ";
 
     $exec2  = mysqli_query( $conn, $getOthers );
     $row2   = mysqli_fetch_array( $exec2 );
