@@ -197,7 +197,7 @@ require_once('../../database/config.php');
               </div>
             </div>
           </div>
-          <div id="piechart_3d" style="width: 1000px; height: 500px;"></div>
+          <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
         </div>
       </div>
     </div>
