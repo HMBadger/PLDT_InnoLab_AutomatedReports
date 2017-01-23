@@ -24,10 +24,10 @@
     ON tblrep.ReportGroup = tblgrp.GroupID
     WHERE GroupID = '$grpTwo'";
 
-    $query5 = "SELECT COUNT(ReportID) as rID, ReportGroup FROM ict_database.tblreports r
+    $query5 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
     ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpOne'";
-    $query6 = "SELECT COUNT(ReportID) as rID, ReportGroup FROM ict_database.tblreports r
+    $query6 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
     ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpTwo'";
 
@@ -36,25 +36,16 @@
 
     while( $row = mysqli_fetch_array( $exec ) )
     {
-        $array[] = array( $row[ 'ReportGroup' ], (float)$row[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
+        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
     while( $row2 = mysqli_fetch_array( $exec2 ) )
     {
-        $array[] = array( $row2[ 'ReportGroup' ], (float)$row2[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
+        $array[] = array( $row2[ 'GroupName' ], (float)$row2[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
-    $getSum =   "   SELECT
-                                SUM( GroupCTR )
-                        AS      SubTotal
-                    FROM        ict_database.tblgroup
-                    WHERE       GroupIsActive = 1
-                        AND     (
-                                    GroupID != '$grpOne'
-                                AND
-                                    GroupID != '$grpTwo'
-                                )
-                ";
+    $getSum =   "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup WHERE GroupIsActive = 1
+                        AND(GroupID != '$grpOne' AND GroupID != '$grpTwo')";
 
     $exec2  = mysqli_query( $conn, $getSum );
     $row2   = mysqli_fetch_array( $exec2 );
