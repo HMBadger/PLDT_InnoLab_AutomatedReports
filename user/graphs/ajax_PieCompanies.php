@@ -4,31 +4,25 @@
 
     // $array[]= array( "Company", "Percentage" );
     // $array2[]= array();
+	
 
+	$repYear = $_POST[ 'txtYears' ];
+
+	$getCompanies =   "SELECT DISTINCT ( ReportID) as AllCompany, GroupName FROM ict_database.tblreports r
+    LEFT JOIN ict_database.tblgroup g
+    ON r.ReportGroup = g.GroupID WHERE ReportIsActive = 1 AND YEAR( ReportDate ) = '$repYear' and GroupIsActive = 1";
    
-
-    $query  =   "   SELECT
-                                    GroupName,
-                                    GroupCTR
-                    FROM            ict_database.tblgroup
-                    WHERE           GroupIsActive = 1
-                        
-                ";
-
-   
-
-
-    $exec   = mysqli_query( $conn, $query );
-   
-
-    while( $row = mysqli_fetch_array( $exec ) )
+    $exec   = mysqli_query( $conn, $getCompanies );
+	while( $row = mysqli_fetch_array( $exec ) )
+		 
     {
-        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'GroupCTR' ] );//echo  "['".$row[ 'ActivityName' ]."', ".$row[ 'ActivityCTR' ]."], ";
+        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'AllCompany' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
-  
+ 
 
     // arsort( $array );
 
     echo json_encode( $array );
     // print_r( [ $array ] );
+?>
