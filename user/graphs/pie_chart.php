@@ -258,6 +258,7 @@ require_once('../../database/config.php');
                                             // 
                                             var gOne = $( "#GroupOne" ).val();
                                             var gTwo = $( "#GroupTwo" ).val();
+											var rYear = $( "#txtYears").val();
                                             // 
                                             // drawChart();
                                             $.ajax({
@@ -267,6 +268,7 @@ require_once('../../database/config.php');
                                               data:     {
                                                             GroupOne: gOne,
                                                             GroupTwo: gTwo,
+															txtYears: rYear,
                                                         },
                                               success:  function( data )
                                                         {
