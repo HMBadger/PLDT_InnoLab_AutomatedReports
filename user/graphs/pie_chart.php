@@ -119,13 +119,19 @@ require_once('../../database/config.php');
 
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-6">
-                  <label>From:</label>
-                  <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
+					Select Year: 
+						<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+					  <?php
+					  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+					  $queryyear = mysqli_query($conn, $sqlyear);
+					  while($row = mysqli_fetch_array($queryyear)){
+						?>
+						<option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+						<?php
+					  }?>
+						</select>&nbsp;&nbsp;
                 </div>
-                <div class="col-md-6">
-                  <label>To:</label>
-                  <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
-                </div>
+             
               </div>
 
               <div class="row" style="margin-bottom: 40px">

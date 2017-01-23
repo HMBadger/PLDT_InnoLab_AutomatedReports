@@ -27,6 +27,7 @@
     $query5 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
     ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpOne'";
+	
     $query6 = "SELECT COUNT(ReportID) as rID, GroupName FROM ict_database.tblreports r
     LEFT JOIN ict_database.tblgroup g
     ON r.ReportGroup = g.GroupID WHERE GroupID = '$grpTwo'";
@@ -44,10 +45,11 @@
         $array[] = array( $row2[ 'GroupName' ], (float)$row2[ 'rID' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
-    $getSum =   "SELECT SUM(GroupCTR) AS SubTotal FROM ict_database.tblgroup WHERE GroupIsActive = 1
-                        AND(GroupID != '$grpOne' AND GroupID != '$grpTwo')";
+    $getOthers =   "SELECT COUNT(ReportID) as SubTotal  FROM ict_database.tblreports r
+    LEFT JOIN ict_database.tblgroup g
+    ON r.ReportGroup = g.GroupID WHERE GroupID != '$grpOne' AND GroupID != '$grpTwo' ";
 
-    $exec2  = mysqli_query( $conn, $getSum );
+    $exec2  = mysqli_query( $conn, $getOthers );
     $row2   = mysqli_fetch_array( $exec2 );
 
     // asort( $array );
