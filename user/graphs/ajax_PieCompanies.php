@@ -7,16 +7,16 @@
 	
 
 	$repYear = $_POST[ 'txtYears' ];
-
-	$getCompanies =   "SELECT DISTINCT ( ReportID) as AllCompany, GroupName FROM ict_database.tblreports r
-    LEFT JOIN ict_database.tblgroup g
-    ON r.ReportGroup = g.GroupID WHERE ReportIsActive = 1 AND YEAR( ReportDate ) = '$repYear' and GroupIsActive = 1";
+	
+	$getCompanies = "SELECT COUNT(ReportGroup) AS RepCom, GroupName, ReportID, ReportDate
+	FROM ict_database.tblreports r LEFT JOIN ict_database.tblgroup g ON
+	r.ReportGroup = g.GroupID WHERE YEAR(ReportDate) = '$repYear' AND ReportIsActive = 1 AND GroupIsActive = 1 GROUP BY ReportGroup";
    
     $exec   = mysqli_query( $conn, $getCompanies );
 	while( $row = mysqli_fetch_array( $exec ) )
 		 
     {
-        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'AllCompany' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
+        $array[] = array( $row[ 'GroupName' ], (float)$row[ 'RepCom' ] );//echo  "['".$row[ 'GroupName' ]."', ".$row[ 'GroupCTR' ]."], ";
     }
 
  
