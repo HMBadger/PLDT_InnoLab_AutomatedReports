@@ -151,7 +151,7 @@ require_once('../../database/config.php');
                 </div>
 				
 				
-                <div class="col-md-1">
+                <div class="col-md-2">
 						<input type="button" class="btn btn-primary"  
                           id="btnGenPie" 
                           value="Generate Pie Chart"
@@ -259,6 +259,7 @@ require_once('../../database/config.php');
                                             })
                                             .fail(function( data ) {
                                               console.log("error");
+											   $("#piechart_3d").html("");
                                               // console.log( data );
                                             })
                                             .always(function( data ) {

@@ -244,8 +244,10 @@ require_once('../../database/config.php');
                                                  success:  function( data )
                                                         {
                                                             var arr = [ "Company", "Percentage" ];
+															
 
-															if(arr.length()>0) {
+															
+																	
 																	data.sort(function(a, b){
 																	  return a[1]-b[1];
 																	});
@@ -253,12 +255,10 @@ require_once('../../database/config.php');
 																	data.push( arr );
 																	data.reverse();
 
-																	drawChart( data );
 																	
-																	}
-															else
+																	drawChart( data ); 
 																	
-																	$("#piechart_3d").html("");
+																
                                                         }
                                             })
                                             .done(function( data ) {
@@ -267,6 +267,7 @@ require_once('../../database/config.php');
                                             })
                                             .fail(function( data ) {
                                               console.log("error");
+											  $("#piechart_3d").html("");
                                               // console.log( data );
                                             })
                                             .always(function( data ) {

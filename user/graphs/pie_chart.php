@@ -117,9 +117,9 @@ require_once('../../database/config.php');
                             
                 </ol>
 
-              <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-6">
-					Select Year: 
+              <div class="row" >
+                <div class="col-md-12">
+			
 						<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
 					  <?php
 					  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
@@ -131,6 +131,7 @@ require_once('../../database/config.php');
 					  }?>
 						</select>&nbsp;&nbsp;
                 </div>
+				
              
               </div>
 
@@ -186,14 +187,16 @@ require_once('../../database/config.php');
                     ?>
                   </select>&nbsp; &nbsp;
                 </div>
-                <div class="col-md-2" style="margin-top:2%">
+				
+				<div class="col-md-2" style="margin-top: 2%" >
                   
                   <input type="button" class="btn btn-primary"  
                           id="btnGenPie" 
-                          value="Generate Pie Chart"
+                          value="Generate Pie Chart" 
                           />
 
                 </div>
+             
               </div>
             </div>
           </div>

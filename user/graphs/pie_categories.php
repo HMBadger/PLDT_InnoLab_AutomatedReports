@@ -255,6 +255,7 @@ require_once('../../database/config.php');
                                             })
                                             .fail(function( data ) {
                                               console.log("error");
+											    $("#piechart_3d").html("");
                                               // console.log( data );
                                             })
                                             .always(function( data ) {
