@@ -132,7 +132,25 @@ require_once('../../database/config.php');
 					</select>&nbsp;&nbsp;
                 </div>
 				
-                <div class="col-md-6">
+				 <div class="col-md-5">
+                 
+             <select name="branchName" id="branchName" class="form-control">
+              <?php
+              require '../../database/config.php';
+              $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
+              $query = mysqli_query($conn,$sql);
+              while($row=mysqli_fetch_array($query))
+              {
+                $loc_id = $row['LocationID'];
+                $loc_name = $row['LocationName'];
+                echo "<option value=\"$loc_id\">$loc_name</option>";
+              }
+              ?>
+            </select>&nbsp; &nbsp;
+                </div>
+				
+                <div class="col-md-1">
+					
 						<input type="button" class="btn btn-primary"  
                           id="btnGenPie" 
                           value="Generate Pie Chart"
@@ -206,6 +224,7 @@ require_once('../../database/config.php');
                                         {
                                             // 
 												var rYear = $( "#txtYears").val();
+												var bName = $( "#branchName").val();
                                             // 
                                             // drawChart();
                                             $.ajax({
@@ -214,6 +233,7 @@ require_once('../../database/config.php');
                                               dataType: 'JSON',
 											  data:     {
                                                             txtYears: rYear,
+															branchName: bName,
                                                         },
 											  
                                               
