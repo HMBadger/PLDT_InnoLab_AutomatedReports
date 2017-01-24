@@ -94,11 +94,11 @@ require_once('../../database/config.php');
                              </li>
 
                              <li>
-                                 <i class="fa fa-suitcase"></i>  <a href="bar_graph_category.php">All Companies</a>
+                                 <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
                              </li>
 
                <li>
-                                 <i class="fa fa-wrench"></i>  <a href="bar_graph_visitors.php">All Activities</a>
+                                 <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
                              </li>
 
                <li>
@@ -183,7 +183,7 @@ require_once('../../database/config.php');
                   												var bName = $( "#branchName").val();
 
                                             $.ajax({
-                                              url:      'bar_graph_data.php',
+                                              url:      'bar_graph_cdata.php',
                                               type:     'POST',
                                               dataType: 'JSON',
                                               data:     {

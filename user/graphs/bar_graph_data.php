@@ -2,17 +2,17 @@
   require('../../database/config.php');
 
 
-  $getVisitors = "SELECT COUNT(ReportID) as rID, ActivityName, ReportDate FROM ict_database.tblreports r
-  LEFT JOIN ict_database.tblactivity g
-  ON r.ReportActivity = g.ActivityID
-  WHERE g.ActivityIsActive = 1 AND YEAR(ReportDate) = '2016'";
-  $getVis = "SELECT COUNT(ReportID) as rID, ActivityName FROM ict_database.tblactivity a
-  LEFT JOIN ict_database.tblreports r
-  ON r.ReportActivity = a.ActivityID";
+  $repYear = $_POST['yearSelect'];
+	$branName = $_POST['branchName'];
 
+  $getAct = "SELECT COUNT(ReportActivity) AS RepAct, ActivityName, ReportDate
+  FROM ict_database.tblreports r LEFT JOIN ict_database.tblactivity a
+  ON r.ReportActivity = a.ActivityID
+  LEFT JOIN ict_database.tbllocation l
+  ON r.ReportLoc = l.LocationID WHERE YEAR(ReportDate) = '$repYear' AND
+  ReportLoc = '$branName' AND LocationIsActive = 1 AND ReportIsActive = 1 AND ActivityIsActive = 1 GROUP BY ReportActivity";
 
-
-  $execVisitors = mysqli_query($conn, $getVisitors);
+  $execVisitors = mysqli_query($conn, $getAct);
 
   if (!$execVisitors) {
     printf("Error: %s\n", mysqli_error($conn));
@@ -20,7 +20,7 @@
 }
 
   while($row = mysqli_fetch_assoc($execVisitors)){
-    $array[] = array($row['ActivityName'], (float)$row['rID']);
+    $array[] = array($row['ActivityName'], (float)$row['RepAct']);
   }
 
   echo json_encode($array);

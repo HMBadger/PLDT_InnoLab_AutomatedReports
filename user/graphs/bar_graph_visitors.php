@@ -88,26 +88,6 @@ require_once('../../database/config.php');
       <div id="page-wrapper">
         <div class="container-fluid"><br>
 
-          <ol class="breadcrumb">
-               <li class="active">
-                                 <i class="fa fa-users"></i> <a href="bar_graph_visitors.php"> Visitors </a>
-                             </li>
-
-                             <li>
-                                 <i class="fa fa-suitcase"></i>  <a href="bar_graph_category.php">All Companies</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-wrench"></i>  <a href="bar_graph_visitors.php">All Activities</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
-                             </li>
-
-
-                 </ol>
-
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">
@@ -145,8 +125,9 @@ require_once('../../database/config.php');
                       <?php
                     }?>
                   </select>
+                  <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
                 </div>
-                <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
+
               </div>
               </div>
             </div>
@@ -180,10 +161,10 @@ require_once('../../database/config.php');
         $( "#btnGenBar" ).on( "click", function()
                                         {
                                           var rYear = $( "#yearSelect").val();
-                  												var bName = $( "#branchName").val();
+                                          var bName = $( "#branchName").val();
 
                                             $.ajax({
-                                              url:      'bar_graph_data.php',
+                                              url:      'bar_graph_dvisitors.php',
                                               type:     'POST',
                                               dataType: 'JSON',
                                               data:     {
