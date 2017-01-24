@@ -226,6 +226,10 @@ require_once('../../database/config.php');
 												var rYear = $( "#txtYears").val();
 												var bName = $( "#branchName").val();
                                             // 
+											
+											
+											
+											
                                             // drawChart();
                                             $.ajax({
                                               url:      'ajax_PieCompanies.php',
@@ -241,14 +245,20 @@ require_once('../../database/config.php');
                                                         {
                                                             var arr = [ "Company", "Percentage" ];
 
-                                                            data.sort(function(a, b){
-                                                              return a[1]-b[1];
-                                                            });
-                                                            
-                                                            data.push( arr );
-                                                            data.reverse();
+															if(arr.length()>0) {
+																	data.sort(function(a, b){
+																	  return a[1]-b[1];
+																	});
+																	
+																	data.push( arr );
+																	data.reverse();
 
-                                                            drawChart( data );
+																	drawChart( data );
+																	
+																	}
+															else
+																	
+																	$("#piechart_3d").html("");
                                                         }
                                             })
                                             .done(function( data ) {
