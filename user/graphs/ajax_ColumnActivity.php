@@ -2,8 +2,8 @@
   require('../../database/config.php');
 
 
-  $repYear = $_POST['yearSelect'];
-	$branName = $_POST['branchName'];
+  $repYear = $_POST['yearActivity'];
+	$branName = $_POST['branchActivity'];
 
   $getAct = "SELECT COUNT(ReportActivity) AS RepAct, ActivityName, ReportDate
   FROM ict_database.tblreports r LEFT JOIN ict_database.tblactivity a

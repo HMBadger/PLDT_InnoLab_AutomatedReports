@@ -47,10 +47,10 @@ require_once('../database/config.php');
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
               <li>
-                <a href="graphs/pie_chart.php">Pie Graph</a>
+                <a href="graphs/pie_chart.php">Pie Charts</a>
               </li>
               <li>
-                <a href="graphs/bar_graph.php">Bar Graph</a>
+                <a href="graphs/column_group.php">Column Charts</a>
               </li>
             </ul>
           </li>

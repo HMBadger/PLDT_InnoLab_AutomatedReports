@@ -19,7 +19,6 @@ require_once('../../database/config.php');
   <!-- Custom Fonts -->
   <link href="../../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link rel="icon" href="../images/innolablogo.png">
-  <!-- For chart-->
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -51,10 +50,10 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="pie_chart.php">Pie Graph</a>
+                  <a href="pie_chart.php">Pie Charts</a>
                 </li>
                 <li>
-                  <a href="bar_graph.php">Bar Graph</a>
+                  <a href="bar_graph.php">Column Charts</a>
                 </li>
               </ul>
             </li>
@@ -62,7 +61,7 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="main" class="collapse">
                 <li>
-                  <a href="../index.php"> Add Information</a>
+                  <a href="../index.php">Add Information</a>
                 </li>
                 <li>
                   <a href="../view_info.php">View Information </a>
@@ -87,39 +86,21 @@ require_once('../../database/config.php');
 
       <div id="page-wrapper">
         <div class="container-fluid"><br>
-
-          <ol class="breadcrumb">
-               <li class="active">
-                                 <i class="fa fa-users"></i> <a href="bar_graph_visitors.php"> Visitors </a>
-                             </li>
-
-                             <li>
-                                 <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
-                             </li>
-
-
-                 </ol>
-
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">
-              <h1 class="page-header">
-                Manila Innolab Visits
-                <small>PLDT Innolab</small>
-              </h1>
+              <h1 class="page-header">PLDT Innolab<small>&nbsp;Summary of Activities</small></h1>
+              <ol class="breadcrumb">
+                <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
+                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
+                <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
+              </ol>
+              <!-- /Page Heading -->
 
+              <!--Page Content-->
               <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-6">
-                  <label><h3>Select Year</h3></label>
-                  <select name="yearSelect" id="yearSelect" class="form-control" style="width: 80%!important">
+                <div class="col-md-4">
+                  <select id="yearActivity" name="yearActivity" class="form-control" style="width: 80%!important">
                     <?php
                     $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
                     $yearQuery = mysqli_query($conn, $yearSql);
@@ -130,9 +111,9 @@ require_once('../../database/config.php');
                     }?>
                   </select>
                 </div>
-                <div class="col-md-6">
-                  <label><h3>Select Year</h3></label>
-                  <select name="branchName" id="branchName" class="form-control" style="width: 80%!important">
+
+                <div class="col-md-4">
+                  <select name="branchActivity" id="branchActivity" class="form-control" style="width: 80%!important">
                     <?php
                     $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
                     $query = mysqli_query($conn,$sql);
@@ -146,13 +127,21 @@ require_once('../../database/config.php');
                     }?>
                   </select>
                 </div>
-                <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
+
+                <div class="col-md-4">
+                  <input class="btn btn-primary" type="button" id="btnColAct" value="Generate Column Chart"/>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div id="columnActivity" style="width: 100%; height: 500px;"></div>
+                </div>
               </div>
               </div>
             </div>
           </div>
         </div>
-      <div id="columnchart" style="width: 100%; height: 500px;"></div>
+
       </div>
     </div>
     <!-- /#wrapper -->
@@ -170,29 +159,31 @@ require_once('../../database/config.php');
       console.log(arr);
       console.log(data);
       var options = {
-                        title: 'Company vs Company',
+                        title: 'Viewing Column Chart',
+                        scaleType: 'log',
+                        format: 'none'
                     };
-      var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
+      var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
       chart.draw( data, options );
     }
     function initializeGraph(){
       $(document).ready(function(){
-        $( "#btnGenBar" ).on( "click", function()
+        $( "#btnColAct" ).on( "click", function()
                                         {
-                                          var rYear = $( "#yearSelect").val();
-                  												var bName = $( "#branchName").val();
+                                          var rYear = $( "#yearActivity").val();
+                  												var bName = $( "#branchActivity").val();
 
                                             $.ajax({
-                                              url:      'bar_graph_cdata.php',
+                                              url:      'ajax_ColumnActivity.php',
                                               type:     'POST',
                                               dataType: 'JSON',
                                               data:     {
-                                                          yearSelect: rYear,
-                                                          branchName: bName,
+                                                          yearActivity: rYear,
+                                                          branchActivity: bName,
                                                         },
                                               success:  function( data )
                                                         {
-                                                          var arr = [ "Company", "NO: " ];
+                                                          var arr = [ "Activity", "Count" ];
                                                           data.push( arr );
                                                           data.reverse();
                                                           drawBarGraph( data );

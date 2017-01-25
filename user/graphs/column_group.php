@@ -87,27 +87,6 @@ require_once('../../database/config.php');
 
       <div id="page-wrapper">
         <div class="container-fluid"><br>
-
-          <ol class="breadcrumb">
-               <li class="active">
-                                 <i class="fa fa-users"></i> <a href="bar_graph_visitors.php"> Visitors </a>
-                             </li>
-
-                             <li>
-                                 <i class="fa fa-suitcase"></i>  <a href="bar_graph_category.php">All Companies</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-wrench"></i>  <a href="bar_graph_visitors.php">All Activities</a>
-                             </li>
-
-               <li>
-                                 <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
-                             </li>
-
-
-                 </ol>
-
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">
@@ -116,9 +95,14 @@ require_once('../../database/config.php');
                 <small>PLDT Innolab</small>
               </h1>
 
+              <ol class="breadcrumb">
+                <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
+                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
+                <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
+              </ol>
+
               <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-6">
-                  <label><h3>Select Year</h3></label>
+                <div class="col-md-4">
                   <select name="yearSelect" id="yearSelect" class="form-control" style="width: 80%!important">
                     <?php
                     $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
@@ -130,8 +114,7 @@ require_once('../../database/config.php');
                     }?>
                   </select>
                 </div>
-                <div class="col-md-6">
-                  <label><h3>Select Year</h3></label>
+                <div class="col-md-4">
                   <select name="branchName" id="branchName" class="form-control" style="width: 80%!important">
                     <?php
                     $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
@@ -141,83 +124,87 @@ require_once('../../database/config.php');
                       $loc_id = $row['LocationID'];
                       $loc_name = $row['LocationName'];
                       echo "<option value=\"$loc_id\">$loc_name</option>";
-                    ?>
+                      ?>
                       <?php
                     }?>
                   </select>
+
                 </div>
-                <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
-              </div>
+                <div class="col-md-4">
+                  <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
+                </div>
+                <div id="columnchart" style="width: 100%; height: 500px;"></div>
               </div>
             </div>
           </div>
         </div>
-      <div id="columnchart" style="width: 100%; height: 500px;"></div>
       </div>
+
     </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    function drawBarGraph(arr){
-      var data = google.visualization.arrayToDataTable( arr );
-      console.log(arr);
-      console.log(data);
-      var options = {
-                        title: 'Company vs Company',
-                    };
-      var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
-      chart.draw( data, options );
-    }
-    function initializeGraph(){
-      $(document).ready(function(){
-        $( "#btnGenBar" ).on( "click", function()
-                                        {
-                                          var rYear = $( "#yearSelect").val();
-                  												var bName = $( "#branchName").val();
+  </div>
+  <!-- /#wrapper -->
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="../../js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function drawBarGraph(arr){
+    var data = google.visualization.arrayToDataTable( arr );
+    console.log(arr);
+    console.log(data);
+    var options = {
+      title: 'Company vs Company',
+    };
+    var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
+    chart.draw( data, options );
+  }
+  function initializeGraph(){
+    $(document).ready(function(){
+      $( "#btnGenBar" ).on( "click", function()
+      {
+        var rYear = $( "#yearSelect").val();
+        var bName = $( "#branchName").val();
 
-                                            $.ajax({
-                                              url:      'bar_graph_data.php',
-                                              type:     'POST',
-                                              dataType: 'JSON',
-                                              data:     {
-                                                          yearSelect: rYear,
-                                                          branchName: bName,
-                                                        },
-                                              success:  function( data )
-                                                        {
-                                                          var arr = [ "Company", "NO: " ];
-                                                          data.push( arr );
-                                                          data.reverse();
-                                                          drawBarGraph( data );
-                                                        }
-                                            })
-                                            .done(function( data ) {
-                                              console.log("success");
-                                              // console.log( data );
-                                            })
-                                            .fail(function( data ) {
-                                              console.log("error");
-                                              // console.log( data );
-                                            })
-                                            .always(function( data ) {
-                                              console.log("complete");
-                                              // console.log( data );
-                                            });
+        $.ajax({
+          url:      'ajax_ColumnGroup.php',
+          type:     'POST',
+          dataType: 'JSON',
+          data:     {
+            yearSelect: rYear,
+            branchName: bName,
+          },
+          success:  function( data )
+          {
+            var arr = [ "Company", "NO: " ];
+            data.push( arr );
+            data.reverse();
+            drawBarGraph( data );
+          }
+        })
+        .done(function( data ) {
+          console.log("success");
+          // console.log( data );
+        })
+        .fail(function( data ) {
+          console.log("error");
+          // console.log( data );
+        })
+        .always(function( data ) {
+          console.log("complete");
+          // console.log( data );
+        });
 
-                                        }
-                            );
-      });
-    }
-    google.setOnLoadCallback(initializeGraph);
-    google.charts.load("current", {packages:["corechart"]});
-    </script>
-  </form>
+      }
+    );
+  });
+}
+google.setOnLoadCallback(initializeGraph);
+google.charts.load("current", {packages:["corechart"]});
+</script>
+</form>
 </body>
 </html>
