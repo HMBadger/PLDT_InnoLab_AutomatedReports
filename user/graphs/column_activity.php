@@ -1,5 +1,6 @@
 <?php
 require_once('../../database/config.php');
+include('gen.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -130,6 +131,7 @@ require_once('../../database/config.php');
 
                 <div class="col-md-4">
                   <input class="btn btn-primary" type="button" id="btnColAct" value="Generate Column Chart"/>
+                  <input onclick="gen.php" class="btn btn-primary" type="submit" id="btnGenEx" name="btnGenEx" value="Generate Excel File"/>
                 </div>
               </div>
               <div class="row">
