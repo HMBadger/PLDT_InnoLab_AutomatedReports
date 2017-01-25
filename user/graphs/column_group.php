@@ -158,7 +158,7 @@ require_once('../../database/config.php');
     console.log(arr);
     console.log(data);
     var options = {
-      title: 'Company vs Company',
+      title: 'PLDT Innolab Visits',
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
@@ -193,6 +193,7 @@ require_once('../../database/config.php');
         .fail(function( data ) {
           console.log("error");
           // console.log( data );
+          $("#columnchart").html("");
         })
         .always(function( data ) {
           console.log("complete");

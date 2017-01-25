@@ -96,30 +96,30 @@ require_once('../../database/config.php');
                 Pie Graph
                 <small>Company vs Company</small>
               </h1>
-			  
+
 			   <ol class="breadcrumb">
 							<li class="active">
                                 <i class="fa fa-users"></i> <a href="pie_chart.php"> Company vs Company </a>
                             </li>
-							
+
                             <li>
                                 <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
                             </li>
-							
+
 							<li>
                                 <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
                             </li>
-							
+
 							<li>
                                 <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
                             </li>
-                            
-                            
+
+
                 </ol>
 
               <div class="row" >
                 <div class="col-md-12">
-			
+
 						<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
 					  <?php
 					  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
@@ -131,27 +131,27 @@ require_once('../../database/config.php');
 					  }?>
 						</select>&nbsp;&nbsp;
                 </div>
-				
-             
+
+
               </div>
 
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select class="form-control" 
+                  <select class="form-control"
                           id="GroupOne"
-                          name="GroupOne"  
+                          name="GroupOne"
                           >
                     <?php
-					
-                        $sql =  " SELECT 
-                                          * 
-                                  FROM    ict_database.tblgroup 
+
+                        $sql =  " SELECT
+                                          *
+                                  FROM    ict_database.tblgroup
                                   WHERE   GroupIsActive = 1
                                 ";
 
                         $query = mysqli_query( $conn, $sql );
-                        
+
                         while( $row = mysqli_fetch_array( $query ) )
                         {
                             $grp_id   = $row[ 'GroupID' ];
@@ -164,15 +164,15 @@ require_once('../../database/config.php');
                 </div>
                 <div class="col-md-5">
                   <label>Company:</label>
-                  <select class="form-control" 
-                          id="GroupTwo" 
-                          name="GroupTwo" 
+                  <select class="form-control"
+                          id="GroupTwo"
+                          name="GroupTwo"
                           >
                     <?php
 
-                        $sql =  " SELECT 
-                                          * 
-                                  FROM    ict_database.tblgroup 
+                        $sql =  " SELECT
+                                          *
+                                  FROM    ict_database.tblgroup
                                   WHERE   GroupIsActive = 1
                                 ";
 
@@ -187,16 +187,16 @@ require_once('../../database/config.php');
                     ?>
                   </select>&nbsp; &nbsp;
                 </div>
-				
+
 				<div class="col-md-2" style="margin-top: 2%" >
-                  
-                  <input type="button" class="btn btn-primary"  
-                          id="btnGenPie" 
-                          value="Generate Pie Chart" 
+
+                  <input type="button" class="btn btn-primary"
+                          id="btnGenPie"
+                          value="Generate Pie Chart"
                           />
 
                 </div>
-             
+
               </div>
             </div>
           </div>
@@ -205,9 +205,9 @@ require_once('../../database/config.php');
       </div>
     </div>
 
-		  
-	
-	
+
+
+
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -224,7 +224,7 @@ require_once('../../database/config.php');
     <script type="text/javascript">
 
     // $( document ).ready(
-    //                     function() 
+    //                     function()
     //                     {
     //                         drawChart();
     //                     }
@@ -258,11 +258,11 @@ require_once('../../database/config.php');
       $(document).ready(function(){
         $( "#btnGenPie" ).on( "click", function()
                                         {
-                                            // 
+                                            //
                                             var gOne = $( "#GroupOne" ).val();
                                             var gTwo = $( "#GroupTwo" ).val();
 											var rYear = $( "#txtYears").val();
-                                            // 
+                                            //
                                             // drawChart();
                                             $.ajax({
                                               url:      'ajax_PieChartData.php',
@@ -280,7 +280,7 @@ require_once('../../database/config.php');
                                                             data.sort(function(a, b){
                                                               return a[1]-b[1];
                                                             });
-                                                            
+
                                                             data.push( arr );
                                                             data.reverse();
 
@@ -294,12 +294,13 @@ require_once('../../database/config.php');
                                             .fail(function( data ) {
                                               console.log("error");
                                               // console.log( data );
+                                              $("#piechart_3d").html("");
                                             })
                                             .always(function( data ) {
                                               console.log("complete");
                                               // console.log( data );
                                             });
-                                            
+
                                         }
                             );
       });

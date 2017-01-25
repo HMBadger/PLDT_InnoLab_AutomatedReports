@@ -174,7 +174,6 @@ include('gen.php');
                                         {
                                           var rYear = $( "#yearActivity").val();
                   												var bName = $( "#branchActivity").val();
-
                                             $.ajax({
                                               url:      'ajax_ColumnActivity.php',
                                               type:     'POST',
@@ -198,12 +197,12 @@ include('gen.php');
                                             .fail(function( data ) {
                                               console.log("error");
                                               // console.log( data );
+                                              $("#columnActivity").html("");
                                             })
                                             .always(function( data ) {
                                               console.log("complete");
                                               // console.log( data );
                                             });
-
                                         }
                             );
       });

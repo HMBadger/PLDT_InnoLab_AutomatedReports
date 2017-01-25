@@ -87,11 +87,6 @@ require_once('../../database/config.php');
 
       <div id="page-wrapper">
         <div class="container-fluid"><br>
-          <ol class="breadcrumb">
-            <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
-            <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
-            <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
-          </ol>
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">
@@ -99,7 +94,11 @@ require_once('../../database/config.php');
                 Manila Innolab Visits
                 <small>PLDT Innolab</small>
               </h1>
-
+              <ol class="breadcrumb">
+                <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
+                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
+                <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
+              </ol>
               <div class="row" style="margin-bottom: 40px">
                 <div class="col-md-4">
                   <select name="yearSelect" id="yearSelect" class="form-control" style="width: 80%!important">
@@ -154,7 +153,7 @@ require_once('../../database/config.php');
     console.log(arr);
     console.log(data);
     var options = {
-      title: 'Company vs Company',
+      title: 'Revenue vs Non Revenue',
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
@@ -189,6 +188,7 @@ require_once('../../database/config.php');
         .fail(function( data ) {
           console.log("error");
           // console.log( data );
+          $("#columnchart").html("");
         })
         .always(function( data ) {
           console.log("complete");
