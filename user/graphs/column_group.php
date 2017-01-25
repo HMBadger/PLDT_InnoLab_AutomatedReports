@@ -133,8 +133,9 @@ require_once('../../database/config.php');
                 <div class="col-md-4">
                   <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
                 </div>
-                <div id="columnchart" style="width: 100%; height: 500px;"></div>
+
               </div>
+              <div id="columnchart" style="width: 100%; height: 500px;"></div>
             </div>
           </div>
         </div>
