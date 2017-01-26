@@ -49,7 +49,7 @@ require_once('../../database/config.php');
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-                   <li >
+                <li >
                 <a style="color:#ff8080!important" href="../index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
             </li>
             <li>
@@ -106,7 +106,7 @@ require_once('../../database/config.php');
             <div class="col-lg-12">
               <h1 class="page-header">
                 Pie Graph
-                <small> Company Chart</small>
+                <small>Company vs Company</small>
               </h1>
 
 			   <ol class="breadcrumb">
@@ -129,55 +129,91 @@ require_once('../../database/config.php');
 
                 </ol>
 
-              <div class="row" style="margin-bottom: 40px">
+              <div class="row" >
+                <div class="col-md-12">
 
-                <div class="col-md-5">
-                 	<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
-						  <?php
-						  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
-						  $queryyear = mysqli_query($conn, $sqlyear);
-						  while($row = mysqli_fetch_array($queryyear)){
-							?>
-							<option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
-							<?php
-						  }?>
-					</select>&nbsp;&nbsp;
+						<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+					  <?php
+					  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+					  $queryyear = mysqli_query($conn, $sqlyear);
+					  while($row = mysqli_fetch_array($queryyear)){
+						?>
+						<option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+						<?php
+					  }?>
+						</select>&nbsp;&nbsp;
                 </div>
-
-				 <div class="col-md-5">
-
-             <select name="branchName" id="branchName" class="form-control">
-              <?php
-              require '../../database/config.php';
-              $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
-              $query = mysqli_query($conn,$sql);
-              while($row=mysqli_fetch_array($query))
-              {
-                $loc_id = $row['LocationID'];
-                $loc_name = $row['LocationName'];
-                echo "<option value=\"$loc_id\">$loc_name</option>";
-              }
-              ?>
-            </select>&nbsp; &nbsp;
-                </div>
-
-                <div class="col-md-1">
-
-						<input type="button" class="btn btn-primary"
-                          id="btnGenPie"
-                          value="Generate Pie Chart"
-                          />
-                </div>
-
 
 
               </div>
 
+              <div class="row" style="margin-bottom: 40px">
+                <div class="col-md-5">
+                  <label>Large Enterprise:</label>
+                  <select class="form-control"
+                          id="GroupOne"
+                          name="GroupOne"
+                          >
+                    <?php
 
+                        $sql =  " SELECT
+                                          *
+                                  FROM    ict_database.tblgroup
+                                  WHERE   GroupIsActive = 1 AND GroupName = 'Alpha'
+                                ";
+
+                        $query = mysqli_query( $conn, $sql );
+
+                        while( $row = mysqli_fetch_array( $query ) )
+                        {
+                            $grp_id   = $row[ 'GroupID' ];
+                            $grp_name = $row[ 'GroupName' ];
+                            echo "<option value=\"$grp_id\">$grp_name</option>";
+                        }
+
+                    ?>
+                  </select>&nbsp; &nbsp;
+                </div>
+                <div class="col-md-5">
+                  <label>Small Enterprise:</label>
+                  <select class="form-control"
+                          id="GroupTwo"
+                          name="GroupTwo"
+                          >
+                    <?php
+
+                        $sql =  " SELECT
+                                          *
+                                  FROM    ict_database.tblgroup
+                                  WHERE   GroupIsActive = 1 AND GroupName = 'SME'
+                                ";
+
+                        $query = mysqli_query( $conn, $sql );
+
+                        while( $row = mysqli_fetch_array( $query ) )
+                        {
+                            $grp_id   = $row[ 'GroupID' ];
+                            $grp_name = $row[ 'GroupName' ];
+                            echo "<option value=\"$grp_id\">$grp_name</option>";
+                        }
+                    ?>
+                  </select>&nbsp; &nbsp;
+                </div>
+
+				<div class="col-md-2" style="margin-top: 2%" >
+
+                  <input type="button" class="btn btn-primary"
+                          id="btnGenPie"
+                          value="Generate Pie Chart"
+                          />
+
+                </div>
+
+              </div>
             </div>
           </div>
           <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
-          <div id="png"></div>
+          <div id="png"></style>
         </div>
       </div>
     </div>
@@ -198,9 +234,7 @@ require_once('../../database/config.php');
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-    
-	
-	<script type="text/javascript">
+    <script type="text/javascript">
 
     // $( document ).ready(
     //                     function()
@@ -224,7 +258,7 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Company Chart',
+                        title: '',
                         is3D: true,
                     };
 
@@ -239,37 +273,32 @@ require_once('../../database/config.php');
         $( "#btnGenPie" ).on( "click", function()
                                         {
                                             //
-												var rYear = $( "#txtYears").val();
-												var bName = $( "#branchName").val();
+                                            var gOne = $( "#GroupOne" ).val();
+                                            var gTwo = $( "#GroupTwo" ).val();
+											var rYear = $( "#txtYears").val();
+                                            //
                                             // drawChart();
                                             $.ajax({
-                                              url:      'ajax_PieCompanies.php',
-											  type:     'POST',
+                                              url:      'ajax_PieAlphaSme.php',
+                                              type:     'POST',
                                               dataType: 'JSON',
-											  data:     {
-                                                            txtYears: rYear,
-															branchName: bName,
+                                              data:     {
+                                                            GroupOne: gOne,
+                                                            GroupTwo: gTwo,
+															txtYears: rYear,
                                                         },
-
-
-                                                 success:  function( data )
+                                              success:  function( data )
                                                         {
                                                             var arr = [ "Company", "Percentage" ];
 
+                                                            data.sort(function(a, b){
+                                                              return a[1]-b[1];
+                                                            });
 
+                                                            data.push( arr );
+                                                            data.reverse();
 
-
-																	data.sort(function(a, b){
-																	  return a[1]-b[1];
-																	});
-
-																	data.push( arr );
-																	data.reverse();
-
-
-																	drawChart( data );
-
-
+                                                            drawChart( data );
                                                         }
                                             })
                                             .done(function( data ) {
@@ -278,8 +307,8 @@ require_once('../../database/config.php');
                                             })
                                             .fail(function( data ) {
                                               console.log("error");
-											  $("#piechart_3d").html("");
                                               // console.log( data );
+                                              $("#piechart_3d").html("");
                                             })
                                             .always(function( data ) {
                                               console.log("complete");
@@ -295,7 +324,6 @@ require_once('../../database/config.php');
     google.setOnLoadCallback(initializeGraph);
     google.charts.load("current", {packages:["corechart"]});
     </script>
-
 
   </form>
 </body>
