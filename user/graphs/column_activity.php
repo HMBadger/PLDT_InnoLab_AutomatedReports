@@ -137,6 +137,7 @@ include('gen.php');
               <div class="row">
                 <div class="col-md-12">
                   <div id="columnActivity" style="width: 100%; height: 500px;"></div>
+                  <div id='png'></div>
                 </div>
               </div>
               </div>
@@ -167,6 +168,8 @@ include('gen.php');
                     };
       var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
       chart.draw( data, options );
+
+      document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
     }
     function initializeGraph(){
       $(document).ready(function(){
