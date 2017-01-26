@@ -136,6 +136,7 @@ require_once('../../database/config.php');
 
               </div>
               <div id="columnchart" style="width: 100%; height: 500px;"></div>
+              <div id="png"></div>
             </div>
           </div>
         </div>
@@ -162,6 +163,7 @@ require_once('../../database/config.php');
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
+    document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
   }
   function initializeGraph(){
     $(document).ready(function(){

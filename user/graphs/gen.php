@@ -67,8 +67,6 @@ foreach ($row as $key => $value) {
       array($row['ActivityName'], $row['RepAct'], $row['RepAct'], $row['RepAct']),
     )
   );
-
-  
 }
 /*
 while($row = mysqli_fetch_array($execVisitors)){
@@ -79,7 +77,7 @@ $objWorksheet->fromArray(
     array($row['ActivityName'], $row['RepAct'], $row['RepAct'], $row['RepAct']),
 	)
 );
-}**/
+}*/
 //	Set the Labels for each data series we want to plot
 //		Datatype
 //		Cell reference for data

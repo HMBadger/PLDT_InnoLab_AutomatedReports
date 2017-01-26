@@ -201,6 +201,7 @@ require_once('../../database/config.php');
             </div>
           </div>
           <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+          <div id="png"></style>
         </div>
       </div>
     </div>
@@ -251,6 +252,7 @@ require_once('../../database/config.php');
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
+      document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/

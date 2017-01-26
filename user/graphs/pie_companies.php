@@ -96,29 +96,29 @@ require_once('../../database/config.php');
                 Pie Graph
                 <small> Company Chart</small>
               </h1>
-			  
+
 			   <ol class="breadcrumb">
 							<li class="active">
                                 <i class="fa fa-users"></i> <a href="pie_chart.php"> Company vs Company </a>
                             </li>
-							
+
                             <li>
                                 <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
                             </li>
-							
+
 							<li>
                                 <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
                             </li>
-							
+
 							<li>
                                 <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
                             </li>
-                            
-                            
+
+
                 </ol>
 
               <div class="row" style="margin-bottom: 40px">
-			  
+
                 <div class="col-md-5">
                  	<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
 						  <?php
@@ -131,9 +131,9 @@ require_once('../../database/config.php');
 						  }?>
 					</select>&nbsp;&nbsp;
                 </div>
-				
+
 				 <div class="col-md-5">
-                 
+
              <select name="branchName" id="branchName" class="form-control">
               <?php
               require '../../database/config.php';
@@ -148,30 +148,31 @@ require_once('../../database/config.php');
               ?>
             </select>&nbsp; &nbsp;
                 </div>
-				
+
                 <div class="col-md-1">
-					
-						<input type="button" class="btn btn-primary"  
-                          id="btnGenPie" 
+
+						<input type="button" class="btn btn-primary"
+                          id="btnGenPie"
                           value="Generate Pie Chart"
                           />
                 </div>
-				
-				
-				
+
+
+
               </div>
 
-            
+
             </div>
           </div>
           <div id="piechart_3d" style="width: 100%; height: 500px;"></div>
+          <div id="png"></div>
         </div>
       </div>
     </div>
 
-		  
-	
-	
+
+
+
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
@@ -190,7 +191,7 @@ require_once('../../database/config.php');
 	<script type="text/javascript">
 
     // $( document ).ready(
-    //                     function() 
+    //                     function()
     //                     {
     //                         drawChart();
     //                     }
@@ -217,13 +218,7 @@ require_once('../../database/config.php');
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
-	  
-	 /* var my_div = document.getElementById('piechart_3d');
-	  google.visualization.events.addListener(chart, 'ready', function () {
-  my_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
-});
-
-chart.draw(data);*/ //for image
+      document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
@@ -231,13 +226,9 @@ chart.draw(data);*/ //for image
       $(document).ready(function(){
         $( "#btnGenPie" ).on( "click", function()
                                         {
-                                            // 
+                                            //
 												var rYear = $( "#txtYears").val();
 												var bName = $( "#branchName").val();
-                                            // 
-											
-												
-											
                                             // drawChart();
                                             $.ajax({
                                               url:      'ajax_PieCompanies.php',
@@ -247,26 +238,26 @@ chart.draw(data);*/ //for image
                                                             txtYears: rYear,
 															branchName: bName,
                                                         },
-											  
-                                              
+
+
                                                  success:  function( data )
                                                         {
                                                             var arr = [ "Company", "Percentage" ];
-															
 
-															
-																	
+
+
+
 																	data.sort(function(a, b){
 																	  return a[1]-b[1];
 																	});
-																	
+
 																	data.push( arr );
 																	data.reverse();
 
-																	
-																	drawChart( data ); 
-																	
-																
+
+																	drawChart( data );
+
+
                                                         }
                                             })
                                             .done(function( data ) {
@@ -282,7 +273,7 @@ chart.draw(data);*/ //for image
                                               console.log("complete");
                                               // console.log( data );
                                             });
-                                            
+
                                         }
                             );
       });
