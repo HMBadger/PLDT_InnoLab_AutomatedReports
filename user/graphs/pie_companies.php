@@ -185,7 +185,9 @@ require_once('../../database/config.php');
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-    <script type="text/javascript">
+    
+	
+	<script type="text/javascript">
 
     // $( document ).ready(
     //                     function() 
@@ -215,6 +217,13 @@ require_once('../../database/config.php');
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
+	  
+	 /* var my_div = document.getElementById('piechart_3d');
+	  google.visualization.events.addListener(chart, 'ready', function () {
+  my_div.innerHTML = '<img src="' + chart.getImageURI() + '">';
+});
+
+chart.draw(data);*/ //for image
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
@@ -227,8 +236,7 @@ require_once('../../database/config.php');
 												var bName = $( "#branchName").val();
                                             // 
 											
-											
-											
+												
 											
                                             // drawChart();
                                             $.ajax({
@@ -284,6 +292,7 @@ require_once('../../database/config.php');
     google.setOnLoadCallback(initializeGraph);
     google.charts.load("current", {packages:["corechart"]});
     </script>
+
 
   </form>
 </body>
