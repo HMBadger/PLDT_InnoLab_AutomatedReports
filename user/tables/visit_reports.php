@@ -68,7 +68,7 @@ include ('btex.php');
               </li>
             </ul>
           </li>
-			
+
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
@@ -95,7 +95,7 @@ include ('btex.php');
               </li>
             </ul>
           </li>
-         
+
         </ul>
       </div>
       <!-- /.navbar-collapse -->
@@ -139,7 +139,6 @@ include ('btex.php');
                       <th>Reservation Date</th>
                       <th>Location</th>
                       <th>Visitor Group</th>
-                      <th>Visitor Category</th>
                       <th>Category</th>
                       <th>Client Name/Event</th>
                       <th>Person In Charge</th>

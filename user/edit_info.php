@@ -62,7 +62,7 @@ require_once('../database/config.php');
               </li>
             </ul>
           </li>
-			
+
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
@@ -89,7 +89,7 @@ require_once('../database/config.php');
               </li>
             </ul>
           </li>
-         
+
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
@@ -111,7 +111,6 @@ require_once('../database/config.php');
 							$repDate = $_POST['txtDateRep'];
 							$repLoc = $_POST['optLocRep'];
 							$repGroup = $_POST['optGroupRep'];
-							$repVisit = $_POST['optVisitCateg'];
 							$repCat = $_POST['optCatRep'];
 							$repClient = $_POST['txtClientRep'];
 							$repPic = $_POST['txtPicRep'];
@@ -123,7 +122,7 @@ require_once('../database/config.php');
 							if(mysqli_num_rows($query) > 0)
 							{
 								$sql = "UPDATE ict_database.tblreports
-								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', ReportVisitor = '$repVisit', ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
+								set  ReportDate = '$repDate', ReportLoc = '$repLoc', ReportGroup = '$repGroup', ReportCategory = '$repCat', ReportClient = '$repClient', ReportPerson = '$repPic', ReportActivity = '$repAct'
 								where ReportID = '$repID'";
 								header('Location: view_info.php');
 								$query = mysqli_query($conn, $sql);
@@ -180,22 +179,6 @@ require_once('../database/config.php');
 										?>
 									</select>
 								</div>
-								<!--Visitor Category-->
-								<label>Visitor Category</label><br />
-								<div class="form-group" style="display:flex">
-									 <select name="optVisitCateg" class="form-control" value="<?php echo $info['ReportVisitor']?>" >
-										<?php
-										$sql = "SELECT * FROM ict_database.tblvisitors WHERE VisitorIsActive = 1";
-										$query = mysqli_query($conn, $sql);
-										while($row = mysqli_fetch_array($query))
-										{
-										  $vis_id = $row['VisitorID'];
-										  $vis_name = $row['VisitorName'];
-										  echo "<option value = \"$vis_id\">$vis_name</option>";
-										}
-										?></select>&nbsp; &nbsp;
-								</div>
-
 								<!--Category-->
 								<label>Category</label><br />
 								<div class="form-group" style="display:flex">
@@ -255,7 +238,6 @@ require_once('../database/config.php');
 									<th>Reservation Date</th>
 									<th>Location</th>
 									<th>Visitor Group</th>
-									<th>Visit Category</th>
 									<th>Category</th>
 									<th>Client Name/Event</th>
 									<th>Person In Charge</th>
@@ -269,8 +251,6 @@ require_once('../database/config.php');
 								  ON r.ReportLoc =   l.LocationID
 								  left join ict_database.tblgroup g
 								  ON r.ReportGroup = g.GroupID
-								  left join ict_database.tblvisitors v
-								  ON r.ReportVisitor = v.VisitorID
 								  left join ict_database.tblcategory c
 								  ON r.ReportCategory = c.CategoryID
 								  left join ict_database.tblactivity a
@@ -286,7 +266,6 @@ require_once('../database/config.php');
 										 <td><?php echo $row['ReportDate']?></td>
 										  <td><?php echo $row['LocationName']?></td>
 										  <td><?php echo $row['GroupName']?></td>
-										  <td><?php echo $row['VisitorName']?></td>
 										  <td><?php echo $row['CategoryName']?></td>
 										  <td><?php echo $row['ReportClient']?></td>
 										  <td><?php echo $row['ReportPerson']?></td>

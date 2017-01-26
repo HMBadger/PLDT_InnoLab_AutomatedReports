@@ -63,7 +63,7 @@ require_once('../database/config.php');
               </li>
             </ul>
           </li>
-			
+
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
@@ -90,7 +90,7 @@ require_once('../database/config.php');
               </li>
             </ul>
           </li>
-         
+
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -106,7 +106,6 @@ require_once('../database/config.php');
                     <th>Reservation Date</th>
                     <th>Location</th>
                     <th>Visitor Group</th>
-                    <th>Visitor Category</th>
                     <th>Category</th>
                     <th>Client Name/Event</th>
                     <th>Person In Charge</th>
@@ -120,8 +119,6 @@ require_once('../database/config.php');
                   ON r.ReportLoc =   l.LocationID
                   left join ict_database.tblgroup g
                   ON r.ReportGroup = g.GroupID
-                  left join ict_database.tblvisitors v
-                  ON r.ReportVisitor = v.VisitorID
                   left join ict_database.tblcategory c
                   ON r.ReportCategory = c.CategoryID
                   left join ict_database.tblactivity a
@@ -131,14 +128,13 @@ require_once('../database/config.php');
                   while($row = mysqli_fetch_array($query)){
                     ?>
                     <tr>
-                      <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>  
+                      <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
 					  <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del= <?php echo $row['ReportID']?>" class="btn btn-danger" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
-                       
+
                       </td>
                       <td><?php echo $row['ReportDate']?></td>
                       <td><?php echo $row['LocationName']?></td>
                       <td><?php echo $row['GroupName']?></td>
-                      <td><?php echo $row['VisitorName']?></td>
                       <td><?php echo $row['CategoryName']?></td>
                       <td><?php echo $row['ReportClient']?></td>
                       <td><?php echo $row['ReportPerson']?></td>

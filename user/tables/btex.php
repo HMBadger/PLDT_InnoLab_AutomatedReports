@@ -26,8 +26,6 @@ if(isset($_POST['btnGenEx'])){
   ON r.ReportGroup = g.GroupID
   left join ict_database.tblcategory c
   ON r.ReportCategory = c.CategoryID
-  left join ict_database.tblvisitors v
-  ON r.ReportVisitor = v.VisitorID
   left join ict_database.tblactivity a
   ON r.ReportActivity = a.ActivityID
   WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yrs' ORDER BY LocationName, ReportDate ASC";
@@ -46,11 +44,10 @@ if(isset($_POST['btnGenEx'])){
   $objPHPExcel->getActiveSheet()->setCellValue("A1", "Date");
   $objPHPExcel->getActiveSheet()->setCellValue("B1", "Branch");
   $objPHPExcel->getActiveSheet()->setCellValue("C1", "Visitor Group");
-  $objPHPExcel->getActiveSheet()->setCellValue("D1", "Visitor Category");
-  $objPHPExcel->getActiveSheet()->setCellValue("E1", "Category");
-  $objPHPExcel->getActiveSheet()->setCellValue("F1", "Client Name or Event Title");
-  $objPHPExcel->getActiveSheet()->setCellValue("G1", "Person In Charge");
-  $objPHPExcel->getActiveSheet()->setCellValue("H1", "Activity Type");
+  $objPHPExcel->getActiveSheet()->setCellValue("D1", "Category");
+  $objPHPExcel->getActiveSheet()->setCellValue("E1", "Client Name or Event Title");
+  $objPHPExcel->getActiveSheet()->setCellValue("F1", "Person In Charge");
+  $objPHPExcel->getActiveSheet()->setCellValue("G1", "Activity Type");
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("A") -> setAutoSize(true);
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("B") -> setAutoSize(true);
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("C") -> setAutoSize(true);
@@ -58,17 +55,15 @@ if(isset($_POST['btnGenEx'])){
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("E") -> setAutoSize(true);
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("F") -> setAutoSize(true);
   $objPHPExcel -> getActiveSheet() -> getColumnDimension("G") -> setAutoSize(true);
-  $objPHPExcel -> getActiveSheet() -> getColumnDimension("H") -> setAutoSize(true);
   $rowCount = 2;
   while($exrow = mysqli_fetch_assoc($res)) {
     $objPHPExcel->getActiveSheet()->setCellValue("A" .$rowCount, date('m/d/Y', strtotime($exrow['ReportDate'])));
     $objPHPExcel->getActiveSheet()->setCellValue("B" .$rowCount, $exrow['LocationName']);
     $objPHPExcel->getActiveSheet()->setCellValue("C" .$rowCount, $exrow['GroupName']);
-    $objPHPExcel->getActiveSheet()->setCellValue("D" .$rowCount, $exrow['VisitorName']);
-    $objPHPExcel->getActiveSheet()->setCellValue("E" .$rowCount, $exrow['CategoryName']);
-    $objPHPExcel->getActiveSheet()->setCellValue("F" .$rowCount, $exrow['ReportClient']);
-    $objPHPExcel->getActiveSheet()->setCellValue("G" .$rowCount, $exrow['ReportPerson']);
-    $objPHPExcel->getActiveSheet()->setCellValue("H" .$rowCount, $exrow['ActivityName']);
+    $objPHPExcel->getActiveSheet()->setCellValue("D" .$rowCount, $exrow['CategoryName']);
+    $objPHPExcel->getActiveSheet()->setCellValue("E" .$rowCount, $exrow['ReportClient']);
+    $objPHPExcel->getActiveSheet()->setCellValue("F" .$rowCount, $exrow['ReportPerson']);
+    $objPHPExcel->getActiveSheet()->setCellValue("G" .$rowCount, $exrow['ActivityName']);
     $rowCount++;
   }
   header('Content-Type: application/vnd.ms-excel');

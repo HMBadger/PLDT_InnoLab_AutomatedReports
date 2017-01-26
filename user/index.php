@@ -26,120 +26,109 @@ require_once('../database/config.php');
   <![endif]-->
 </head>
 <body>
-  <div id="wrapper">
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-      <!-- Brand and toggle get grouped for better mobile display -->
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand" href="index.php">PLDT Innolab Report Generator</a>
-      </div>
-      <!-- Top Menu Items -->
-      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-      <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav side-nav">
-		    <li >
-                <a style="color:#ff8080!important" href="index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
+  <form method="post">
+    <div id="wrapper">
+      <!-- Navigation -->
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">PLDT Innolab Report Generator</a>
+        </div>
+        <!-- Top Menu Items -->
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+          <ul class="nav navbar-nav side-nav">
+            <li >
+              <a style="color:#ff8080!important" href="index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
             </li>
             <li>
-                <a href="view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
+              <a href="view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
             </li>
 
-<li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="tables" class="collapse">
-              <li>
-                <a href="tables/visit_reports.php">Innolab Yearly Report</a>
-              </li>
-              <li>
-                <a href="tables/visit_summary.php">Innolab Visit Summary</a>
-              </li>
-            </ul>
-          </li>
-			
-          <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo" class="collapse">
-              <li>
-                <a href="graphs/pie_alphasme.php">Alpha VS SME</a>
-              </li>
-			  <li>
-                <a href="graphs/pie_companies.php">All Visitor Group (Pie Chart)</a>
-              </li>
-			  <li>
-                <a href="graphs/pie_activities.php">All Activities (Donut Chart)</a>
-              </li>
-			  <li>
-                <a href="graphs/pie_categories.php">Visitor Category (Pie Chart)</a>
-              </li>
-              <li>
-                <a href="graphs/column_activity.php">All Activities (Bar Chart)</a>
-              </li>
-			  <li>
-                <a href="graphs/column_group.php">All Visitor Group (Bar Chart)</a>
-              </li>
-			   <li>
-                <a href="graphs/column_category.php">Visitor Category (Bar Chart)</a>
-              </li>
-            </ul>
-          </li>
-         
-          
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </nav>
-    <div id="page-wrapper">
-      <div class="container-fluid">
-        <!-- Page Heading -->
-        <div class="row">
-          <div class="col-lg-12">
-            <h1 class="page-header">
-              Maintenance
-              <small>Report</small>
-            </h1>
-            <ol class="breadcrumb">
-              <li class="active">
-                <i class="fa fa-file"></i> Please fill out the form
-              </li>
-            </ol>
-          </div>
+            <li>
+              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
+              <ul id="tables" class="collapse">
+                <li>
+                  <a href="tables/visit_reports.php">Innolab Yearly Report</a>
+                </li>
+                <li>
+                  <a href="tables/visit_summary.php">Innolab Visit Summary</a>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
+              <ul id="demo" class="collapse">
+                <li>
+                  <a href="graphs/pie_alphasme.php">Alpha VS SME</a>
+                </li>
+                <li>
+                  <a href="graphs/pie_companies.php">All Visitor Group (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="graphs/pie_activities.php">All Activities (Donut Chart)</a>
+                </li>
+                <li>
+                  <a href="graphs/pie_categories.php">Visitor Category (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="graphs/column_activity.php">All Activities (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="graphs/column_group.php">All Visitor Group (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="graphs/column_category.php">Visitor Category (Bar Chart)</a>
+                </li>
+              </ul>
+            </li>
+
+
+          </ul>
         </div>
-        <!-- /.row -->
-        <form method="post">
+        <!-- /.navbar-collapse -->
+      </nav>
+      <div id="page-wrapper">
+        <div class="container-fluid">
+          <!-- Page Heading -->
+          <div class="row">
+            <div class="col-lg-12">
+              <h1 class="page-header">
+                Maintenance
+                <small>Report</small>
+              </h1>
+              <ol class="breadcrumb">
+                <li class="active">
+                  <i class="fa fa-file"></i> Please fill out the form
+                </li>
+              </ol>
+            </div>
+          </div>
+          <!-- /.row -->
+
           <?php
           if(isset($_POST['btnSubmit']))
           {
             $repDate = $_POST['txtDateRep'];
             $repLoc = $_POST['optLocRep'];
             $repGroup = $_POST['optGroupRep'];
-            $repVisit = $_POST['optVisitCateg'];
             $repCat = $_POST['optCatRep'];
             $repClient = $_POST['txtClientRep'];
             $repPic = $_POST['txtPicRep'];
             $repAct = $_POST['optActRep'];
             $repIsActive = 1;
 
-            header('Location: index.php');
-            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportVisitor, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
-            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repVisit', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive')";
-            $act_ctr++;
+            //header('Location: index.php');
+            $insert = "INSERT INTO ict_database.tblreports(ReportDate, ReportLoc, ReportGroup, ReportCategory, ReportClient, ReportPerson, ReportActivity, ReportIsActive)
+            VALUES ('$repDate', '$repLoc' , '$repGroup', '$repCat', '$repClient', '$repPic', '$repAct', '$repIsActive')";
 
-            $locCTR ="UPDATE ict_database.tbllocation SET LocationCTR = LocationCTR + 1 WHERE LocationID = '$repLoc'";
-            $grpCTR = "UPDATE ict_database.tblgroup SET GroupCTR = GroupCTR + 1 WHERE GroupID = '$repGroup'";
-            $visCTR = "UPDATE ict_database.tblvisitors SET VisitorCTR = VisitorCTR + 1 WHERE VisitorID = '$repVisit'";
-            $catCTR = "UPDATE ict_database.tblcategory SET CategoryCTR = CategoryCTR + 1 WHERE CategoryID = '$repCat'";
-            $actCTR = "UPDATE ict_database.tblactivity SET ActivityCTR = ActivityCTR + 1 WHERE ActivityID = '$repAct'";
-            mysqli_query($conn, $locCTR);
-            mysqli_query($conn, $grpCTR);
-            mysqli_query($conn, $visCTR);
-            mysqli_query($conn, $catCTR);
-            mysqli_query($conn, $actCTR);
             $exec = mysqli_query($conn, $insert);
             if($exec)
             {
@@ -188,20 +177,7 @@ require_once('../database/config.php');
             </select>&nbsp; &nbsp;
             <a href="maintenance/vgroup.php" class="btn btn-primary" style="width:18%!important;">Edit Visitor Groups</a>
           </div>
-          <label>Visitor Category</label>
-          <div class="form-group" style="display:flex">
-            <select name="optVisitCateg" class="form-control" >
-            <?php
-            $sql = "SELECT * FROM ict_database.tblvisitors WHERE VisitorIsActive = 1";
-            $query = mysqli_query($conn, $sql);
-            while($row = mysqli_fetch_array($query))
-            {
-              $vis_id = $row['VisitorID'];
-              $vis_name = $row['VisitorName'];
-              echo "<option value = \"$vis_id\">$vis_name</option>";
-            }
-            ?></select>&nbsp; &nbsp;
-          </div>
+
           <label>Category</label>
           <div class="form-group" >
             <select name="optCatRep" class="form-control">
@@ -249,16 +225,17 @@ require_once('../database/config.php');
             <input class="btn btn-lg btn-primary" type="submit" name="btnSubmit" id="btnSubmit" value="ADD">
           </center>
         </br>
-      </form>
+
+      </div>
+      <!-- /.container-fluid -->
     </div>
-    <!-- /.container-fluid -->
+    <!-- /#page-wrapper -->
   </div>
-  <!-- /#page-wrapper -->
-</div>
-<!-- /#wrapper -->
-<!-- jQuery -->
-<script src="../js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="../js/bootstrap.min.js"></script>
+  <!-- /#wrapper -->
+  <!-- jQuery -->
+  <script src="../js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="../js/bootstrap.min.js"></script>
+</form>
 </body>
 </html>

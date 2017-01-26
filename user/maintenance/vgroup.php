@@ -49,30 +49,15 @@ require_once('../../database/config.php');
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-            <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Graphs <i class="fa fa-fw fa-caret-down"></i></a>
-              <ul id="demo" class="collapse">
-                <li>
-                  <a href="../graphs/pie_chart.php">Pie Graph</a>
-                </li>
-                <li>
-                  <a href="../graphs/bar_graph.php">Bar Graph</a>
-                </li>
-              </ul>
+            <li >
+              <a style="color:#ff8080!important" href="../index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
             </li>
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
-              <ul id="main" class="collapse">
-                <li>
-                  <a href="../index.php"> Add Information</a>
-                </li>
-                <li>
-                  <a href="../view_info.php">View Information </a>
-                </li>
-              </ul>
+              <a href="../view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
             </li>
+
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-fw fa-arrows-v"></i>Data Tables<i class="fa fa-fw fa-caret-down"></i></a>
+              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="tables" class="collapse">
                 <li>
                   <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
@@ -82,6 +67,35 @@ require_once('../../database/config.php');
                 </li>
               </ul>
             </li>
+
+            <li>
+              <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
+              <ul id="demo" class="collapse">
+                <li>
+                  <a href="../graphs/pie_alphasme.php">Alpha VS SME</a>
+                </li>
+                <li>
+                  <a href="../graphs/pie_companies.php">All Visitor Group (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="../graphs/pie_activities.php">All Activities (Donut Chart)</a>
+                </li>
+                <li>
+                  <a href="../graphs/pie_categories.php">Visitor Category (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="../graphs/column_activity.php">All Activities (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="../graphs/column_group.php">All Visitor Group (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="../graphs/column_category.php">Visitor Category (Bar Chart)</a>
+                </li>
+              </ul>
+            </li>
+
+
           </ul>
         </div>
         <!-- /.navbar-collapse -->

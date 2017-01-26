@@ -16,8 +16,6 @@ left join ict_database.tbllocation l
 ON r.ReportLoc =   l.LocationID
 left join ict_database.tblgroup g
 ON r.ReportGroup = g.GroupID
-left join ict_database.tblvisitors v
-ON r.ReportVisitor = v.VisitorID
 left join ict_database.tblcategory c
 ON r.ReportCategory = c.CategoryID
 left join ict_database.tblactivity a
@@ -29,7 +27,6 @@ echo "<tr>";
 echo "<td>" .date('F d, Y',strtotime($row['ReportDate'])). "</td>";
 echo "<td>" .$row['LocationName']. "</td>";
 echo "<td>" .$row['GroupName']. "</td>";
-echo "<td>" .$row['VisitorName']. "</td>";
 echo "<td>" .$row['CategoryName']. "</td>";
 echo "<td>" .$row['ReportClient']. "</td>";
 echo "<td>" .$row['ReportPerson']."</td>";
