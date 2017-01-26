@@ -89,7 +89,7 @@ require_once('../database/config.php');
               <table id="tabreport" class="table table-striped table-bordered">
                 <thead>
                   <tr>
-                    <th>Actions</th>
+                    <th>Select Actions</th>
                     <th>Reservation Date</th>
                     <th>Location</th>
                     <th>Visitor Group</th>
@@ -118,8 +118,9 @@ require_once('../database/config.php');
                   while($row = mysqli_fetch_array($query)){
                     ?>
                     <tr>
-                      <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>
-                        <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del= <?php echo $row['ReportID']?>" class="btn btn-danger" >Delete</a>
+                      <td><a href="edit_info.php?id= <?php echo $row['ReportID']?>" class="btn btn-primary"> Edit</a>  
+					  <a  onclick="return confirm('Delete Data?')" href="delete_report.php?del= <?php echo $row['ReportID']?>" class="btn btn-danger" ><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                       
                       </td>
                       <td><?php echo $row['ReportDate']?></td>
                       <td><?php echo $row['LocationName']?></td>
