@@ -105,13 +105,12 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-                Pie Graph
-                <small> Company Chart</small>
+                All Visitor Group
               </h1>
 
 			   <ol class="breadcrumb">
 							<li class="active">
-                                <i class="fa fa-users"></i> <a href="pie_chart.php"> Large Enterprise vs Small Enterprise </a>
+                                <i class="fa fa-users"></i> <a href="pie_alphasme.php"> Large Enterprise vs Small Enterprise </a>
                             </li>
 
                             <li>
