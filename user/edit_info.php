@@ -198,7 +198,7 @@ require_once('../database/config.php');
 							<div class="col-md-6"><br>
 								<!--Client-->
 								<div class="form-group">
-									<label>Event Name/Client Name</label>
+									<label>Event Name/Visitor Name</label>
 									<input name="txtClientRep" class="form-control" type="text" value="<?php echo $info['ReportClient']?>"/>
 								</div>
 								<!--PIC-->
@@ -239,7 +239,7 @@ require_once('../database/config.php');
 									<th>Location</th>
 									<th>Visitor Group</th>
 									<th>Category</th>
-									<th>Client Name/Event</th>
+									<th>Visitor Name/Event</th>
 									<th>Person In Charge</th>
 									<th>Activity</th>
 								</tr>

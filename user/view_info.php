@@ -107,7 +107,7 @@ require_once('../database/config.php');
                     <th>Location</th>
                     <th>Visitor Group</th>
                     <th>Category</th>
-                    <th>Client Name/Event</th>
+                    <th>Visitor Name/Event</th>
                     <th>Person In Charge</th>
                     <th>Activity</th>
                   </tr>

@@ -195,7 +195,7 @@ require_once('../database/config.php');
             </select>
           </div>
           <div class="form-group">
-            <label>Client Name or Event</label>
+            <label>Visitor Name or Event</label>
             <input name="txtClientRep" class="form-control" type="text">
           </div>
           <div class="form-group">
