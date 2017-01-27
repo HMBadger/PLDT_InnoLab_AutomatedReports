@@ -85,6 +85,31 @@ require_once('../../database/config.php');
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
+			<?php
+			if(isset($_POST['btnSubmit']))
+			{
+				$locID = $_POST['txtIdLoc'];
+				$locName = $_POST['txtNameLoc'];
+				$sql = "SELECT LocationID from ict_database.tbllocation where LocationID= '$locID'";
+				$query = mysqli_query($conn, $sql);
+				if(mysqli_num_rows($query) > 0)
+				{
+					header('Location: location.php');
+					$sql = "UPDATE ict_database.tbllocation SET  LocationName = '$locName' WHERE LocationID = '$locID'";
+					$query = mysqli_query($conn, $sql);
+					if($query)
+					{
+						$strMessage = "Location Successfully Edited: $locName";
+
+					}
+					else
+					{
+						$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
+					}
+				}
+
+			}
+			?>
 			<div id="page-wrapper">
 				<div class="container-fluid">
 					<!-- Page Heading -->
@@ -129,31 +154,7 @@ require_once('../../database/config.php');
 								</div>
 							</div>
 						</div>
-						<?php
-						if(isset($_POST['btnSubmit']))
-						{
-							$locID = $_POST['txtIdLoc'];
-							$locName = $_POST['txtNameLoc'];
-							$sql = "SELECT LocationID from ict_database.tbllocation where LocationID= '$locID'";
-							$query = mysqli_query($conn, $sql);
-							if(mysqli_num_rows($query) > 0)
-							{
-								header('Location: location.php');
-								$sql = "UPDATE ict_database.tbllocation SET  LocationName = '$locName' WHERE LocationID = '$locID'";
-								$query = mysqli_query($conn, $sql);
-								if($query)
-								{
-									$strMessage = "Location Successfully Edited: $locName";
 
-								}
-								else
-								{
-									$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
-								}
-							}
-
-						}
-						?>
 						<?php
 					}
 					else{

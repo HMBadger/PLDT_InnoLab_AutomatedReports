@@ -84,6 +84,32 @@ require_once('../../database/config.php');
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
+				<?php
+				if(isset($_POST['btnSubmit']))
+				{
+
+					$actID = $_POST['txtIdAct'];
+					$actName = $_POST['txtNameAct'];
+
+					$sql = "SELECT ActivityID FROM ict_database.tblactivity WHERE ActivityID = '$actID'";
+					$query = mysqli_query($conn, $sql);
+					if(mysqli_num_rows($query) > 0)
+					{
+						header('Location: activity.php');
+						$sql ="UPDATE ict_database.tblactivity SET ActivityName='$actName' WHERE ActivityID = '$actID'";
+						$query = mysqli_query($conn, $sql);
+						if($query)
+						{
+							$strMessage = "Location Successfully Edited: $actName";
+						}
+						else
+						{
+							$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
+						}
+					}
+
+				}
+				?>
 			</nav>
 			<div id="page-wrapper">
 				<div class="container-fluid">
@@ -130,30 +156,7 @@ require_once('../../database/config.php');
 							</div>
 						</div>
 						<?php
-						if(isset($_POST['btnSubmit']))
-						{
 
-							$actID = $_POST['txtIdAct'];
-							$actName = $_POST['txtNameAct'];
-
-							$sql = "SELECT ActivityID FROM ict_database.tblactivity WHERE ActivityID = '$actID'";
-							$query = mysqli_query($conn, $sql);
-							if(mysqli_num_rows($query) > 0)
-							{
-								header('Location: activity.php');
-								$sql ="UPDATE ict_database.tblactivity SET ActivityName='$actName' WHERE ActivityID = '$actID'";
-								$query = mysqli_query($conn, $sql);
-								if($query)
-								{
-									$strMessage = "Location Successfully Edited: $actName";
-								}
-								else
-								{
-									$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
-								}
-							}
-
-						}
 
 						?>
 						<?php

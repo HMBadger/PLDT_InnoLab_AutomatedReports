@@ -85,6 +85,30 @@ require_once('../../database/config.php');
 				</div>
 				<!-- /.navbar-collapse -->
 			</nav>
+			<?php
+			if(isset($_POST['btnSubmit']))
+			{
+				$gID = $_POST['txtGrpID'];
+				$grpName = $_POST['txtNameGrp'];
+				$sql = "SELECT GroupID from ict_database.tblgroup where GroupID= '$gID'";
+				$query = mysqli_query($conn, $sql);
+				if(mysqli_num_rows($query) > 0)
+				{
+					header('Location: vgroup.php');
+					$sql = "UPDATE ict_database.tblgroup SET  GroupName = '$grpName' WHERE GroupID = '$gID';";
+					$query = mysqli_query($conn, $sql);
+					if($query)
+					{
+						$strMessage = "Location Successfully Edited: $grpName";
+					}
+					else
+					{
+						$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
+					}
+				}
+
+			}
+			?>
 			<div id="page-wrapper">
 				<div class="container-fluid">
 					<!-- Page Heading -->
@@ -129,30 +153,6 @@ require_once('../../database/config.php');
 								</div>
 							</div>
 						</div>
-						<?php
-						if(isset($_POST['btnSubmit']))
-						{
-							$gID = $_POST['txtGrpID'];
-							$grpName = $_POST['txtNameGrp'];
-							$sql = "SELECT GroupID from ict_database.tblgroup where GroupID= '$gID'";
-							$query = mysqli_query($conn, $sql);
-							if(mysqli_num_rows($query) > 0)
-							{
-								header('Location: vgroup.php');
-								$sql = "UPDATE ict_database.tblgroup SET  GroupName = '$grpName' WHERE GroupID = '$gID';";
-								$query = mysqli_query($conn, $sql);
-								if($query)
-								{
-									$strMessage = "Location Successfully Edited: $grpName";
-								}
-								else
-								{
-									$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
-								}
-							}
-
-						}
-						?>
 						<?php
 					}
 					else{
