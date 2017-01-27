@@ -111,11 +111,11 @@ require_once('../../database/config.php');
 
 			   <ol class="breadcrumb">
 							<li class="active">
-                                <i class="fa fa-users"></i> <a href="pie_chart.php"> Company vs Company </a>
+                                <i class="fa fa-users"></i> <a href="pie_chart.php"> Large Enterprise vs Small Enterprise </a>
                             </li>
 
                             <li>
-                                <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Companies</a>
+                                <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Visitor Group</a>
                             </li>
 
 							<li>
@@ -123,9 +123,8 @@ require_once('../../database/config.php');
                             </li>
 
 							<li>
-                                <i class="fa fa-money"></i>  <a href="pie_categories.php">Revenue vs Non-Revenue</a>
+                                <i class="fa fa-money"></i>  <a href="pie_categories.php">Visitor Category</a>
                             </li>
-
 
                 </ol>
 
