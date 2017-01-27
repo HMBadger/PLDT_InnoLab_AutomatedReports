@@ -101,8 +101,7 @@ require_once('../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-                Maintenance
-                <small>Report</small>
+                Report
               </h1>
               <ol class="breadcrumb">
                 <li class="active">
