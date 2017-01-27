@@ -70,7 +70,7 @@ require_once('../../database/config.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="=pie_alphasme.php">Alpha VS SME</a>
+                  <a href="pie_alphasme.php">Alpha VS SME</a>
                 </li>
                 <li>
                   <a href="pie_companies.php">All Visitor Group (Pie Chart)</a>
@@ -88,7 +88,7 @@ require_once('../../database/config.php');
                   <a href="column_group.php">All Visitor Group (Bar Chart)</a>
                 </li>
                 <li>
-                  <a href="/column_category.php">Visitor Category (Bar Chart)</a>
+                  <a href="column_category.php">Visitor Category (Bar Chart)</a>
                 </li>
               </ul>
             </li>
@@ -104,17 +104,17 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-                Manila Innolab Visits
-                <small>PLDT Innolab</small>
+               Visitor Category
               </h1>
               <ol class="breadcrumb">
-                <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
-                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
-                <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
+                 <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
+				 <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
+                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Visitor Category</a></li>
+               
               </ol>
               <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-4">
-                  <select name="yearSelect" id="yearSelect" class="form-control" style="width: 80%!important">
+                <div class="col-md-5">
+                  <select name="yearSelect" id="yearSelect" class="form-control" >
                     <?php
                     $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
                     $yearQuery = mysqli_query($conn, $yearSql);
@@ -125,8 +125,8 @@ require_once('../../database/config.php');
                     }?>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <select name="branchName" id="branchName" class="form-control" style="width: 80%!important">
+                <div class="col-md-5">
+                  <select name="branchName" id="branchName" class="form-control" >
                     <?php
                     $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
                     $query = mysqli_query($conn,$sql);
@@ -140,10 +140,9 @@ require_once('../../database/config.php');
                     }?>
                   </select>
                 </div>
-                <div class="col-md-4">
-                  <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Column Charts"/>
+                <div class="col-md-2">
+                  <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Bar Chart"/>
                 </div>
-              </div>
             </div>
           </div>
         </div>
