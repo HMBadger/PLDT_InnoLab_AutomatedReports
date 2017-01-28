@@ -170,7 +170,7 @@ require_once('../../database/config.php');
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
-    document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+    document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
   }
   function initializeGraph(){
     $(document).ready(function(){

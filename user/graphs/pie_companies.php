@@ -229,7 +229,8 @@ require_once('../../database/config.php');
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
-      document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+	  
+      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
