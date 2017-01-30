@@ -70,7 +70,7 @@ include('gen.php');
               <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
               <ul id="demo" class="collapse">
                 <li>
-                  <a href="=pie_alphasme.php">Alpha VS SME</a>
+                  <a href="pie_alphasme.php">Alpha VS SME</a>
                 </li>
                 <li>
                   <a href="pie_companies.php">All Visitor Group (Pie Chart)</a>
@@ -117,7 +117,8 @@ include('gen.php');
                 <div class="col-md-5">
                   <select id="yearActivity" name="yearActivity" class="form-control">
                     <?php
-                    $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+                    $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports
+                    WHERE ReportIsActive = 1";
                     $yearQuery = mysqli_query($conn, $yearSql);
                     while($row = mysqli_fetch_array($yearQuery)){
                       ?>
@@ -145,7 +146,7 @@ include('gen.php');
 
                 <div class="col-md-2">
                   <input class="btn btn-primary" type="button" id="btnColAct" value="Generate Bar Chart"/>
-                  
+
                 </div>
               </div>
               <div class="row">
@@ -182,7 +183,7 @@ include('gen.php');
                     };
       var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
       chart.draw( data, options );
-      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" target="_blank">Printable version</a>';
     }
     function initializeGraph(){
       $(document).ready(function(){

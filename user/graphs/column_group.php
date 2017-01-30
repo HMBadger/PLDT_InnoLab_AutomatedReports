@@ -109,7 +109,7 @@ require_once('../../database/config.php');
               </h1>
 
               <ol class="breadcrumb">
-               
+
                 <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
 				 <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
                 <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Visitor Category</a></li>
@@ -119,7 +119,8 @@ require_once('../../database/config.php');
                 <div class="col-md-5">
                   <select name="yearSelect" id="yearSelect" class="form-control" >
                     <?php
-                    $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+                    $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports
+                    WHERE ReportIsActive = 1";
                     $yearQuery = mysqli_query($conn, $yearSql);
                     while($row = mysqli_fetch_array($yearQuery)){
                       ?>
@@ -178,7 +179,7 @@ require_once('../../database/config.php');
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
-    document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+    document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" target="_blank">Printable version</a>';
   }
   function initializeGraph(){
     $(document).ready(function(){

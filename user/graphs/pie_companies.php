@@ -67,7 +67,7 @@ require_once('../../database/config.php');
               </li>
             </ul>
           </li>
-			
+
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
@@ -133,7 +133,8 @@ require_once('../../database/config.php');
                 <div class="col-md-5">
                  	<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
 						  <?php
-						  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
+						  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports
+              WHERE ReportIsActive = 1";
 						  $queryyear = mysqli_query($conn, $sqlyear);
 						  while($row = mysqli_fetch_array($queryyear)){
 							?>
@@ -197,8 +198,8 @@ require_once('../../database/config.php');
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-    
-	
+
+
 	<script type="text/javascript">
 
     // $( document ).ready(
@@ -229,8 +230,8 @@ require_once('../../database/config.php');
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
-	  
-      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
+
+      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" " target="_blank">Printable version</a>';
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/

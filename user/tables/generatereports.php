@@ -20,7 +20,9 @@ left join ict_database.tblcategory c
 ON r.ReportCategory = c.CategoryID
 left join ict_database.tblactivity a
 ON r.ReportActivity = a.ActivityID
-WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yr'";
+WHERE ReportIsActive = 1 AND YEAR(ReportDate) = '$yr'
+AND LocationIsActive = 1 AND GroupIsActive = 1 AND CategoryIsActive = 1
+AND ActivityIsActive = 1";
 $genquery = mysqli_query($conn, $gensql);
 while($row=mysqli_fetch_array($genquery)){
 echo "<tr>";

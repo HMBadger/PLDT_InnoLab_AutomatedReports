@@ -64,7 +64,7 @@ require_once('../../database/config.php');
               </li>
             </ul>
           </li>
-			
+
           <li>
             <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
             <ul id="demo" class="collapse">
@@ -104,21 +104,21 @@ require_once('../../database/config.php');
             <li class="active"><i class="fa fa-table"></i> Tables</li>
           </ol>
           <div class="row" style="margin-bottom: 40px">
-            <div class="col-md-5">
-              <label>From:</label>
-              <input name="txtDateFrom" id="txtDateFrom" class="form-control" type="date">
-            </div>
-            <div class="col-md-5">
-              <label>To:</label>
-              <input name="txtDateTo" id="txtDateTo" class="form-control" type="date">
-            </div>
-            <div class="col-md-2">
-              <input class="btn btn-lg btn-primary" type="submit" name="btnGenReport" value="Generate Table"/>
+            <div class="col-md-4">
+              <label>Select Year: </label>
+              <select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+                <?php
+                $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports WHERE ReportIsActive = 1";
+                $queryyear = mysqli_query($conn, $sqlyear);
+                while($row = mysqli_fetch_array($queryyear)){
+                  ?>
+                  <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+                  <?php
+                }?>
+              </select>&nbsp;&nbsp;
             </div>
           </div>
-          <div class="row">
-            <input type="button" onclick="tableToExcel('tabreport')" value="Export to Excel">
-          </div>
+
           <div class="row">
             <div class="col-md-12">
               <div class="table-responsive">
@@ -133,29 +133,42 @@ require_once('../../database/config.php');
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Manila</td>
+                      <td>
+                        Branch Name Here
+                      </td>
 										<?php
-                      $revquery = "SELECT * FROM ict_database.tblcategory WHERE CategoryID = 1";
+                      $revquery = "SELECT COUNT(ReportCategory) AS TotalRev FROM ict_database.tblreports r
+                      LEFT JOIN ict_database.tblcategory c
+                      ON r.ReportCategory =  c.CategoryID
+                      WHERE CategoryID = 1 AND CategoryIsActive = 1 AND ReportIsActive = 1";
                       $revexec = mysqli_query($conn,$revquery);
                       while($row = mysqli_fetch_array($revexec)){?>
                         <td>
-                        <?php echo $row['CategoryCTR'];?>
+                        <?php echo $row['TotalRev'];?>
                         </td>
                       <?php }//while
                     ?>
                     <?php
-                    $nonrevquery = "SELECT * FROM ict_database.tblcategory WHERE CategoryID = 2";
+                    $nonrevquery = "SELECT COUNT(ReportCategory) AS TotalNonRev
+                    FROM ict_database.tblreports r
+                    LEFT JOIN ict_database.tblcategory c
+                    ON r.ReportCategory = c.CategoryID
+                    WHERE CategoryID = 2 AND CategoryIsActive = 1 AND ReportIsActive = 1";
                     $nonrevexec = mysqli_query($conn, $nonrevquery);
                     while($row2 = mysqli_fetch_array($nonrevexec)){?>
                         <td>
-                          <?php echo $row2['CategoryCTR'];?>
+                          <?php echo $row2['TotalNonRev'];?>
                         </td>
                     <?php
                   }//while2
                     ?>
                     <td>
                       <?php
-                        $getTotal = "SELECT SUM(CategoryCTR) AS TotalCategory FROM ict_database.tblcategory WHERE CategoryIsActive = 1";
+                        $getTotal = "SELECT COUNT(ReportCategory) AS TotalCategory
+                        FROM ict_database.tblreports r
+                        LEFT JOIN ict_database.tblcategory c
+                        ON r.ReportCategory = c.CategoryID WHERE CategoryIsActive = 1
+                        AND ReportIsActive = 1 AND CategoryIsActive = 1";
                         $totalExect = mysqli_query($conn, $getTotal);
                         $SumTotal = mysqli_fetch_array($totalExect);
                         echo $SumTotal['TotalCategory'];
@@ -165,6 +178,9 @@ require_once('../../database/config.php');
                   </tbody>
                 </table>
               </div><!--#table-->
+              <div class="row">
+                <input type="button" onclick="tableToExcel('tabreport')" value="Export to Excel">
+              </div>
             </div>
           </div>
         </div>

@@ -123,7 +123,9 @@ require_once('../database/config.php');
                   ON r.ReportCategory = c.CategoryID
                   left join ict_database.tblactivity a
                   ON r.ReportActivity = a.ActivityID
-                  WHERE ReportIsActive = 1";
+                  WHERE ReportIsActive = 1
+                  AND LocationIsActive = 1 AND GroupIsActive = 1 AND CategoryIsActive = 1
+                  AND ActivityIsActive = 1";
                   $query = mysqli_query($conn, $sql);
                   while($row = mysqli_fetch_array($query)){
                     ?>
