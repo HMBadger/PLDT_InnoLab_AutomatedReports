@@ -177,7 +177,7 @@ include('gen.php');
       console.log(arr);
       console.log(data);
       var options = {
-                        title: 'Viewing Column Chart',
+                        title: '',
                         scaleType: 'log',
                         format: 'none'
                     };

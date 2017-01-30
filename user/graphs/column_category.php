@@ -167,7 +167,7 @@ require_once('../../database/config.php');
     console.log(arr);
     console.log(data);
     var options = {
-      title: 'Revenue vs Non Revenue',
+      title: '',
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );

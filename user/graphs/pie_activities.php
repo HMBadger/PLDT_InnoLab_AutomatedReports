@@ -223,7 +223,7 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Activity Chart',
+                        title: '',
                          pieHole: 0.5,
                     };
 

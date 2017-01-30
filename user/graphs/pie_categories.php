@@ -220,7 +220,7 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Revenue and Non-Revenue Chart',
+                        title: '',
 
                     };
 

@@ -175,7 +175,7 @@ require_once('../../database/config.php');
     console.log(arr);
     console.log(data);
     var options = {
-      title: 'PLDT Innolab Visits',
+      title: '',
     };
     var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
     chart.draw( data, options );
