@@ -104,18 +104,18 @@ include('gen.php');
           <!-- Page Heading -->
           <div class="row">
             <div class="col-lg-12">
-              <h1 class="page-header">PLDT Innolab<small>&nbsp;Summary of Activities</small></h1>
+              <h1 class="page-header">All Activities</h1>
               <ol class="breadcrumb">
-                <li><i class="fa fa-users"></i> <a href="column_activity.php">PLDT Innolab Activities</a></li>
-                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Revenue vs Non Revenue Visits</a></li>
-                <li><i class="fa fa-wrench"></i> <a href="column_group.php">PLDT Innolab Visitors</a></li>
+                 <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
+				 <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
+                <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Visitor Category</a></li>
               </ol>
               <!-- /Page Heading -->
 
               <!--Page Content-->
               <div class="row" style="margin-bottom: 40px">
-                <div class="col-md-4">
-                  <select id="yearActivity" name="yearActivity" class="form-control" style="width: 80%!important">
+                <div class="col-md-5">
+                  <select id="yearActivity" name="yearActivity" class="form-control">
                     <?php
                     $yearSql = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports";
                     $yearQuery = mysqli_query($conn, $yearSql);
@@ -127,8 +127,8 @@ include('gen.php');
                   </select>
                 </div>
 
-                <div class="col-md-4">
-                  <select name="branchActivity" id="branchActivity" class="form-control" style="width: 80%!important">
+                <div class="col-md-5">
+                  <select name="branchActivity" id="branchActivity" class="form-control">
                     <?php
                     $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
                     $query = mysqli_query($conn,$sql);
@@ -143,9 +143,9 @@ include('gen.php');
                   </select>
                 </div>
 
-                <div class="col-md-4">
-                  <input class="btn btn-primary" type="button" id="btnColAct" value="Generate Column Chart"/>
-                  <input onclick="gen.php" class="btn btn-primary" type="submit" id="btnGenEx" name="btnGenEx" value="Generate Excel File"/>
+                <div class="col-md-2">
+                  <input class="btn btn-primary" type="button" id="btnColAct" value="Generate Bar Chart"/>
+                  
                 </div>
               </div>
               <div class="row">
@@ -182,9 +182,7 @@ include('gen.php');
                     };
       var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
       chart.draw( data, options );
-      chart.addEventListener("change",
-        document.getElementById('png').outerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
-    );
+      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '">Printable version</a>';
     }
     function initializeGraph(){
       $(document).ready(function(){
