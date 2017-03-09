@@ -1,6 +1,5 @@
 <?php
 require_once('../../database/config.php');
-include('gen.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,7 +40,7 @@ include('gen.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -55,15 +54,7 @@ include('gen.php');
             </li>
 
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
-              <ul id="tables" class="collapse">
-                <li>
-                  <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
-                </li>
-                <li>
-                  <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
-                </li>
-              </ul>
+              <a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
             </li>
 
             <li>
@@ -92,8 +83,6 @@ include('gen.php');
                 </li>
               </ul>
             </li>
-
-
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -106,8 +95,8 @@ include('gen.php');
             <div class="col-lg-12">
               <h1 class="page-header">All Activities</h1>
               <ol class="breadcrumb">
-                 <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
-				 <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
+                <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
+                <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
                 <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Visitor Category</a></li>
               </ol>
               <!-- /Page Heading -->
@@ -138,7 +127,7 @@ include('gen.php');
                       $loc_id = $row['LocationID'];
                       $loc_name = $row['LocationName'];
                       echo "<option value=\"$loc_id\">$loc_name</option>";
-                    ?>
+                      ?>
                       <?php
                     }?>
                   </select>
@@ -155,79 +144,75 @@ include('gen.php');
                   <div id="png"></div>
                 </div>
               </div>
-              </div>
             </div>
           </div>
         </div>
-
       </div>
-    </div>
-    <!-- /#wrapper -->
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="../../js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-    function drawBarGraph(arr){
-      var data = google.visualization.arrayToDataTable( arr );
-      console.log(arr);
-      console.log(data);
-      var options = {
-                        title: 'Viewing Column Chart',
-                        scaleType: 'log',
-                        format: 'none'
-                    };
-      var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
-      chart.draw( data, options );
-      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" target="_blank">Printable version</a>';
-    }
-    function initializeGraph(){
-      $(document).ready(function(){
-        $( "#btnColAct" ).on( "click", function()
-                                        {
-                                          var rYear = $( "#yearActivity").val();
-                  												var bName = $( "#branchActivity").val();
-                                            $.ajax({
-                                              url:      'ajax_ColumnActivity.php',
-                                              type:     'POST',
-                                              dataType: 'JSON',
-                                              data:     {
-                                                          yearActivity: rYear,
-                                                          branchActivity: bName,
-                                                        },
-                                              success:  function( data )
-                                                        {
-                                                          var arr = [ "Activity", "Count" ];
-                                                          data.push( arr );
-                                                          data.reverse();
-                                                          drawBarGraph( data );
-                                                        }
-                                            })
-                                            .done(function( data ) {
-                                              console.log("success");
-                                              // console.log( data );
-                                            })
-                                            .fail(function( data ) {
-                                              console.log("error");
-                                              // console.log( data );
-                                              $("#columnActivity").html("");
-                                            })
-                                            .always(function( data ) {
 
-                                              console.log("complete");
-                                              // console.log( data );
-                                            });
-                                        }
-                            );
-      });
-    }
-    google.setOnLoadCallback(initializeGraph);
-    google.charts.load("current", {packages:["corechart"]});
-    </script>
-  </form>
+    </div>
+  </div>
+  <!-- /#wrapper -->
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="../../js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function drawBarGraph(arr){
+    var data = google.visualization.arrayToDataTable( arr );
+    console.log(arr);
+    console.log(data);
+    var options = {
+      title: 'Viewing Column Chart',
+      scaleType: 'log',
+      format: 'none'
+    };
+    var chart = new google.visualization.ColumnChart( document.getElementById( 'columnActivity' ) );
+    chart.draw( data, options );
+    document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '"target="_blank" class="btn btn-primary">Printable version</a>';
+  }
+  function initializeGraph(){
+    $(document).ready(function(){
+      $( "#btnColAct" ).on( "click", function()
+      {
+        var rYear = $( "#yearActivity").val();
+        var bName = $( "#branchActivity").val();
+        $.ajax({
+          url:      'ajax_ColumnActivity.php',
+          type:     'POST',
+          dataType: 'JSON',
+          data:     {
+            yearActivity: rYear,
+            branchActivity: bName,
+          },
+          success:  function( data )
+          {
+            var arr = [ "Activity", "Count" ];
+            data.push( arr );
+            data.reverse();
+            drawBarGraph( data );
+          }
+        })
+        .done(function( data ) {
+          console.log("success");
+        })
+        .fail(function( data ) {
+          console.log("error");
+          $("#columnActivity").html("");
+        })
+        .always(function( data ) {
+          console.log("complete");
+        });
+      }
+    );
+  });
+}
+google.setOnLoadCallback(initializeGraph);
+google.charts.load("current", {packages:["corechart"]});
+</script>
+</form>
 </body>
 </html>

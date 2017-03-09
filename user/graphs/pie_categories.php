@@ -43,57 +43,48 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
-                   <li >
-                <a style="color:#ff8080!important" href="../index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
+            <li >
+              <a style="color:#ff8080!important" href="../index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
             </li>
             <li>
-                <a href="../view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
+              <a href="../view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
+            </li>
+            <li>
+              <a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
             </li>
 
-<li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="tables" class="collapse">
-              <li>
-                <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
-              </li>
-              <li>
-                <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
-              </li>
-            </ul>
-          </li>
-
-          <li>
-            <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
-            <ul id="demo" class="collapse">
-              <li>
-                <a href="pie_alphasme.php">Alpha VS SME</a>
-              </li>
-			  <li>
-                <a href="pie_companies.php">All Visitor Group (Pie Chart)</a>
-              </li>
-			  <li>
-                <a href="pie_activities.php">All Activities (Donut Chart)</a>
-              </li>
-			  <li>
-                <a href="pie_categories.php">Visitor Category (Pie Chart)</a>
-              </li>
-              <li>
-                <a href="column_activity.php">All Activities (Bar Chart)</a>
-              </li>
-			  <li>
-                <a href="column_group.php">All Visitor Group (Bar Chart)</a>
-              </li>
-			   <li>
-                <a href="column_category.php">Visitor Category (Bar Chart)</a>
-              </li>
-            </ul>
-          </li>
+            <li>
+              <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
+              <ul id="demo" class="collapse">
+                <li>
+                  <a href="pie_alphasme.php">Alpha VS SME</a>
+                </li>
+                <li>
+                  <a href="pie_companies.php">All Visitor Group (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="pie_activities.php">All Activities (Donut Chart)</a>
+                </li>
+                <li>
+                  <a href="pie_categories.php">Visitor Category (Pie Chart)</a>
+                </li>
+                <li>
+                  <a href="column_activity.php">All Activities (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="column_group.php">All Visitor Group (Bar Chart)</a>
+                </li>
+                <li>
+                  <a href="column_category.php">Visitor Category (Bar Chart)</a>
+                </li>
+              </ul>
+            </li>
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -105,67 +96,67 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-               Visitor Category
+                Visitor Category
               </h1>
-			   <ol class="breadcrumb">
-							<li class="active">
-                                <i class="fa fa-users"></i> <a href="pie_alphasme.php"> Large Enterprise vs Small Enterprise </a>
-                            </li>
+              <ol class="breadcrumb">
+                <li class="active">
+                  <i class="fa fa-users"></i> <a href="pie_alphasme.php"> Large Enterprise vs Small Enterprise </a>
+                </li>
 
-                            <li>
-                                <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Visitor Group</a>
-                            </li>
+                <li>
+                  <i class="fa fa-suitcase"></i>  <a href="pie_companies.php">All Visitor Group</a>
+                </li>
 
-							<li>
-                                <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
-                            </li>
+                <li>
+                  <i class="fa fa-wrench"></i>  <a href="pie_activities.php">All Activities</a>
+                </li>
 
-							<li>
-                                <i class="fa fa-money"></i>  <a href="pie_categories.php">Visitor Category</a>
-                            </li>
+                <li>
+                  <i class="fa fa-money"></i>  <a href="pie_categories.php">Visitor Category</a>
+                </li>
 
 
-                </ol>
+              </ol>
 
               <div class="row" style="margin-bottom: 40px">
 
                 <div class="col-md-5">
-                 	<select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
-						  <?php
-						  $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports WHERE ReportIsActive = 1";
-						  $queryyear = mysqli_query($conn, $sqlyear);
-						  while($row = mysqli_fetch_array($queryyear)){
-							?>
-							<option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
-							<?php
-						  }?>
-					</select>&nbsp;&nbsp;
+                  <select name="txtYears" id="txtYears" class="form-control" style="width: 100%!important">
+                    <?php
+                    $sqlyear = "SELECT DISTINCT YEAR(ReportDate) AS YEARS FROM ict_database.tblreports WHERE ReportIsActive = 1";
+                    $queryyear = mysqli_query($conn, $sqlyear);
+                    while($row = mysqli_fetch_array($queryyear)){
+                      ?>
+                      <option value="<?php echo $row['YEARS'] ?>" name="txtYearString"><?php echo $row['YEARS'] ?></option>
+                      <?php
+                    }?>
+                  </select>&nbsp;&nbsp;
                 </div>
 
-                 <div class="col-md-5">
+                <div class="col-md-5">
 
-				 <select name="branchName" id="branchName" class="form-control">
-				  <?php
-				  require '../../database/config.php';
-				  $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
-				  $query = mysqli_query($conn,$sql);
-				  while($row=mysqli_fetch_array($query))
-				  {
-					$loc_id = $row['LocationID'];
-					$loc_name = $row['LocationName'];
-					echo "<option value=\"$loc_id\">$loc_name</option>";
-				  }
-				  ?>
-				</select>&nbsp; &nbsp;
-					</div>
+                  <select name="branchName" id="branchName" class="form-control">
+                    <?php
+                    require '../../database/config.php';
+                    $sql = "SELECT * FROM ict_database.tbllocation WHERE LocationIsActive = 1";
+                    $query = mysqli_query($conn,$sql);
+                    while($row=mysqli_fetch_array($query))
+                    {
+                      $loc_id = $row['LocationID'];
+                      $loc_name = $row['LocationName'];
+                      echo "<option value=\"$loc_id\">$loc_name</option>";
+                    }
+                    ?>
+                  </select>&nbsp; &nbsp;
+                </div>
 
-					<div class="col-md-1">
+                <div class="col-md-1">
 
-							<input type="button" class="btn btn-primary"
-							  id="btnGenPie"
-							  value="Generate Pie Chart"
-							  />
-					</div>
+                  <input type="button" class="btn btn-primary"
+                  id="btnGenPie"
+                  value="Generate Pie Chart"
+                  />
+                </div>
 
 
 
@@ -220,72 +211,72 @@ require_once('../../database/config.php');
       console.log( data );
 
       var options = {
-                        title: 'Revenue and Non-Revenue Chart',
+        title: 'Revenue and Non-Revenue Chart',
 
-                    };
+      };
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
-      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" " target="_blank">Printable version</a>';
+      document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '"target="_blank" class="btn btn-primary">Printable version</a>';
     }
 
     /**CLICK EVENT TO DRAW CHART ON BUTTON CLICK**/
     function initializeGraph(){
       $(document).ready(function(){
         $( "#btnGenPie" ).on( "click", function()
-                                        {
-                                            //
-												var rYear = $( "#txtYears").val();
-												var bName = $( "#branchName").val();
-                                            //
-                                            // drawChart();
-                                            $.ajax({
-                                              url:      'ajax_PieCategories.php',
-											  type:     'POST',
-                                              dataType: 'JSON',
-											  data:     {
-                                                            txtYears: rYear,
-															branchName: bName,
-                                                        },
+        {
+          //
+          var rYear = $( "#txtYears").val();
+          var bName = $( "#branchName").val();
+          //
+          // drawChart();
+          $.ajax({
+            url:      'ajax_PieCategories.php',
+            type:     'POST',
+            dataType: 'JSON',
+            data:     {
+              txtYears: rYear,
+              branchName: bName,
+            },
 
-                                                 success:  function( data )
-                                                        {
-                                                            var arr = [ "Category", "Percentage" ];
+            success:  function( data )
+            {
+              var arr = [ "Category", "Percentage" ];
 
-                                                            data.sort(function(a, b){
-                                                              return a[1]-b[1];
-                                                            });
+              data.sort(function(a, b){
+                return a[1]-b[1];
+              });
 
-                                                            data.push( arr );
-                                                            data.reverse();
+              data.push( arr );
+              data.reverse();
 
-                                                            drawChart( data );
-                                                        }
-                                            })
-                                            .done(function( data ) {
-                                              console.log("success");
-                                              // console.log( data );
-                                            })
-                                            .fail(function( data ) {
-                                              console.log("error");
-											    $("#piechart_3d").html("");
-                                              // console.log( data );
-                                            })
-                                            .always(function( data ) {
-                                              console.log("complete");
-                                              // console.log( data );
-                                            });
+              drawChart( data );
+            }
+          })
+          .done(function( data ) {
+            console.log("success");
+            // console.log( data );
+          })
+          .fail(function( data ) {
+            console.log("error");
+            $("#piechart_3d").html("");
+            // console.log( data );
+          })
+          .always(function( data ) {
+            console.log("complete");
+            // console.log( data );
+          });
 
-                                        }
-                            );
-      });
-    }
+        }
+      );
+    });
+  }
 
-    /**INITIALIZE CHART DRAW**/
-    google.setOnLoadCallback(initializeGraph);
-    google.charts.load("current", {packages:["corechart"]});
-    </script>
+  /**INITIALIZE CHART DRAW**/
+  google.setOnLoadCallback(initializeGraph);
+  google.charts.load("current", {packages:["corechart"]});
+  </script>
 
-  </form>
+</form>
 </body>
 </html>

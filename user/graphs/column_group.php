@@ -41,7 +41,7 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -55,15 +55,7 @@ require_once('../../database/config.php');
             </li>
 
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
-              <ul id="tables" class="collapse">
-                <li>
-                  <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
-                </li>
-                <li>
-                  <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
-                </li>
-              </ul>
+              <a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
             </li>
 
             <li>
@@ -92,8 +84,6 @@ require_once('../../database/config.php');
                 </li>
               </ul>
             </li>
-
-
           </ul>
         </div>
         <!-- /.navbar-collapse -->
@@ -105,13 +95,11 @@ require_once('../../database/config.php');
           <div class="row">
             <div class="col-lg-12">
               <h1 class="page-header">
-               All Visitor Group
+                All Visitor Group
               </h1>
-
               <ol class="breadcrumb">
-
                 <li><i class="fa fa-users"></i>  <a href="column_group.php">Visitor Group</a></li>
-				 <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
+                <li><i class="fa fa-wrench"></i> <a href="column_activity.php">All Activities</a></li>
                 <li class="active"><i class="fa fa-suitcase"></i> <a href="column_category.php">Visitor Category</a></li>
               </ol>
 
@@ -148,79 +136,74 @@ require_once('../../database/config.php');
                 <div class="col-md-2">
                   <input class="btn btn-primary" type="button" id="btnGenBar" value="Generate Bar Chart"/>
                 </div>
-
               </div>
               <div id="columnchart" style="width: 100%; height: 500px;"></div>
               <div id="png"></div>
             </div>
-			</div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
-  <!-- /#wrapper -->
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-1.12.3.js"></script>
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
-  <!-- Bootstrap Core JavaScript -->
-  <script src="../../js/bootstrap.min.js"></script>
-  <script type="text/javascript">
-  function drawBarGraph(arr){
-    var data = google.visualization.arrayToDataTable( arr );
-    console.log(arr);
-    console.log(data);
-    var options = {
-      title: 'PLDT Innolab Visits',
-    };
-    var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
-    chart.draw( data, options );
-    document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" target="_blank">Printable version</a>';
-  }
-  function initializeGraph(){
-    $(document).ready(function(){
-      $( "#btnGenBar" ).on( "click", function()
-      {
-        var rYear = $( "#yearSelect").val();
-        var bName = $( "#branchName").val();
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-1.12.3.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="../../js/bootstrap.min.js"></script>
+<script type="text/javascript">
+function drawBarGraph(arr){
+  var data = google.visualization.arrayToDataTable( arr );
+  console.log(arr);
+  console.log(data);
+  var options = {
+    title: 'PLDT Innolab Visits',
+  };
+  var chart = new google.visualization.ColumnChart( document.getElementById( 'columnchart' ) );
+  chart.draw( data, options );
+  document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '" target="_blank" class="btn btn-primary">Printable version</a>';
+}
+function initializeGraph(){
+  $(document).ready(function(){
+    $( "#btnGenBar" ).on( "click", function()
+    {
+      var rYear = $( "#yearSelect").val();
+      var bName = $( "#branchName").val();
 
-        $.ajax({
-          url:      'ajax_ColumnGroup.php',
-          type:     'POST',
-          dataType: 'JSON',
-          data:     {
-            yearSelect: rYear,
-            branchName: bName,
-          },
-          success:  function( data )
-          {
-            var arr = [ "Company", "NO: " ];
-            data.push( arr );
-            data.reverse();
-            drawBarGraph( data );
-          }
-        })
-        .done(function( data ) {
-          console.log("success");
-          // console.log( data );
-        })
-        .fail(function( data ) {
-          console.log("error");
-          // console.log( data );
-          $("#columnchart").html("");
-        })
-        .always(function( data ) {
-          console.log("complete");
-          // console.log( data );
-        });
+      $.ajax({
+        url:      'ajax_ColumnGroup.php',
+        type:     'POST',
+        dataType: 'JSON',
+        data:     {
+          yearSelect: rYear,
+          branchName: bName,
+        },
+        success:  function( data )
+        {
+          var arr = [ "Company", "NO: " ];
+          data.push( arr );
+          data.reverse();
+          drawBarGraph( data );
+        }
+      })
+      .done(function( data ) {
+        console.log("success");
+      })
+      .fail(function( data ) {
+        console.log("error");
+        $("#columnchart").html("");
+      })
+      .always(function( data ) {
+        console.log("complete");
+      });
 
-      }
-    );
-  });
+    }
+  );
+});
 }
 google.setOnLoadCallback(initializeGraph);
 google.charts.load("current", {packages:["corechart"]});

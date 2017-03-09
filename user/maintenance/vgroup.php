@@ -43,7 +43,7 @@ require_once('../../database/config.php');
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="../index.php">PLDT Innolab Report Generator</a>
+          <a class="navbar-brand" href="../index.php">Report Generator</a>
         </div>
         <!-- Top Menu Items -->
         <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
@@ -57,15 +57,7 @@ require_once('../../database/config.php');
             </li>
 
             <li>
-              <a href="javascript:;" data-toggle="collapse" data-target="#tables"><i class="fa fa-list-alt" aria-hidden="true"></i> Reports<i class="fa fa-fw fa-caret-down"></i></a>
-              <ul id="tables" class="collapse">
-                <li>
-                  <a href="../tables/visit_reports.php">Innolab Yearly Report</a>
-                </li>
-                <li>
-                  <a href="../tables/visit_summary.php">Innolab Visit Summary</a>
-                </li>
-              </ul>
+              <a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
             </li>
 
             <li>

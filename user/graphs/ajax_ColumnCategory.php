@@ -30,25 +30,8 @@ $exec3 = mysqli_query($conn, $getCategories);
 
 while( $row = mysqli_fetch_array( $exec3 ) )
 {
-    $array[] = array( $row[ 'CategoryName' ], (float)$row[ 'RepCat' ] );//echo  "['".$row[ 'CategoryName' ]."', ".$row[ 'CategoryCTR' ]."], ";
+  $array[] = array( $row[ 'CategoryName' ], (float)$row[ 'RepCat' ] );//echo  "['".$row[ 'CategoryName' ]."', ".$row[ 'CategoryCTR' ]."], ";
 }
-/*
-if (!$exec) {
-  printf("Error: %s\n", mysqli_error($conn));
-  exit();
-}
-if (!$exec2) {
-  printf("Error: %s\n", mysqli_error($conn));
-  exit();
-}*/
-/*
-while($row = mysqli_fetch_array($exec)){
-  $array[] = array($row['CategoryName'], (float)$row['RepCat']);
-}
-
-while($row2 = mysqli_fetch_array($exec2)){
-  $array[] = array($rowp['CategoryName'], (float)$row['RepCats']);
-}*/
 
 echo json_encode($array);
 
