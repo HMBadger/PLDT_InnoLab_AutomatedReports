@@ -148,7 +148,6 @@ require_once('../../database/config.php');
           </div>
         </div>
       </div>
-
     </div>
   </div>
   <!-- /#wrapper -->

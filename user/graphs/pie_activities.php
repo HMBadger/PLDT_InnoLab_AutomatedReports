@@ -181,6 +181,7 @@ require_once('../../database/config.php');
         pieHole: 0.5,
       };
 
+
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );
       chart.draw( data, options );
       document.getElementById('png').innerHTML = '<a href="' + chart.getImageURI() + '"target="_blank" class="btn btn-primary">Printable version</a>';

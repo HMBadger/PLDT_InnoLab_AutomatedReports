@@ -212,7 +212,6 @@ require_once('../../database/config.php');
 
       var options = {
         title: 'Revenue and Non-Revenue Chart',
-
       };
 
       var chart = new google.visualization.PieChart( document.getElementById( 'piechart_3d' ) );

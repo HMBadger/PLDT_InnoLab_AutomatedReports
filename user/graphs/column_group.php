@@ -173,7 +173,6 @@ function initializeGraph(){
     {
       var rYear = $( "#yearSelect").val();
       var bName = $( "#branchName").val();
-
       $.ajax({
         url:      'ajax_ColumnGroup.php',
         type:     'POST',
