@@ -48,61 +48,75 @@ require_once('../../database/config.php');
 				<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
 				<div class="collapse navbar-collapse navbar-ex1-collapse">
 					<ul class="nav navbar-nav side-nav">
+						<li >
+							<a style="color:#ff8080!important" href="../index.php"> <i class="fa fa-info-circle" aria-hidden="true"></i> Add Information</a>
+						</li>
 						<li>
-							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i>Graphs<i class="fa fa-fw fa-caret-down"></i></a>
+							<a href="../view_info.php"> <i class="fa fa-file-text" aria-hidden="true"></i> View Information </a>
+						</li>
+
+						<li>
+							<a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
+						</li>
+
+						<li>
+							<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-line-chart" aria-hidden="true"></i> Charts <i class="fa fa-fw fa-caret-down"></i></a>
 							<ul id="demo" class="collapse">
-	              <li>
-	                <a href="../graphs/pie_chart.php">Pie Graph</a>
-	              </li>
-	              <li>
-	                <a href="../graphs/bar_graph.php">Bar Graph</a>
-	              </li>
-							</ul>
-						</li>
-						<li>
-							<a href="javascript:;" data-toggle="collapse" data-target="#main"><i class="fa fa-fw fa-arrows-v"></i> Maintenance <i class="fa fa-fw fa-caret-down"></i></a>
-							<ul id="main" class="collapse">
 								<li>
-									<a href="../index.php"> Add Information</a>
+									<a href="../graphs/pie_alphasme.php">Alpha VS SME</a>
 								</li>
 								<li>
-									<a href="../view_info.php">View Information </a>
+									<a href="../graphs/pie_companies.php">All Visitor Group (Pie Chart)</a>
+								</li>
+								<li>
+									<a href="../graphs/pie_activities.php">All Activities (Donut Chart)</a>
+								</li>
+								<li>
+									<a href="../graphs/pie_categories.php">Visitor Category (Pie Chart)</a>
+								</li>
+								<li>
+									<a href="../graphs/column_activity.php">All Activities (Bar Chart)</a>
+								</li>
+								<li>
+									<a href="../graphs/column_group.php">All Visitor Group (Bar Chart)</a>
+								</li>
+								<li>
+									<a href="../graphs/column_category.php">Visitor Category (Bar Chart)</a>
 								</li>
 							</ul>
 						</li>
-						<li>
-              <a href="../tables/visit_reports.php"><i class="fa fa-table" aria-hidden="true"></i> Yearly Report</a>
-            </li>
+
+
 					</ul>
 				</div>
 				<!-- /.navbar-collapse -->
-				<?php
-				if(isset($_POST['btnSubmit']))
-				{
-
-					$actID = $_POST['txtIdAct'];
-					$actName = $_POST['txtNameAct'];
-
-					$sql = "SELECT ActivityID FROM ict_database.tblactivity WHERE ActivityID = '$actID'";
-					$query = mysqli_query($conn, $sql);
-					if(mysqli_num_rows($query) > 0)
-					{
-						header('Location: activity.php');
-						$sql ="UPDATE ict_database.tblactivity SET ActivityName='$actName' WHERE ActivityID = '$actID'";
-						$query = mysqli_query($conn, $sql);
-						if($query)
-						{
-							$strMessage = "Location Successfully Edited: $actName";
-						}
-						else
-						{
-							$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
-						}
-					}
-
-				}
-				?>
 			</nav>
+			<?php
+			if(isset($_POST['btnSubmit']))
+			{
+
+				$actID = $_POST['txtIdAct'];
+				$actName = $_POST['txtNameAct'];
+
+				$sql = "SELECT ActivityID FROM ict_database.tblactivity WHERE ActivityID = '$actID'";
+				$query = mysqli_query($conn, $sql);
+				if(mysqli_num_rows($query) > 0)
+				{
+					header('Location: activity.php');
+					$sql ="UPDATE ict_database.tblactivity SET ActivityName='$actName' WHERE ActivityID = '$actID'";
+					$query = mysqli_query($conn, $sql);
+					if($query)
+					{
+						$strMessage = "Location Successfully Edited: $actName";
+					}
+					else
+					{
+						$strMessage = "<label style='color:red;'>Error:</label> Data Not Edited.";
+					}
+				}
+
+			}
+			?>
 			<div id="page-wrapper">
 				<div class="container-fluid">
 					<!-- Page Heading -->

@@ -1,8 +1,5 @@
 <?php
 require_once('../../database/config.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel5.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
 
 if(!empty($_POST['txtYears'])){
   $yr = $_POST['txtYears'];

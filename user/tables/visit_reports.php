@@ -1,10 +1,5 @@
 <?php
-session_start();
 require_once('../../database/config.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/Writer/Excel5.php');
-require_once ('../../vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php');
-include ('btex.php');
 ?>
 <!DOCTYPE HTML>
 <html lang ="en">
